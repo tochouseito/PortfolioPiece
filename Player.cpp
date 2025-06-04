@@ -1,15 +1,27 @@
 #include "Player.h"
 using namespace ChoSystem;
+#include "PlayerBulletGenerator.h"
 
 void Player::Start()
 {
     // 初期化処理
+	m_Target = &FindGameObjectByName(L"Target");
+	m_Camera = &FindGameObjectByName(L"MainCamera");
+	m_BulletGenerator = &FindGameObjectByName(L"PlayerBulletGenerator");
+	m_BulletGeneratorScript = m_BulletGenerator->GetScriptInstance<PlayerBulletGenerator>();
 }
 
 void Player::Update()
 {
     // 毎フレーム処理
+	// 入力処理
     Move();
+	// ブースト
+	Boost();
+	// 速度減衰
+	SlowDown();
+	// 攻撃処理
+	Attack();
 }
 
 void Player::Move()
@@ -51,10 +63,6 @@ void Player::Move()
 	{
 		gameObject.transform.rotation().x += rotateSpeed * DeltaTime();
 	}
-	// ブースト
-	Boost();
-	// 速度減衰
-	SlowDown();
 }
 
 void Player::Boost()
@@ -79,6 +87,16 @@ void Player::SlowDown()
 	if (!gameObject.input.PushKey(DIK_W) && !gameObject.input.PushKey(DIK_S))
 	{
 		gameObject.rigidbody2D.velocity().y *= 0.9f;
+	}
+}
+
+void Player::Attack()
+{
+	// 攻撃処理
+	if (gameObject.input.TriggerKey(DIK_SPACE))
+	{
+		// PlayerBulletGeneratorを生成
+		m_BulletGeneratorScript->GenerateBullet(PLAYER_BULLET_TYPE_NORMAL, 1);
 	}
 }
 

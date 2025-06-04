@@ -29,6 +29,9 @@
                         0.0
                     ]
                 },
+                "Script": {
+                    "scriptName": "MainCamera"
+                },
                 "Camera": {
                     "aspectRatio": 1.7777777910232544,
                     "farZ": 1000.0,
@@ -65,11 +68,45 @@
                     ]
                 },
                 "MeshFilter": {
-                    "modelID": 5,
+                    "modelID": 6,
                     "modelName": "Ship"
                 },
                 "MeshRenderer": {
                     "visible": true
+                },
+                "Material": {
+                    "Color": [
+                        0.7843137383460999,
+                        0.8039215803146362,
+                        0.7843137383460999,
+                        1.0
+                    ],
+                    "enableLighting": true,
+                    "enableTexture": false,
+                    "shininess": 50.0,
+                    "textureName": "",
+                    "uvFlipY": false
+                },
+                "Script": {
+                    "scriptName": "Player"
+                },
+                "Rigidbody2D": {
+                    "bodyType": 2,
+                    "fixedRotation": true,
+                    "gravityScale": 1.0,
+                    "isActive": true,
+                    "isKinematic": false,
+                    "mass": 1.0
+                },
+                "BoxCollider2D": {
+                    "density": 1.0,
+                    "friction": 0.30000001192092896,
+                    "height": 1.0,
+                    "isSensor": false,
+                    "offsetX": 0.0,
+                    "offsetY": 0.0,
+                    "restitution": 0.0,
+                    "width": 1.0
                 }
             }
         },
@@ -97,6 +134,58 @@
                     "translation": [
                         0.0,
                         0.0,
+                        50.0
+                    ]
+                },
+                "MeshFilter": {
+                    "modelID": 0,
+                    "modelName": "Cube"
+                },
+                "MeshRenderer": {
+                    "visible": true
+                },
+                "Material": {
+                    "Color": [
+                        0.7843137383460999,
+                        0.0,
+                        0.0,
+                        1.0
+                    ],
+                    "enableLighting": false,
+                    "enableTexture": false,
+                    "shininess": 50.0,
+                    "textureName": "",
+                    "uvFlipY": false
+                },
+                "Script": {
+                    "scriptName": "Target"
+                }
+            }
+        },
+        {
+            "name": "PlayerBulletGenerator",
+            "type": "MeshObject",
+            "components": {
+                "Transform": {
+                    "degrees": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ],
+                    "scale": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "translation": [
+                        0.0,
+                        0.0,
                         0.0
                     ]
                 },
@@ -106,8 +195,108 @@
                 },
                 "MeshRenderer": {
                     "visible": true
+                },
+                "Script": {
+                    "scriptName": "PlayerBulletGenerator"
+                }
+            }
+        },
+        {
+            "name": "PlayerBullet",
+            "type": "MeshObject",
+            "components": {
+                "Transform": {
+                    "degrees": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ],
+                    "scale": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "translation": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ]
+                },
+                "MeshFilter": {
+                    "modelID": 0,
+                    "modelName": "Cube"
+                },
+                "MeshRenderer": {
+                    "visible": true
+                },
+                "Material": {
+                    "Color": [
+                        0.0,
+                        0.0,
+                        0.7843137383460999,
+                        1.0
+                    ],
+                    "enableLighting": false,
+                    "enableTexture": false,
+                    "shininess": 50.0,
+                    "textureName": "",
+                    "uvFlipY": false
+                },
+                "Script": {
+                    "scriptName": "PlayerBullet"
+                }
+            }
+        },
+        {
+            "name": "NewLight",
+            "type": "Light",
+            "components": {
+                "Transform": {
+                    "degrees": [
+                        45.0,
+                        45.0,
+                        0.0
+                    ],
+                    "rotation": [
+                        0.3535534143447876,
+                        0.3535534143447876,
+                        0.14644663035869598,
+                        0.8535533547401428
+                    ],
+                    "scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "translation": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ]
+                },
+                "Light": {
+                    "active": true,
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "decay": 1.0,
+                    "intensity": 1.0,
+                    "range": 10.0,
+                    "spotAngle": 45.0,
+                    "spotFalloffStart": 0.0,
+                    "type": 0
                 }
             }
         }
-    ]
+    ],
+    "mainCamera": "MainCamera"
 }

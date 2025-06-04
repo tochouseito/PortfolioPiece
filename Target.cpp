@@ -4,6 +4,7 @@ using namespace ChoSystem;
 void Target::Start()
 {
     // 初期化処理
+    player = &FindGameObjectByName(L"Player");
     gameObject.transform.position() = offset;
     gameObject.transform.SetParent(player->GetEntity());
 }
