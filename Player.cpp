@@ -8,7 +8,6 @@ void Player::Start()
 	m_Target = &FindGameObjectByName(L"Target");
 	m_Camera = &FindGameObjectByName(L"MainCamera");
 	m_BulletGenerator = &FindGameObjectByName(L"PlayerBulletGenerator");
-	m_BulletGeneratorScript = m_BulletGenerator->GetScriptInstance<PlayerBulletGenerator>();
 }
 
 void Player::Update()
@@ -96,6 +95,7 @@ void Player::Attack()
 	if (gameObject.input.TriggerKey(DIK_SPACE))
 	{
 		// PlayerBulletGeneratorを生成
+		m_BulletGeneratorScript = m_BulletGenerator->GetScriptInstance<PlayerBulletGenerator>();
 		m_BulletGeneratorScript->GenerateBullet(PLAYER_BULLET_TYPE_NORMAL, 1);
 	}
 }

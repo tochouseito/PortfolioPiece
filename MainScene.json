@@ -202,58 +202,6 @@
             }
         },
         {
-            "name": "PlayerBullet",
-            "type": "MeshObject",
-            "components": {
-                "Transform": {
-                    "degrees": [
-                        0.0,
-                        0.0,
-                        0.0
-                    ],
-                    "rotation": [
-                        0.0,
-                        0.0,
-                        0.0,
-                        1.0
-                    ],
-                    "scale": [
-                        0.0,
-                        0.0,
-                        0.0
-                    ],
-                    "translation": [
-                        0.0,
-                        0.0,
-                        0.0
-                    ]
-                },
-                "MeshFilter": {
-                    "modelID": 0,
-                    "modelName": "Cube"
-                },
-                "MeshRenderer": {
-                    "visible": true
-                },
-                "Material": {
-                    "Color": [
-                        0.0,
-                        0.0,
-                        0.7843137383460999,
-                        1.0
-                    ],
-                    "enableLighting": false,
-                    "enableTexture": false,
-                    "shininess": 50.0,
-                    "textureName": "",
-                    "uvFlipY": false
-                },
-                "Script": {
-                    "scriptName": "PlayerBullet"
-                }
-            }
-        },
-        {
             "name": "NewLight",
             "type": "Light",
             "components": {
@@ -294,6 +242,255 @@
                     "spotAngle": 45.0,
                     "spotFalloffStart": 0.0,
                     "type": 0
+                }
+            }
+        },
+        {
+            "name": "AttackParticle",
+            "type": "ParticleSystem",
+            "components": {
+                "Transform": {
+                    "degrees": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ],
+                    "scale": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "translation": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ]
+                },
+                "MeshFilter": {
+                    "modelID": 0,
+                    "modelName": "Cube"
+                },
+                "MeshRenderer": {
+                    "visible": true
+                },
+                "Material": {
+                    "Color": [
+                        0.9240506291389465,
+                        0.4788796305656433,
+                        0.06628211587667465,
+                        1.0
+                    ],
+                    "enableLighting": true,
+                    "enableTexture": false,
+                    "shininess": 50.0,
+                    "textureName": "",
+                    "uvFlipY": false
+                },
+                "Particle": {
+                    "count": 1024
+                },
+                "Emitter": {
+                    "emitCount": 10,
+                    "frequency": 0.0,
+                    "frequencyTime": 624.608642578125,
+                    "isBillboard": false,
+                    "isFadeOut": false,
+                    "lifeTime": [
+                        120.0,
+                        0.0
+                    ],
+                    "position": {
+                        "acceleration": [
+                            {
+                                "x": [
+                                    0.0,
+                                    0.0
+                                ]
+                            },
+                            {
+                                "y": [
+                                    0.0,
+                                    0.0
+                                ]
+                            },
+                            {
+                                "z": [
+                                    -23.100000381469727,
+                                    0.0
+                                ]
+                            }
+                        ],
+                        "value": [
+                            {
+                                "x": [
+                                    0.0,
+                                    0.0
+                                ]
+                            },
+                            {
+                                "y": [
+                                    0.0,
+                                    0.0
+                                ]
+                            },
+                            {
+                                "z": [
+                                    0.0,
+                                    0.0
+                                ]
+                            }
+                        ],
+                        "velocity": [
+                            {
+                                "x": [
+                                    0.0,
+                                    0.699999988079071
+                                ]
+                            },
+                            {
+                                "y": [
+                                    0.0,
+                                    0.699999988079071
+                                ]
+                            },
+                            {
+                                "z": [
+                                    -10.0,
+                                    5.0
+                                ]
+                            }
+                        ]
+                    },
+                    "rotation": {
+                        "acceleration": [
+                            {
+                                "x": [
+                                    0.0,
+                                    0.0
+                                ]
+                            },
+                            {
+                                "y": [
+                                    0.0,
+                                    0.0
+                                ]
+                            },
+                            {
+                                "z": [
+                                    0.0,
+                                    0.0
+                                ]
+                            }
+                        ],
+                        "value": [
+                            {
+                                "x": [
+                                    0.0,
+                                    0.0
+                                ]
+                            },
+                            {
+                                "y": [
+                                    0.0,
+                                    0.0
+                                ]
+                            },
+                            {
+                                "z": [
+                                    0.0,
+                                    0.0
+                                ]
+                            }
+                        ],
+                        "velocity": [
+                            {
+                                "x": [
+                                    0.0,
+                                    0.0
+                                ]
+                            },
+                            {
+                                "y": [
+                                    0.0,
+                                    0.0
+                                ]
+                            },
+                            {
+                                "z": [
+                                    0.0,
+                                    0.0
+                                ]
+                            }
+                        ]
+                    },
+                    "scale": {
+                        "acceleration": [
+                            {
+                                "x": [
+                                    0.0,
+                                    0.0
+                                ]
+                            },
+                            {
+                                "y": [
+                                    0.0,
+                                    0.0
+                                ]
+                            },
+                            {
+                                "z": [
+                                    0.0,
+                                    0.0
+                                ]
+                            }
+                        ],
+                        "value": [
+                            {
+                                "x": [
+                                    0.30000001192092896,
+                                    0.0
+                                ]
+                            },
+                            {
+                                "y": [
+                                    0.30000001192092896,
+                                    0.0
+                                ]
+                            },
+                            {
+                                "z": [
+                                    0.30000001192092896,
+                                    0.0
+                                ]
+                            }
+                        ],
+                        "velocity": [
+                            {
+                                "x": [
+                                    -0.014999999664723873,
+                                    0.0
+                                ]
+                            },
+                            {
+                                "y": [
+                                    -0.014999999664723873,
+                                    0.0
+                                ]
+                            },
+                            {
+                                "z": [
+                                    -0.014999999664723873,
+                                    0.0
+                                ]
+                            }
+                        ]
+                    }
                 }
             }
         }

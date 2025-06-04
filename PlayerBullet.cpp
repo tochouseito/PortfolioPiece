@@ -14,7 +14,11 @@ void PlayerBullet::Update()
 {
     // 毎フレーム処理
     // テスト
-	gameObject.transform.position().z += 0.1f;
+	gameObject.transform.position().z += 10.1f;
+    if(gameObject.transform.position().z > 1000.0f) {
+        DestroyGameObject(gameObject.GetID());
+        return;
+	}
 }
 
 REGISTER_SCRIPT_FACTORY(PlayerBullet);
