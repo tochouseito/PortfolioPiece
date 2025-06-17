@@ -5,8 +5,8 @@ using namespace ChoSystem;
 void PlayerBulletGenerator::Start()
 {
     // 初期化処理
-	m_Player = &FindGameObjectByName(L"Player");
-	m_PlayerBullet = &FindGameObjectByName(L"PlayerBullet");
+	m_Player = FindGameObjectByName(L"Player");
+	m_PlayerBullet = FindGameObjectByName(L"PlayerBullet");
     
 }
 
@@ -21,7 +21,7 @@ void PlayerBulletGenerator::GenerateBullet(const PlayerBulletType& type, const u
     for(uint32_t i = 0; i < count; ++i)
     {
         // 弾の生成処理
-        GameObject* bullet = &CloneGameObject(m_PlayerBullet->GetID(), m_Player->transform.position());
+        GameObject* bullet = CloneGameObject(m_PlayerBullet->GetID(), m_Player->transform.position());
         m_PlayerBulletList.push_back(bullet->GetName());
 	}
 }

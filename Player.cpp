@@ -5,9 +5,10 @@ using namespace ChoSystem;
 void Player::Start()
 {
     // 初期化処理
-	m_Target = &FindGameObjectByName(L"Target");
-	m_Camera = &FindGameObjectByName(L"MainCamera");
-	m_BulletGenerator = &FindGameObjectByName(L"PlayerBulletGenerator");
+	m_Target = FindGameObjectByName(L"Target");
+	m_Camera = FindGameObjectByName(L"MainCamera");
+	m_BulletGenerator = FindGameObjectByName(L"PlayerBulletGenerator");
+	m_BulletGeneratorScript = m_BulletGenerator->GetScriptInstance<PlayerBulletGenerator>();
 }
 
 void Player::Update()

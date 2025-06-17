@@ -4,7 +4,7 @@ using namespace ChoSystem;
 void PlayerBullet::Start()
 {
     // 初期化処理
-    m_Player = &FindGameObjectByName(L"Player");
+    m_Player = FindGameObjectByName(L"Player");
     gameObject.transform.scale().Initialize();
 
 

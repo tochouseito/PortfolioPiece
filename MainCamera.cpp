@@ -4,7 +4,7 @@ using namespace ChoSystem;
 void MainCamera::Start()
 {
     // 初期化処理
-	player = &FindGameObjectByName(L"Player");
+	player = FindGameObjectByName(L"Player");
 }
 
 void MainCamera::Update()
