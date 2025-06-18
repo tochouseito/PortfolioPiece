@@ -24,6 +24,8 @@ void Player::Update()
 	SlowDown();
 	// 攻撃処理
 	Attack();
+	// 位置更新
+	gameObject.transform.position() += velocity;
 }
 
 void Player::Move()
