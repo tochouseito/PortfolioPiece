@@ -9,6 +9,8 @@ void Player::Start()
 	m_Camera = FindGameObjectByName(L"MainCamera");
 	m_BulletGenerator = FindGameObjectByName(L"PlayerBulletGenerator");
 	m_BulletGeneratorScript = m_BulletGenerator->GetScriptInstance<PlayerBulletGenerator>();
+
+	velocity.Initialize();
 }
 
 void Player::Update()
@@ -29,20 +31,20 @@ void Player::Move()
 	// 左右移動
 	if (gameObject.input.PushKey(DIK_A))
 	{
-		gameObject.rigidbody2D.velocity().x = -speed * DeltaTime();
+		velocity.x = -speed * DeltaTime();
 	}
 	if (gameObject.input.PushKey(DIK_D))
 	{
-		gameObject.rigidbody2D.velocity().x = speed * DeltaTime();
+		velocity.x = speed * DeltaTime();
 	}
 	// 上下移動
 	if (gameObject.input.PushKey(DIK_W))
 	{
-		gameObject.rigidbody2D.velocity().y = speed * DeltaTime();
+		velocity.y = speed * DeltaTime();
 	}
 	if (gameObject.input.PushKey(DIK_S))
 	{
-		gameObject.rigidbody2D.velocity().y = -speed * DeltaTime();
+		velocity.y = -speed * DeltaTime();
 	}
 	// 回転
 	// 左右回転
@@ -82,11 +84,11 @@ void Player::SlowDown()
 	// 非入力時速度減衰
 	if (!gameObject.input.PushKey(DIK_A) && !gameObject.input.PushKey(DIK_D))
 	{
-		gameObject.rigidbody2D.velocity().x *= 0.9f;
+		velocity.x *= 0.9f;
 	}
 	if (!gameObject.input.PushKey(DIK_W) && !gameObject.input.PushKey(DIK_S))
 	{
-		gameObject.rigidbody2D.velocity().y *= 0.9f;
+		velocity.y *= 0.9f;
 	}
 }
 

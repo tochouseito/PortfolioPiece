@@ -26,6 +26,7 @@ private:
 	PlayerBulletGenerator* m_BulletGeneratorScript = nullptr;
 
     // パラメータ
+	Vector3 velocity;// 現在の速度
     float speed = 10.0f; // 移動速度
     float rotateSpeed = 8.0f; // 回転速度
     const float boostPower = 20.0f; // ブースト速度

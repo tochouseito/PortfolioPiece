@@ -72,6 +72,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BlockGenerator.cpp" />
     <ClCompile Include="MainCamera.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerBullet.cpp" />
@@ -79,6 +80,7 @@
     <ClCompile Include="Target.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BlockGenerator.h" />
     <ClInclude Include="BulletType.h" />
     <ClInclude Include="MainCamera.h" />
     <ClInclude Include="Player.h" />

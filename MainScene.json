@@ -89,24 +89,6 @@
                 },
                 "Script": {
                     "scriptName": "Player"
-                },
-                "Rigidbody2D": {
-                    "bodyType": 2,
-                    "fixedRotation": true,
-                    "gravityScale": 1.0,
-                    "isActive": true,
-                    "isKinematic": false,
-                    "mass": 1.0
-                },
-                "BoxCollider2D": {
-                    "density": 1.0,
-                    "friction": 0.30000001192092896,
-                    "height": 1.0,
-                    "isSensor": false,
-                    "offsetX": 0.0,
-                    "offsetY": 0.0,
-                    "restitution": 0.0,
-                    "width": 1.0
                 }
             }
         },
@@ -298,7 +280,7 @@
                 "Emitter": {
                     "emitCount": 10,
                     "frequency": 0.0,
-                    "frequencyTime": 624.608642578125,
+                    "frequencyTime": 1264.8436279296875,
                     "isBillboard": false,
                     "isFadeOut": false,
                     "lifeTime": [
@@ -540,6 +522,87 @@
                     "shininess": 50.0,
                     "textureName": "Grass_01",
                     "uvFlipY": false
+                }
+            }
+        },
+        {
+            "name": "block",
+            "type": "MeshObject",
+            "components": {
+                "Transform": {
+                    "degrees": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ],
+                    "scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "translation": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ]
+                },
+                "MeshFilter": {
+                    "modelID": 0,
+                    "modelName": "Cube"
+                },
+                "MeshRenderer": {
+                    "visible": true
+                },
+                "Material": {
+                    "Color": [
+                        0.19607843458652496,
+                        0.7843137383460999,
+                        0.19607843458652496,
+                        1.0
+                    ],
+                    "enableLighting": true,
+                    "enableTexture": false,
+                    "shininess": 50.0,
+                    "textureName": "",
+                    "uvFlipY": false
+                }
+            }
+        },
+        {
+            "name": "blockGenerator",
+            "type": "MeshObject",
+            "components": {
+                "Transform": {
+                    "degrees": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ],
+                    "scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "translation": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ]
+                },
+                "Script": {
+                    "scriptName": "BlockGenerator"
                 }
             }
         }
