@@ -17,6 +17,9 @@ void MainCamera::Update()
 
 void MainCamera::LagFollow()
 {
+	//Vector3 forward = player->transform.forward();// プレイヤーの前方向
+	//forward.Normalize();
+
 	// プレイヤーの位置からオフセットをかけたターゲット位置を計算
 	Vector3 desiredPos = player->transform.position() + ChoMath::RotateVector(offset, player->transform.quaternion());
 	// 遅延追従

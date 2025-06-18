@@ -11,11 +11,15 @@ public:
     void Start() override;
 	// 毎フレーム処理
     void Update() override;
+
+	// 回避行動フラグGet
+	bool IsDodging() const { return isDodging; }
 private:
     void Move();
     void Boost();
 	void SlowDown();
     void Attack();
+    void Dodge();
 
     // ターゲット
 	GameObject* m_Target = nullptr;
@@ -30,4 +34,10 @@ private:
     float speed = 10.0f; // 移動速度
     float rotateSpeed = 50.0f; // 回転速度
     const float boostPower = 20.0f; // ブースト速度
+    float dodgeMoveSpeed = 1.5f;      // 回避の移動速度
+    bool isDodging = false;
+    float dodgeTimer = 0.0f;
+    int dodgeDirection = 0; // -1 = 左, 1 = 右
+    const float dodgeDuration = 0.3f;
+    float dodgeRotateSpeed = 360.0f; // 1秒間に1回転（度）
 };

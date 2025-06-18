@@ -21,4 +21,8 @@ private:
 	const Vector3 lookOffset = Vector3(0.0f, 2.0f, 10.0f); // 視線の少し前
 	const float followSpeed = 5.0f; // 追従速度
 	const float rotateSpeed = 5.0f; // 回転速度
+
+	float m_FOVOnBoost = 80.0f; // ブースト時のFOV
+	float m_BoostFovTransitionDuration = 1;
+	float m_DefaultFOV = 60;
 };
