@@ -44,4 +44,5 @@ private:
     float dodgeRotateSpeed = 360.0f; // 1秒間に1回転（度）
 
     float m_SpeedChange = 1.0f;
+	float m_DefaultFov = 60.0f; // デフォルトの視野角
 };

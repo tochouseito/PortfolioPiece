@@ -9,14 +9,15 @@ void Player::Start()
 	m_Camera = &FindGameObjectByName(L"MainCamera");
 	m_BulletGenerator = &FindGameObjectByName(L"PlayerBulletGenerator");
 	m_BulletGeneratorScript = m_BulletGenerator->GetScriptInstance<PlayerBulletGenerator>();*/
-
+	m_Camera = &FindGameObjectByName(L"TPSCamera");
+	m_Camera->camera.fovAngleY() = 45.0f;
 	velocity.Initialize();
 }
 
 void Player::Update()
 {
 	m_Target = &FindGameObjectByName(L"Target");
-	m_Camera = &FindGameObjectByName(L"MainCamera");
+	m_Camera = &FindGameObjectByName(L"TPSCamera");
 	m_BulletGenerator = &FindGameObjectByName(L"PlayerBulletGenerator");
 	m_BulletGeneratorScript = m_BulletGenerator->GetScriptInstance<PlayerBulletGenerator>();
 	// 毎フレーム処理
@@ -35,6 +36,8 @@ void Player::Update()
 	Dodge();
 	// 位置更新
 	gameObject.transform.position() += velocity;
+	// FOV更新
+	//m_Camera->camera.fovAngleY() = m_DefaultFov + speed * 0.5f;
 }
 
 void Player::Move()
