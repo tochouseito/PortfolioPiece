@@ -31,7 +31,9 @@ private:
 
     // パラメータ
 	Vector3 velocity;// 現在の速度
-    float speed = 10.0f; // 移動速度
+    float speed = 25.0f; // 移動速度
+	float maxSpeed = 50.0f; // 最大速度
+	float minSpeed = 20.0f; // 最小速度
     float rotateSpeed = 50.0f; // 回転速度
     const float boostPower = 20.0f; // ブースト速度
     float dodgeMoveSpeed = 1.5f;      // 回避の移動速度
@@ -40,4 +42,6 @@ private:
     int dodgeDirection = 0; // -1 = 左, 1 = 右
     const float dodgeDuration = 0.3f;
     float dodgeRotateSpeed = 360.0f; // 1秒間に1回転（度）
+
+    float m_SpeedChange = 1.0f;
 };

@@ -67,6 +67,33 @@ void Player::Move()
 	{
 		gameObject.transform.rotation().x += rotateSpeed * DeltaTime();
 	}
+	// 速度上昇
+	if (gameObject.input.PushKey(DIK_W))
+	{
+		// 前進
+		if (speed < maxSpeed)
+		{
+			speed++;
+		}
+		else
+		{
+			speed = maxSpeed;
+		}
+	}
+	// 速度減少
+	if (gameObject.input.PushKey(DIK_S))
+	{
+		// 後退
+		if (speed > minSpeed)
+		{
+			speed--;
+		}
+		else
+		{
+			speed = minSpeed;
+		}
+	}
+
 	Vector3 forward = ChoMath::RotateVector(Vector3(0.0f, 0.0f, 1.0f), gameObject.transform.quaternion());
 	gameObject.transform.position() += Vector3::Normalize(forward) * (speed * DeltaTime());
 }
