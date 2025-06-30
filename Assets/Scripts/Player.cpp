@@ -5,16 +5,20 @@ using namespace ChoSystem;
 void Player::Start()
 {
     // 初期化処理
-	m_Target = FindGameObjectByName(L"Target");
-	m_Camera = FindGameObjectByName(L"MainCamera");
-	m_BulletGenerator = FindGameObjectByName(L"PlayerBulletGenerator");
-	m_BulletGeneratorScript = m_BulletGenerator->GetScriptInstance<PlayerBulletGenerator>();
+	/*m_Target = &FindGameObjectByName(L"Target");
+	m_Camera = &FindGameObjectByName(L"MainCamera");
+	m_BulletGenerator = &FindGameObjectByName(L"PlayerBulletGenerator");
+	m_BulletGeneratorScript = m_BulletGenerator->GetScriptInstance<PlayerBulletGenerator>();*/
 
 	velocity.Initialize();
 }
 
 void Player::Update()
 {
+	m_Target = &FindGameObjectByName(L"Target");
+	m_Camera = &FindGameObjectByName(L"MainCamera");
+	m_BulletGenerator = &FindGameObjectByName(L"PlayerBulletGenerator");
+	m_BulletGeneratorScript = m_BulletGenerator->GetScriptInstance<PlayerBulletGenerator>();
 	// 毎フレーム処理
 	if (!isDodging)
 	{
@@ -36,6 +40,15 @@ void Player::Update()
 void Player::Move()
 {
 	// 回転
+	// Z軸回転
+	if (gameObject.input.PushKey(DIK_A))
+	{
+		gameObject.transform.rotation().z += rotateSpeed * DeltaTime();
+	}
+	if (gameObject.input.PushKey(DIK_D))
+	{
+		gameObject.transform.rotation().z -= rotateSpeed * DeltaTime();
+	}
 	// 左右回転
 	if (gameObject.input.PushKey(DIK_LEFT))
 	{
@@ -72,15 +85,15 @@ void Player::Boost()
 
 void Player::SlowDown()
 {
-	// 非入力時速度減衰
-	if (!gameObject.input.PushKey(DIK_A) && !gameObject.input.PushKey(DIK_D))
-	{
-		velocity.x *= 0.9f;
-	}
-	if (!gameObject.input.PushKey(DIK_W) && !gameObject.input.PushKey(DIK_S))
-	{
-		velocity.y *= 0.9f;
-	}
+	//// 非入力時速度減衰
+	//if (!gameObject.input.PushKey(DIK_A) && !gameObject.input.PushKey(DIK_D))
+	//{
+	//	velocity.x *= 0.9f;
+	//}
+	//if (!gameObject.input.PushKey(DIK_W) && !gameObject.input.PushKey(DIK_S))
+	//{
+	//	velocity.y *= 0.9f;
+	//}
 }
 
 void Player::Attack()
@@ -125,18 +138,18 @@ void Player::Dodge()
 	}
 
 	// 回避入力検出（初回トリガー）
-	if (gameObject.input.TriggerKey(DIK_E))
-	{
-		isDodging = true;
-		dodgeTimer = dodgeDuration;
-		dodgeDirection = 1; // 右回避
-	}
-	else if (gameObject.input.TriggerKey(DIK_Q))
-	{
-		isDodging = true;
-		dodgeTimer = dodgeDuration;
-		dodgeDirection = -1; // 左回避
-	}
+	//if (gameObject.input.TriggerKey(DIK_E))
+	//{
+	//	isDodging = true;
+	//	dodgeTimer = dodgeDuration;
+	//	dodgeDirection = 1; // 右回避
+	//}
+	//else if (gameObject.input.TriggerKey(DIK_Q))
+	//{
+	//	isDodging = true;
+	//	dodgeTimer = dodgeDuration;
+	//	dodgeDirection = -1; // 左回避
+	//}
 }
 
 REGISTER_SCRIPT_FACTORY(Player);

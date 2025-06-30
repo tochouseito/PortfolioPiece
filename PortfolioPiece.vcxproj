@@ -72,21 +72,25 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="BlockGenerator.cpp" />
-    <ClCompile Include="MainCamera.cpp" />
-    <ClCompile Include="Player.cpp" />
-    <ClCompile Include="PlayerBullet.cpp" />
-    <ClCompile Include="PlayerBulletGenerator.cpp" />
-    <ClCompile Include="Target.cpp" />
+    <ClCompile Include="Assets\Scripts\Camera\BaseCamera.cpp" />
+    <ClCompile Include="Assets\Scripts\BlockGenerator.cpp" />
+    <ClCompile Include="Assets\Scripts\Camera\MainCamera.cpp" />
+    <ClCompile Include="Assets\Scripts\Player.cpp" />
+    <ClCompile Include="Assets\Scripts\PlayerBullet.cpp" />
+    <ClCompile Include="Assets\Scripts\PlayerBulletGenerator.cpp" />
+    <ClCompile Include="Assets\Scripts\Target.cpp" />
+    <ClCompile Include="Assets\Scripts\Camera\TPSCamera.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BlockGenerator.h" />
-    <ClInclude Include="BulletType.h" />
-    <ClInclude Include="MainCamera.h" />
-    <ClInclude Include="Player.h" />
-    <ClInclude Include="PlayerBullet.h" />
-    <ClInclude Include="PlayerBulletGenerator.h" />
-    <ClInclude Include="Target.h" />
+    <ClInclude Include="Assets\Scripts\Camera\BaseCamera.h" />
+    <ClInclude Include="Assets\Scripts\BlockGenerator.h" />
+    <ClInclude Include="Assets\Scripts\BulletType.h" />
+    <ClInclude Include="Assets\Scripts\Camera\MainCamera.h" />
+    <ClInclude Include="Assets\Scripts\Player.h" />
+    <ClInclude Include="Assets\Scripts\PlayerBullet.h" />
+    <ClInclude Include="Assets\Scripts\PlayerBulletGenerator.h" />
+    <ClInclude Include="Assets\Scripts\Target.h" />
+    <ClInclude Include="Assets\Scripts\Camera\TPSCamera.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
 </Project>

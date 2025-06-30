@@ -4,7 +4,7 @@ using namespace ChoSystem;
 void BlockGenerator::Start()
 {
     // 初期化処理
-    GameObject* block = FindGameObjectByName(L"block");
+    GameObject* block = &FindGameObjectByName(L"block");
     if (block)
     {
         // X
@@ -17,7 +17,7 @@ void BlockGenerator::Start()
                 for(uint32_t k = 0; k < m_BlockCount; ++k)
                 {
 					Vector3 position = Vector3(i * m_BlockOffset.x, j * m_BlockOffset.y, k * m_BlockOffset.z);
-                    GameObject* newBlock = CloneGameObject(block, position);
+                    GameObject* newBlock = &CloneGameObject(block->GetID(), position);
                     m_BlockNames.push_back(newBlock->GetName());
 				}
             }
