@@ -19,6 +19,15 @@ void PlayerBulletGenerator::Update()
     m_Player = &FindGameObjectByName(L"Player");
     m_PlayerBullet = &FindGameObjectByName(L"PlayerBullet");
 	m_PlayerBullet->transform.scale().Zero();
+    for(auto& bulletName : m_PlayerBulletList)
+    {
+        GameObject* bullet = &FindGameObjectByName(bulletName);
+        PlayerBullet* playerBullet = bullet->GetScriptInstance<PlayerBullet>();
+        if (playerBullet && !playerBullet->IsActive())
+        {
+			playerBullet->SetActive(true);
+        }
+	}
 }
 
 void PlayerBulletGenerator::GenerateBullet(const PlayerBulletType& type, const uint32_t& count)
@@ -27,10 +36,14 @@ void PlayerBulletGenerator::GenerateBullet(const PlayerBulletType& type, const u
     {
         // 弾の生成処理
         GameObject* bullet = &CloneGameObject(m_PlayerBullet->GetID(), m_Player->transform.position());
-        PlayerBullet* playerBullet = bullet->GetScriptInstance<PlayerBullet>();
-		playerBullet->SetActive(true);
+        
         m_PlayerBulletList.push_back(bullet->GetName());
 	}
+}
+
+void PlayerBulletGenerator::RemoveBulletFromList(const std::wstring& bulletName)
+{
+	m_PlayerBulletList.remove(bulletName);
 }
 
 REGISTER_SCRIPT_FACTORY(PlayerBulletGenerator);
