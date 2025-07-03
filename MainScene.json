@@ -84,21 +84,21 @@
                     ]
                 },
                 "MeshFilter": {
-                    "modelID": 2,
-                    "modelName": "Plane"
+                    "modelID": 0,
+                    "modelName": "Cube"
                 },
                 "MeshRenderer": {
                     "visible": true
                 },
                 "Material": {
                     "Color": [
-                        0.7843137383460999,
                         0.0,
+                        0.7843137383460999,
                         0.0,
                         1.0
                     ],
                     "enableLighting": false,
-                    "enableTexture": true,
+                    "enableTexture": false,
                     "shininess": 50.0,
                     "textureName": "image0024",
                     "uvFlipY": false
@@ -217,7 +217,7 @@
                     ],
                     "translation": [
                         0.0,
-                        -9.199999809265137,
+                        -40.0,
                         0.0
                     ]
                 },
@@ -472,7 +472,7 @@
                 "Emitter": {
                     "emitCount": 10,
                     "frequency": 0.0,
-                    "frequencyTime": 2376.03857421875,
+                    "frequencyTime": 13795.357421875,
                     "isBillboard": false,
                     "isFadeOut": false,
                     "lifeTime": [

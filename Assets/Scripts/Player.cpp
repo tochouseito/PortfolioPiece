@@ -1,10 +1,11 @@
 #include "Player.h"
 using namespace ChoSystem;
 #include "PlayerBulletGenerator.h"
+#include <functional>
 
 void Player::Start()
 {
-    // 初期化処理
+	// 初期化処理
 	/*m_Target = &FindGameObjectByName(L"Target");
 	m_Camera = &FindGameObjectByName(L"MainCamera");
 	m_BulletGenerator = &FindGameObjectByName(L"PlayerBulletGenerator");
@@ -12,6 +13,7 @@ void Player::Start()
 	m_Camera = &FindGameObjectByName(L"TPSCamera");
 	m_Camera->camera.fovAngleY() = 45.0f;
 	velocity.Initialize();
+	baseQuaternion.Initialize();
 }
 
 void Player::Update()
@@ -35,7 +37,7 @@ void Player::Update()
 	// 回避処理
 	Dodge();
 	// 位置更新
-	gameObject.transform.position() += velocity;
+	//gameObject.transform.position() += velocity;
 	// FOV更新
 	//m_Camera->camera.fovAngleY() = m_DefaultFov + speed * 0.5f;
 }
@@ -52,24 +54,80 @@ void Player::Move()
 	{
 		gameObject.transform.rotation().z -= rotateSpeed * DeltaTime();
 	}
-	// 左右回転
-	if (gameObject.input.PushKey(DIK_LEFT))
-	{
-		gameObject.transform.rotation().y -= rotateSpeed * DeltaTime();
-	}
-	if (gameObject.input.PushKey(DIK_RIGHT))
-	{
-		gameObject.transform.rotation().y += rotateSpeed * DeltaTime();
-	}
-	// 上下回転
+	//// 左右回転
+	//if (gameObject.input.PushKey(DIK_LEFT))
+	//{
+	//	gameObject.transform.rotation().y -= rotateSpeed * DeltaTime();
+	//}
+	//if (gameObject.input.PushKey(DIK_RIGHT))
+	//{
+	//	gameObject.transform.rotation().y += rotateSpeed * DeltaTime();
+	//}
+	//// 上下回転
+	//if (gameObject.input.PushKey(DIK_UP))
+	//{
+	//	gameObject.transform.rotation().x -= rotateSpeed * DeltaTime();
+	//}
+	//if (gameObject.input.PushKey(DIK_DOWN))
+	//{
+	//	gameObject.transform.rotation().x += rotateSpeed * DeltaTime();
+	//}
+	// 左右移動
+	Vector3 pos = gameObject.transform.position();
+	// 移動減衰処理
+	std::function<float(const float&)> smoothLimitRangeFunc = [this](const float& distance) {
+		float limitFactor = ChoMath::Clamp(distance / smoothLimitRange, 0.0f, 1.0f);
+		return speed * DeltaTime() * limitFactor;
+		};
+	// 目標傾き角度
+	float roll = 0.0f;// Z軸(ロール)の傾き角度
+	float yaw = 0.0f; // Y軸(ヨー)の傾き角度
+	float pitch = 0.0f;// X軸(ピッチ)の傾き角度
 	if (gameObject.input.PushKey(DIK_UP))
 	{
-		gameObject.transform.rotation().x -= rotateSpeed * DeltaTime();
+		pos.y += smoothLimitRangeFunc(m_MoveLimit.y - pos.y);
+		pitch = -30.0f; // 上に傾く
 	}
-	if (gameObject.input.PushKey(DIK_DOWN))
+	else if (gameObject.input.PushKey(DIK_DOWN))
 	{
-		gameObject.transform.rotation().x += rotateSpeed * DeltaTime();
+		pos.y -= smoothLimitRangeFunc(pos.y + m_MoveLimit.y);
+		pitch = 30.0f; // 下に傾く
 	}
+	if (gameObject.input.PushKey(DIK_LEFT))
+	{
+		pos.x -= smoothLimitRangeFunc(pos.x + m_MoveLimit.x);
+		roll = 50.0f; // 左に傾く
+		pitch = -10.0f; // 左斜め前に向ける
+	}
+	else if (gameObject.input.PushKey(DIK_RIGHT))
+	{
+		pos.x += smoothLimitRangeFunc(m_MoveLimit.x - pos.x);
+		roll = -50.0f; // 右に傾く
+		pitch = -10.0f;   // 右斜め前に向ける（同じく下げる）
+	}
+	if (gameObject.input.PushKey(DIK_UP) &&
+		gameObject.input.PushKey(DIK_LEFT) &&
+		gameObject.input.PushKey(DIK_DOWN) &&
+		gameObject.input.PushKey(DIK_RIGHT))
+	{
+		pitch = 0.0f; // 上下左右同時押しで傾きをリセット
+		roll = 0.0f; // ロールもリセット
+		yaw = 0.0f; // ヨーもリセット
+	}
+	if(!roll && !pitch)
+	{
+		gameObject.transform.quaternion() = Quaternion::Slerp(gameObject.transform.quaternion(), baseQuaternion, rotateSpeed * DeltaTime());
+	}
+	// 上下左右の範囲制限を適用
+	pos.x = ChoMath::Clamp(pos.x, -m_MoveLimit.x, m_MoveLimit.x);
+	pos.y = ChoMath::Clamp(pos.y, -m_MoveLimit.y, m_MoveLimit.y);
+	// 傾きを徐々に追従
+	gameObject.transform.rotation().z = ChoMath::Lerp(gameObject.transform.rotation().z, roll, rotateSpeed * DeltaTime());
+	gameObject.transform.rotation().y = ChoMath::Lerp(gameObject.transform.rotation().y, yaw, rotateSpeed * DeltaTime());
+	gameObject.transform.rotation().x = ChoMath::Lerp(gameObject.transform.rotation().x, pitch, rotateSpeed * DeltaTime());
+	// 適用
+	gameObject.transform.position() = pos;
+	
 	// 速度上昇
 	if (gameObject.input.PushKey(DIK_W))
 	{
@@ -98,7 +156,7 @@ void Player::Move()
 	}
 
 	Vector3 forward = ChoMath::RotateVector(Vector3(0.0f, 0.0f, 1.0f), gameObject.transform.quaternion());
-	gameObject.transform.position() += Vector3::Normalize(forward) * (speed * DeltaTime());
+	gameObject.transform.position() += Vector3::Normalize(forward) * (fowardSpeed * DeltaTime());
 }
 
 void Player::Boost()
