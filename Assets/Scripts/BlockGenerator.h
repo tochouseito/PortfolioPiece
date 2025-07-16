@@ -1,13 +1,13 @@
 #pragma once
-#include "IScript.h"
+#include "Marionnette.h"
 #include <list>
 #include <string>
 
-class BlockGenerator : public IScript
+class BlockGenerator : public Marionnette
 {
 public:
 	// コンストラクタ
-    BlockGenerator(GameObject& object) : IScript(object) {}
+    BlockGenerator(GameObject& object) : Marionnette(object) {}
     // 初期化処理
     void Start() override;
 	// 毎フレーム処理

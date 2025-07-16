@@ -1,5 +1,6 @@
 #include "MainCamera.h"
 using namespace ChoSystem;
+#include "Assets/Scripts/Player.h"
 
 void MainCamera::Start()
 {
@@ -11,7 +12,8 @@ void MainCamera::Update()
 {
     // 毎フレーム処理
 	// ポインタを取得
-	player = &FindGameObjectByName(L"Player");
+	player = FindGameObjectByName(L"Player");
+	Player* playerInstance = player->Get
 
 	// ラグ追従
 	LagFollow();

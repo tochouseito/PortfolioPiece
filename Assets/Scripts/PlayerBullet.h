@@ -1,11 +1,11 @@
 #pragma once
-#include "IScript.h"
+#include "Marionnette.h"
 
-class PlayerBullet : public IScript
+class PlayerBullet : public Marionnette
 {
 public:
 	// コンストラクタ
-    PlayerBullet(GameObject& object) : IScript(object) {}
+    PlayerBullet(GameObject& object) : Marionnette(object) {}
     // 初期化処理
     void Start() override;
 	// 毎フレーム処理

@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
+    <ClCompile Include="Assets\Scripts\Camera\BaseCamera.cpp" />
+    <ClCompile Include="Assets\Scripts\BlockGenerator.cpp" />
+    <ClCompile Include="Assets\Scripts\Camera\MainCamera.cpp" />
+    <ClCompile Include="Assets\Scripts\Player.cpp" />
+    <ClCompile Include="Assets\Scripts\PlayerBullet.cpp" />
+    <ClCompile Include="Assets\Scripts\PlayerBulletGenerator.cpp" />
+    <ClCompile Include="Assets\Scripts\Target.cpp" />
+    <ClCompile Include="Assets\Scripts\Camera\TPSCamera.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source Files">
@@ -9,5 +17,16 @@
     <Filter Include="Header Files">
       <UniqueIdentifier>{B6B78A4F-BEAF-40F2-927B-73A40EC5C5B4}</UniqueIdentifier>
     </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Assets\Scripts\Camera\BaseCamera.h" />
+    <ClInclude Include="Assets\Scripts\BlockGenerator.h" />
+    <ClInclude Include="Assets\Scripts\BulletType.h" />
+    <ClInclude Include="Assets\Scripts\Camera\MainCamera.h" />
+    <ClInclude Include="Assets\Scripts\Player.h" />
+    <ClInclude Include="Assets\Scripts\PlayerBullet.h" />
+    <ClInclude Include="Assets\Scripts\PlayerBulletGenerator.h" />
+    <ClInclude Include="Assets\Scripts\Target.h" />
+    <ClInclude Include="Assets\Scripts\Camera\TPSCamera.h" />
   </ItemGroup>
 </Project>

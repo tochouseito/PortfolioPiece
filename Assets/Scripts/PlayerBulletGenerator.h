@@ -1,14 +1,14 @@
 #pragma once
-#include "IScript.h"
+#include "Marionnette.h"
 #include "BulletType.h"
 #include <list>
 #include <string>
 
-class PlayerBulletGenerator : public IScript
+class PlayerBulletGenerator : public Marionnette
 {
 public:
 	// コンストラクタ
-    PlayerBulletGenerator(GameObject& object) : IScript(object) {}
+    PlayerBulletGenerator(GameObject& object) : Marionnette(object) {}
     // 初期化処理
     void Start() override;
 	// 毎フレーム処理
