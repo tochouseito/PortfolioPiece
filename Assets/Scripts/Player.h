@@ -1,7 +1,10 @@
 #pragma once
 #include "Marionnette.h"
 
-class PlayerBulletGenerator; // 前方宣言
+// 前方宣言
+class PlayerBulletGenerator; 
+class MainCamera;
+
 class Player : public Marionnette
 {
 public:
@@ -24,7 +27,7 @@ private:
     // ターゲット
 	GameObject* m_Target = nullptr;
     // カメラ
-	GameObject* m_Camera = nullptr;
+	MainCamera* m_Camera = nullptr;
     // 弾生成器
 	GameObject* m_BulletGenerator = nullptr;
 	PlayerBulletGenerator* m_BulletGeneratorScript = nullptr;

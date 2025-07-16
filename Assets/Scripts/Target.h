@@ -1,6 +1,7 @@
 #pragma once
 #include "Marionnette.h"
 
+class Player;
 class Target : public Marionnette
 {
 public:
@@ -12,7 +13,7 @@ public:
     void Update() override;
 private:
     // プレイヤー
-	GameObject* player = nullptr;
+	Player* m_Player = nullptr;
 
     // パラメータ
     Vector3 offset = Vector3(0.0f, 0.0f, 40.0f);

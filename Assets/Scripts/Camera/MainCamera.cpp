@@ -1,19 +1,17 @@
 #include "MainCamera.h"
 using namespace ChoSystem;
-#include "Assets/Scripts/Player.h"
+#include "../Player.h"
 
 void MainCamera::Start()
 {
     // 初期化処理
-	//player = &FindGameObjectByName(L"Player");
+	m_Player = GetMarionnette<Player>(L"Player");
 }
 
 void MainCamera::Update()
 {
     // 毎フレーム処理
 	// ポインタを取得
-	player = FindGameObjectByName(L"Player");
-	Player* playerInstance = player->Get
 
 	// ラグ追従
 	LagFollow();
@@ -22,15 +20,15 @@ void MainCamera::Update()
 void MainCamera::LagFollow()
 {
 	// プレイヤーの位置からオフセットをかけたターゲット位置を計算
-	Vector3 desiredPos = player->transform.position() + ChoMath::RotateVector(offset, player->transform.quaternion());
+	Vector3 desiredPos = m_Player->transform->position + ChoMath::RotateVector(offset, m_Player->transform->rotation);
 	// 遅延追従
-	gameObject.transform.position() = Vector3::Lerp(gameObject.transform.position(), desiredPos, followSpeed * DeltaTime());
+	transform->position = Vector3::Lerp(transform->position, desiredPos, followSpeed * DeltaTime());
 	// カメラの向き
-	Vector3 lookTarget = player->transform.position() + ChoMath::RotateVector(lookOffset, player->transform.quaternion());
-	Vector3 forward = lookTarget - gameObject.transform.position();
+	Vector3 lookTarget = m_Player->transform->position + ChoMath::RotateVector(lookOffset, m_Player->transform->rotation);
+	Vector3 forward = lookTarget - transform->position;
 	// カメラの向きを回転
-	Quaternion desiredRot = player->transform.quaternion();
-	gameObject.transform.quaternion() = Quaternion::Slerp(gameObject.transform.quaternion(), desiredRot, rotateSpeed * DeltaTime());
+	Quaternion desiredRot = m_Player->transform->rotation;
+	transform->rotation = Quaternion::Slerp(transform->rotation, desiredRot, rotateSpeed * DeltaTime());
 }
 
 REGISTER_SCRIPT_FACTORY(MainCamera);

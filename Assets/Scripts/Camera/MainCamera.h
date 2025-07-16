@@ -1,6 +1,7 @@
 #pragma once
 #include "Marionnette.h"
 
+class Player;
 class MainCamera : public Marionnette
 {
 public:
@@ -14,7 +15,7 @@ private:
 	// ラグ追従
 	void LagFollow();
 
-	GameObject* player = nullptr; // プレイヤーオブジェクトへのポインタ
+	Player* m_Player = nullptr; // プレイヤーオブジェクトへのポインタ
 
 	// オフセット
 	const Vector3 offset = Vector3(0.0f, 5.0f, -30.0f); // オフセット

@@ -4,6 +4,8 @@
 #include <list>
 #include <string>
 
+class Player;
+class PlayerBullet;
 class PlayerBulletGenerator : public Marionnette
 {
 public:
@@ -18,8 +20,8 @@ public:
 	// リストから弾を削除
 	void RemoveBulletFromList(const std::wstring& bulletName);
 private:
-	GameObject* m_Player = nullptr; // プレイヤーのGameObject
-	GameObject* m_PlayerBullet = nullptr; // プレイヤー弾のGameObject
+	Player* m_Player = nullptr; // プレイヤーのGameObject
+	PlayerBullet* m_PlayerBullet = nullptr; // プレイヤー弾のGameObject
 
 	std::list<std::wstring> m_PlayerBulletList; // プレイヤー弾のリスト
 };
