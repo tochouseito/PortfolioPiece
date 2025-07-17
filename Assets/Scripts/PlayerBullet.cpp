@@ -8,8 +8,8 @@ void PlayerBullet::Start()
     // 初期化処理
     m_Player = GetMarionnette<Player>(L"Player");
     transform->scale.Initialize();
-    m_Direction = ChoMath::RotateVector(Vector3(0.0f, 0.0f, 1.0f), m_Player->transform->rotation);
-	transform->rotation = m_Player->transform->rotation;
+    m_Direction = ChoMath::RotateVector(Vector3(0.0f, 0.0f, 1.0f), m_Player->transform->quaternion);
+	transform->quaternion = m_Player->transform->quaternion;
 }
 
 void PlayerBullet::Update()

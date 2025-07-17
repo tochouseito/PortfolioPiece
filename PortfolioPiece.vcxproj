@@ -39,12 +39,12 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <PreprocessorDefinitions>_DEBUG;EXPORT_SCRIPT_API;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(ProjectDir);..\..\Cho\GameCore\ScriptAPI;..\..\Cho\GameCore\Marionnette;..\..\Cho\Externals\ChoMath;..\..\Cho;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);..\..\Cho\GameCore\ScriptAPI;..\..\Cho\GameCore\Marionnette;..\..\Cho\Externals\ChoMath;..\..\Cho;;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
-      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -57,12 +57,12 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <PreprocessorDefinitions>NDEBUG;EXPORT_SCRIPT_API;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(ProjectDir);..\..\Cho\GameCore\ScriptAPI;..\..\Cho\GameCore\Marionnette;..\..\Cho\Externals\ChoMath;..\..\Cho;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);..\..\Cho\GameCore\ScriptAPI;..\..\Cho\GameCore\Marionnette;..\..\Cho\Externals\ChoMath;..\..\Cho;;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
-      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -74,25 +74,29 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Assets\Scripts\Camera\BaseCamera.cpp" />
     <ClCompile Include="Assets\Scripts\BlockGenerator.cpp" />
+    <ClCompile Include="Assets\Scripts\Camera\BaseCamera.cpp" />
     <ClCompile Include="Assets\Scripts\Camera\MainCamera.cpp" />
+    <ClCompile Include="Assets\Scripts\Camera\TPSCamera.cpp" />
     <ClCompile Include="Assets\Scripts\Player.cpp" />
     <ClCompile Include="Assets\Scripts\PlayerBullet.cpp" />
     <ClCompile Include="Assets\Scripts\PlayerBulletGenerator.cpp" />
     <ClCompile Include="Assets\Scripts\Target.cpp" />
-    <ClCompile Include="Assets\Scripts\Camera\TPSCamera.cpp" />
+    <ClCompile Include="Assets\Scripts\Enemy.cpp" />
+    <ClCompile Include="Assets\Scripts\Reticle.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Assets\Scripts\Camera\BaseCamera.h" />
     <ClInclude Include="Assets\Scripts\BlockGenerator.h" />
     <ClInclude Include="Assets\Scripts\BulletType.h" />
+    <ClInclude Include="Assets\Scripts\Camera\BaseCamera.h" />
     <ClInclude Include="Assets\Scripts\Camera\MainCamera.h" />
+    <ClInclude Include="Assets\Scripts\Camera\TPSCamera.h" />
     <ClInclude Include="Assets\Scripts\Player.h" />
     <ClInclude Include="Assets\Scripts\PlayerBullet.h" />
     <ClInclude Include="Assets\Scripts\PlayerBulletGenerator.h" />
     <ClInclude Include="Assets\Scripts\Target.h" />
-    <ClInclude Include="Assets\Scripts\Camera\TPSCamera.h" />
+    <ClInclude Include="Assets\Scripts\Enemy.h" />
+    <ClInclude Include="Assets\Scripts\Reticle.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
 </Project>

@@ -120,7 +120,7 @@ void Player::Move()
 	}
 	if(!roll && !pitch)
 	{
-		transform->rotation = Quaternion::Slerp(transform->rotation, baseQuaternion, rotateSpeed * DeltaTime());
+		transform->quaternion = Quaternion::Slerp(transform->quaternion, baseQuaternion, rotateSpeed * DeltaTime());
 	}
 	// 上下左右の範囲制限を適用
 	pos.x = ChoMath::Clamp(pos.x, -m_MoveLimit.x, m_MoveLimit.x);
@@ -159,7 +159,7 @@ void Player::Move()
 		}
 	}
 
-	Vector3 forward = ChoMath::RotateVector(Vector3(0.0f, 0.0f, 1.0f), transform->rotation);
+	Vector3 forward = ChoMath::RotateVector(Vector3(0.0f, 0.0f, 1.0f), transform->quaternion);
 	transform->position += Vector3::Normalize(forward) * (fowardSpeed * DeltaTime());
 }
 
@@ -169,7 +169,7 @@ void Player::Boost()
 	{
 		// ブースト中
 		// forwardを取得
-		Vector3 forward = ChoMath::RotateVector(Vector3(0.0f, 0.0f, 1.0f), transform->rotation);
+		Vector3 forward = ChoMath::RotateVector(Vector3(0.0f, 0.0f, 1.0f), transform->quaternion);
 		// forwardにブーストをかける
 		Vector3 boost = forward * boostPower * DeltaTime();
 	}
@@ -224,7 +224,7 @@ void Player::Dodge()
 			? Vector3(1.0f, 0.0f, 0.0f)  // 右
 			: Vector3(-1.0f, 0.0f, 0.0f); // 左
 
-		Vector3 dir = ChoMath::RotateVector(dodgeVec, transform->rotation);
+		Vector3 dir = ChoMath::RotateVector(dodgeVec, transform->quaternion);
 		velocity = Vector3::Normalize(dir) * dodgeMoveSpeed;
 		return;
 	}

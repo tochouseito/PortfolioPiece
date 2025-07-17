@@ -12,6 +12,7 @@
                         0.0,
                         0.0
                     ],
+                    "isBillboard": false,
                     "rotation": [
                         0.0,
                         0.0,
@@ -64,6 +65,7 @@
                         0.0,
                         0.0
                     ],
+                    "isBillboard": false,
                     "rotation": [
                         0.0,
                         0.0,
@@ -116,6 +118,7 @@
                         0.0,
                         0.0
                     ],
+                    "isBillboard": false,
                     "rotation": [
                         0.0,
                         0.0,
@@ -155,6 +158,7 @@
                         45.0,
                         0.0
                     ],
+                    "isBillboard": false,
                     "rotation": [
                         0.3535534143447876,
                         0.3535534143447876,
@@ -199,6 +203,7 @@
                         0.0,
                         0.0
                     ],
+                    "isBillboard": false,
                     "rotation": [
                         0.0,
                         0.0,
@@ -248,6 +253,7 @@
                         0.0,
                         0.0
                     ],
+                    "isBillboard": false,
                     "rotation": [
                         0.0,
                         0.0,
@@ -297,6 +303,7 @@
                         0.0,
                         0.0
                     ],
+                    "isBillboard": false,
                     "rotation": [
                         0.0,
                         0.0,
@@ -329,6 +336,7 @@
                         0.0,
                         0.0
                     ],
+                    "isBillboard": false,
                     "rotation": [
                         0.0,
                         0.0,
@@ -367,6 +375,7 @@
                         0.0,
                         0.0
                     ],
+                    "isBillboard": false,
                     "rotation": [
                         0.0,
                         0.0,
@@ -410,15 +419,69 @@
             }
         },
         {
-            "name": "NewParticleSystem",
-            "type": "ParticleSystem",
+            "name": "Reticle",
+            "type": "MeshObject",
             "components": {
                 "Transform": {
                     "degrees": [
-                        0.0,
-                        0.0,
-                        0.0
+                        -180.0,
+                        -5.008955668017734e-06,
+                        -180.0
                     ],
+                    "isBillboard": true,
+                    "rotation": [
+                        4.371138473402425e-08,
+                        -1.0,
+                        4.371138473402425e-08,
+                        4.371139183945161e-08
+                    ],
+                    "scale": [
+                        5.0,
+                        5.0,
+                        1.0
+                    ],
+                    "translation": [
+                        0.0,
+                        0.0,
+                        50.0
+                    ]
+                },
+                "MeshFilter": {
+                    "modelID": 2,
+                    "modelName": "Plane"
+                },
+                "MeshRenderer": {
+                    "visible": true
+                },
+                "Material": {
+                    "Color": [
+                        0.0,
+                        1.0,
+                        0.0,
+                        1.0
+                    ],
+                    "enableLighting": true,
+                    "enableTexture": true,
+                    "shininess": 50.0,
+                    "textureName": "image0024",
+                    "uvFlipY": false
+                },
+                "Script": {
+                    "scriptName": "Reticle"
+                }
+            }
+        },
+        {
+            "name": "Enemy",
+            "type": "MeshObject",
+            "components": {
+                "Transform": {
+                    "degrees": [
+                        -0.0,
+                        0.0,
+                        -0.0
+                    ],
+                    "isBillboard": false,
                     "rotation": [
                         0.0,
                         0.0,
@@ -426,14 +489,14 @@
                         1.0
                     ],
                     "scale": [
-                        0.0,
-                        0.0,
-                        0.0
+                        4.0,
+                        4.0,
+                        4.0
                     ],
                     "translation": [
+                        -25.78597640991211,
                         0.0,
-                        0.0,
-                        0.0
+                        79.61627197265625
                     ]
                 },
                 "MeshFilter": {
@@ -446,8 +509,8 @@
                 "Material": {
                     "Color": [
                         0.7843137383460999,
-                        0.7843137383460999,
-                        0.7843137383460999,
+                        0.0,
+                        0.0,
                         1.0
                     ],
                     "enableLighting": true,
@@ -456,205 +519,8 @@
                     "textureName": "",
                     "uvFlipY": false
                 },
-                "Particle": {
-                    "count": 1024
-                },
-                "Emitter": {
-                    "emitCount": 10,
-                    "frequency": 0.0,
-                    "frequencyTime": 13954.0107421875,
-                    "isBillboard": false,
-                    "isFadeOut": false,
-                    "lifeTime": [
-                        20.0,
-                        0.0
-                    ],
-                    "position": {
-                        "acceleration": [
-                            {
-                                "x": [
-                                    0.0,
-                                    0.0
-                                ]
-                            },
-                            {
-                                "y": [
-                                    0.0,
-                                    0.0
-                                ]
-                            },
-                            {
-                                "z": [
-                                    0.0,
-                                    0.0
-                                ]
-                            }
-                        ],
-                        "value": [
-                            {
-                                "x": [
-                                    0.0,
-                                    0.0
-                                ]
-                            },
-                            {
-                                "y": [
-                                    0.0,
-                                    0.0
-                                ]
-                            },
-                            {
-                                "z": [
-                                    0.0,
-                                    0.0
-                                ]
-                            }
-                        ],
-                        "velocity": [
-                            {
-                                "x": [
-                                    0.0,
-                                    0.0
-                                ]
-                            },
-                            {
-                                "y": [
-                                    0.0,
-                                    0.0
-                                ]
-                            },
-                            {
-                                "z": [
-                                    0.0,
-                                    0.0
-                                ]
-                            }
-                        ]
-                    },
-                    "rotation": {
-                        "acceleration": [
-                            {
-                                "x": [
-                                    0.0,
-                                    0.0
-                                ]
-                            },
-                            {
-                                "y": [
-                                    0.0,
-                                    0.0
-                                ]
-                            },
-                            {
-                                "z": [
-                                    0.0,
-                                    0.0
-                                ]
-                            }
-                        ],
-                        "value": [
-                            {
-                                "x": [
-                                    0.0,
-                                    0.0
-                                ]
-                            },
-                            {
-                                "y": [
-                                    0.0,
-                                    0.0
-                                ]
-                            },
-                            {
-                                "z": [
-                                    0.0,
-                                    0.0
-                                ]
-                            }
-                        ],
-                        "velocity": [
-                            {
-                                "x": [
-                                    0.0,
-                                    0.0
-                                ]
-                            },
-                            {
-                                "y": [
-                                    0.0,
-                                    0.0
-                                ]
-                            },
-                            {
-                                "z": [
-                                    0.0,
-                                    0.0
-                                ]
-                            }
-                        ]
-                    },
-                    "scale": {
-                        "acceleration": [
-                            {
-                                "x": [
-                                    0.0,
-                                    0.0
-                                ]
-                            },
-                            {
-                                "y": [
-                                    0.0,
-                                    0.0
-                                ]
-                            },
-                            {
-                                "z": [
-                                    0.0,
-                                    0.0
-                                ]
-                            }
-                        ],
-                        "value": [
-                            {
-                                "x": [
-                                    1.0,
-                                    0.0
-                                ]
-                            },
-                            {
-                                "y": [
-                                    1.0,
-                                    0.0
-                                ]
-                            },
-                            {
-                                "z": [
-                                    1.0,
-                                    0.0
-                                ]
-                            }
-                        ],
-                        "velocity": [
-                            {
-                                "x": [
-                                    0.0,
-                                    0.0
-                                ]
-                            },
-                            {
-                                "y": [
-                                    0.0,
-                                    0.0
-                                ]
-                            },
-                            {
-                                "z": [
-                                    0.0,
-                                    0.0
-                                ]
-                            }
-                        ]
-                    }
+                "Script": {
+                    "scriptName": "Enemy"
                 }
             }
         }
