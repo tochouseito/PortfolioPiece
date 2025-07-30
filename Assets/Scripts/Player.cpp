@@ -80,7 +80,7 @@ void Player::Move()
 	Vector3 pos = transform->position;
 	// 移動減衰処理
 	std::function<float(const float&)> smoothLimitRangeFunc = [this](const float& distance) {
-		float limitFactor = ChoMath::Clamp(distance / smoothLimitRange, 0.0f, 1.0f);
+		float limitFactor = chomath::Clamp(distance / smoothLimitRange, 0.0f, 1.0f);
 		return speed * DeltaTime() * limitFactor;
 		};
 	// 目標傾き角度
@@ -123,12 +123,12 @@ void Player::Move()
 		transform->quaternion = Quaternion::Slerp(transform->quaternion, baseQuaternion, rotateSpeed * DeltaTime());
 	}
 	// 上下左右の範囲制限を適用
-	pos.x = ChoMath::Clamp(pos.x, -m_MoveLimit.x, m_MoveLimit.x);
-	pos.y = ChoMath::Clamp(pos.y, -m_MoveLimit.y, m_MoveLimit.y);
+	pos.x = chomath::Clamp(pos.x, -m_MoveLimit.x, m_MoveLimit.x);
+	pos.y = chomath::Clamp(pos.y, -m_MoveLimit.y, m_MoveLimit.y);
 	// 傾きを徐々に追従
-	transform->degrees.z = ChoMath::Lerp(transform->degrees.z, roll, rotateSpeed * DeltaTime());
-	transform->degrees.y = ChoMath::Lerp(transform->degrees.y, yaw, rotateSpeed * DeltaTime());
-	transform->degrees.x = ChoMath::Lerp(transform->degrees.x, pitch, rotateSpeed * DeltaTime());
+	transform->degrees.z = chomath::Lerp(transform->degrees.z, roll, rotateSpeed * DeltaTime());
+	transform->degrees.y = chomath::Lerp(transform->degrees.y, yaw, rotateSpeed * DeltaTime());
+	transform->degrees.x = chomath::Lerp(transform->degrees.x, pitch, rotateSpeed * DeltaTime());
 	// 適用
 	transform->position = pos;
 	
@@ -159,7 +159,7 @@ void Player::Move()
 		}
 	}
 
-	Vector3 forward = ChoMath::RotateVector(Vector3(0.0f, 0.0f, 1.0f), transform->quaternion);
+	Vector3 forward = chomath::RotateVector(Vector3(0.0f, 0.0f, 1.0f), transform->quaternion);
 	transform->position += Vector3::Normalize(forward) * (fowardSpeed * DeltaTime());
 }
 
@@ -169,7 +169,7 @@ void Player::Boost()
 	{
 		// ブースト中
 		// forwardを取得
-		Vector3 forward = ChoMath::RotateVector(Vector3(0.0f, 0.0f, 1.0f), transform->quaternion);
+		Vector3 forward = chomath::RotateVector(Vector3(0.0f, 0.0f, 1.0f), transform->quaternion);
 		// forwardにブーストをかける
 		Vector3 boost = forward * boostPower * DeltaTime();
 	}
@@ -224,7 +224,7 @@ void Player::Dodge()
 			? Vector3(1.0f, 0.0f, 0.0f)  // 右
 			: Vector3(-1.0f, 0.0f, 0.0f); // 左
 
-		Vector3 dir = ChoMath::RotateVector(dodgeVec, transform->quaternion);
+		Vector3 dir = chomath::RotateVector(dodgeVec, transform->quaternion);
 		velocity = Vector3::Normalize(dir) * dodgeMoveSpeed;
 		return;
 	}

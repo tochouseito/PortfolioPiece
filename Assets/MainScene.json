@@ -52,6 +52,15 @@
                 },
                 "Script": {
                     "scriptName": "Player"
+                },
+                "Rigidbody3D": {
+                    "friction": 0.30000001192092896,
+                    "halfsize": [
+                        0.5,
+                        0.5,
+                        0.5
+                    ],
+                    "restitution": 0.0
                 }
             }
         },
@@ -521,6 +530,43 @@
                 },
                 "Script": {
                     "scriptName": "Enemy"
+                }
+            }
+        },
+        {
+            "name": "Test",
+            "type": "MeshObject",
+            "components": {
+                "Transform": {
+                    "degrees": [
+                        -0.0,
+                        0.0,
+                        -0.0
+                    ],
+                    "isBillboard": false,
+                    "rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ],
+                    "scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "translation": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ]
+                },
+                "MeshFilter": {
+                    "modelID": 0,
+                    "modelName": "Cube"
+                },
+                "MeshRenderer": {
+                    "visible": true
                 }
             }
         }

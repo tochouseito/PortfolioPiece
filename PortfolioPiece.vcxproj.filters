@@ -9,6 +9,8 @@
     <ClCompile Include="Assets\Scripts\PlayerBulletGenerator.cpp" />
     <ClCompile Include="Assets\Scripts\Target.cpp" />
     <ClCompile Include="Assets\Scripts\Camera\TPSCamera.cpp" />
+    <ClCompile Include="Assets\Scripts\Enemy.cpp" />
+    <ClCompile Include="Assets\Scripts\Reticle.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source Files">
@@ -28,5 +30,7 @@
     <ClInclude Include="Assets\Scripts\PlayerBulletGenerator.h" />
     <ClInclude Include="Assets\Scripts\Target.h" />
     <ClInclude Include="Assets\Scripts\Camera\TPSCamera.h" />
+    <ClInclude Include="Assets\Scripts\Enemy.h" />
+    <ClInclude Include="Assets\Scripts\Reticle.h" />
   </ItemGroup>
 </Project>
