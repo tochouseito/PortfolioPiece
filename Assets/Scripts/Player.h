@@ -17,6 +17,10 @@ public:
 
 	// 回避行動フラグGet
 	bool IsDodging() const { return isDodging; }
+    // 衝突関数
+    void OnCollisionEnter(GameObject& other) override;
+    void OnCollisionStay(GameObject& other) override;
+    void OnCollisionExit(GameObject& other) override;
 private:
     void Move();
     void Boost();

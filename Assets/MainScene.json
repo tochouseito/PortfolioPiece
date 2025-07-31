@@ -60,7 +60,21 @@
                         0.5,
                         0.5
                     ],
-                    "restitution": 0.0
+                    "isKinematic": false,
+                    "isSensor": false,
+                    "mass": 1.0,
+                    "quaternion": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ],
+                    "restitution": 0.0,
+                    "velocity": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ]
                 }
             }
         },
@@ -503,7 +517,7 @@
                         4.0
                     ],
                     "translation": [
-                        -25.78597640991211,
+                        -0.046215057373046875,
                         0.0,
                         79.61627197265625
                     ]
@@ -530,43 +544,29 @@
                 },
                 "Script": {
                     "scriptName": "Enemy"
-                }
-            }
-        },
-        {
-            "name": "Test",
-            "type": "MeshObject",
-            "components": {
-                "Transform": {
-                    "degrees": [
-                        -0.0,
-                        0.0,
-                        -0.0
+                },
+                "Rigidbody3D": {
+                    "friction": 0.30000001192092896,
+                    "halfsize": [
+                        2.0,
+                        2.0,
+                        2.0
                     ],
-                    "isBillboard": false,
-                    "rotation": [
+                    "isKinematic": false,
+                    "isSensor": false,
+                    "mass": 1.0,
+                    "quaternion": [
                         0.0,
                         0.0,
                         0.0,
                         1.0
                     ],
-                    "scale": [
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "translation": [
+                    "restitution": 0.0,
+                    "velocity": [
                         0.0,
                         0.0,
                         0.0
                     ]
-                },
-                "MeshFilter": {
-                    "modelID": 0,
-                    "modelName": "Cube"
-                },
-                "MeshRenderer": {
-                    "visible": true
                 }
             }
         }

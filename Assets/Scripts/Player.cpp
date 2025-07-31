@@ -29,14 +29,14 @@ void Player::Update()
 	// 毎フレーム処理
 	if (!isDodging)
 	{
-		// 入力処理
-		Move();
-		// ブースト
-		Boost();
-		// 速度減衰
-		SlowDown();
-		// 攻撃処理
-		Attack();
+		//// 入力処理
+		//Move();
+		//// ブースト
+		//Boost();
+		//// 速度減衰
+		//SlowDown();
+		//// 攻撃処理
+		//Attack();
 	}
 	// 回避処理
 	Dodge();
@@ -44,6 +44,30 @@ void Player::Update()
 	//gameObject.transform.position() += velocity;
 	// FOV更新
 	//m_Camera->camera.fovAngleY() = m_DefaultFov + speed * 0.5f;
+}
+
+void Player::OnCollisionEnter(GameObject& other)
+{
+	// test
+	other;
+	int i = 0;
+	i++;
+}
+
+void Player::OnCollisionStay(GameObject& other)
+{
+	// test
+	other;
+	int i = 0;
+	i++;
+}
+
+void Player::OnCollisionExit(GameObject& other)
+{
+	// test
+	other;
+	int i = 0;
+	i++;
 }
 
 void Player::Move()
