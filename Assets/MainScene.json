@@ -132,46 +132,6 @@
             }
         },
         {
-            "name": "PlayerBulletGenerator",
-            "type": "MeshObject",
-            "components": {
-                "Transform": {
-                    "degrees": [
-                        0.0,
-                        0.0,
-                        0.0
-                    ],
-                    "isBillboard": false,
-                    "rotation": [
-                        0.0,
-                        0.0,
-                        0.0,
-                        1.0
-                    ],
-                    "scale": [
-                        0.0,
-                        0.0,
-                        0.0
-                    ],
-                    "translation": [
-                        0.0,
-                        0.0,
-                        0.0
-                    ]
-                },
-                "MeshFilter": {
-                    "modelID": 0,
-                    "modelName": "Cube"
-                },
-                "MeshRenderer": {
-                    "visible": true
-                },
-                "Script": {
-                    "scriptName": "PlayerBulletGenerator"
-                }
-            }
-        },
-        {
             "name": "DirLight",
             "type": "Light",
             "components": {
@@ -270,90 +230,7 @@
             }
         },
         {
-            "name": "block",
-            "type": "MeshObject",
-            "components": {
-                "Transform": {
-                    "degrees": [
-                        0.0,
-                        0.0,
-                        0.0
-                    ],
-                    "isBillboard": false,
-                    "rotation": [
-                        0.0,
-                        0.0,
-                        0.0,
-                        1.0
-                    ],
-                    "scale": [
-                        0.0,
-                        0.0,
-                        0.0
-                    ],
-                    "translation": [
-                        0.0,
-                        0.0,
-                        0.0
-                    ]
-                },
-                "MeshFilter": {
-                    "modelID": 0,
-                    "modelName": "Cube"
-                },
-                "MeshRenderer": {
-                    "visible": true
-                },
-                "Material": {
-                    "Color": [
-                        0.19607843458652496,
-                        0.7843137383460999,
-                        0.19607843458652496,
-                        1.0
-                    ],
-                    "enableLighting": true,
-                    "enableTexture": false,
-                    "shininess": 50.0,
-                    "textureName": "",
-                    "uvFlipY": false
-                }
-            }
-        },
-        {
-            "name": "blockGenerator",
-            "type": "MeshObject",
-            "components": {
-                "Transform": {
-                    "degrees": [
-                        0.0,
-                        0.0,
-                        0.0
-                    ],
-                    "isBillboard": false,
-                    "rotation": [
-                        0.0,
-                        0.0,
-                        0.0,
-                        1.0
-                    ],
-                    "scale": [
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "translation": [
-                        0.0,
-                        0.0,
-                        0.0
-                    ]
-                },
-                "Script": {
-                    "scriptName": ""
-                }
-            }
-        },
-        {
-            "name": "TPSCamera",
+            "name": "MainCamera",
             "type": "Camera",
             "components": {
                 "Transform": {
@@ -397,9 +274,9 @@
             "components": {
                 "Transform": {
                     "degrees": [
+                        -0.0,
                         0.0,
-                        0.0,
-                        0.0
+                        -0.0
                     ],
                     "isBillboard": false,
                     "rotation": [
@@ -409,19 +286,19 @@
                         1.0
                     ],
                     "scale": [
-                        0.0,
-                        0.0,
-                        0.0
+                        1.0,
+                        1.0,
+                        1.0
                     ],
                     "translation": [
-                        0.0,
-                        0.0,
+                        -20.986202239990234,
+                        -39.65427780151367,
                         0.0
                     ]
                 },
                 "MeshFilter": {
-                    "modelID": 0,
-                    "modelName": "Cube"
+                    "modelID": 7,
+                    "modelName": "missile"
                 },
                 "MeshRenderer": {
                     "visible": true
@@ -434,9 +311,9 @@
                         1.0
                     ],
                     "enableLighting": true,
-                    "enableTexture": false,
+                    "enableTexture": true,
                     "shininess": 50.0,
-                    "textureName": "",
+                    "textureName": "Atlas_00002",
                     "uvFlipY": false
                 },
                 "Script": {
@@ -715,7 +592,7 @@
                     "uvFlipY": false
                 },
                 "Script": {
-                    "scriptName": "PlayerBullet"
+                    "scriptName": "PlayerMisslile"
                 }
             }
         },
@@ -773,5 +650,5 @@
             }
         }
     ],
-    "mainCamera": "TPSCamera"
+    "mainCamera": "MainCamera"
 }
