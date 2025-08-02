@@ -20,9 +20,9 @@
                         1.0
                     ],
                     "scale": [
-                        1.0,
-                        1.0,
-                        1.0
+                        0.5,
+                        0.5,
+                        0.5
                     ],
                     "translation": [
                         0.0,
@@ -32,7 +32,7 @@
                 },
                 "MeshFilter": {
                     "modelID": 6,
-                    "modelName": "Ship"
+                    "modelName": "f16"
                 },
                 "MeshRenderer": {
                     "visible": true
@@ -45,9 +45,9 @@
                         1.0
                     ],
                     "enableLighting": true,
-                    "enableTexture": false,
+                    "enableTexture": true,
                     "shininess": 50.0,
-                    "textureName": "",
+                    "textureName": "Atlas_00001",
                     "uvFlipY": false
                 },
                 "Script": {
@@ -240,7 +240,7 @@
                     ],
                     "translation": [
                         0.0,
-                        -40.0,
+                        -10.0,
                         0.0
                     ]
                 },
@@ -261,8 +261,11 @@
                     "enableLighting": true,
                     "enableTexture": true,
                     "shininess": 50.0,
-                    "textureName": "Grass_01",
+                    "textureName": "IMGP5493_seamless_1",
                     "uvFlipY": false
+                },
+                "Script": {
+                    "scriptName": "Ground"
                 }
             }
         },
@@ -512,19 +515,19 @@
                         1.0
                     ],
                     "scale": [
-                        4.0,
-                        4.0,
-                        4.0
+                        0.5,
+                        0.5,
+                        0.5
                     ],
                     "translation": [
                         -0.046215057373046875,
-                        0.0,
-                        79.61627197265625
+                        -39.6870231628418,
+                        0.0
                     ]
                 },
                 "MeshFilter": {
-                    "modelID": 0,
-                    "modelName": "Cube"
+                    "modelID": 6,
+                    "modelName": "f16"
                 },
                 "MeshRenderer": {
                     "visible": true
@@ -537,9 +540,9 @@
                         1.0
                     ],
                     "enableLighting": true,
-                    "enableTexture": false,
+                    "enableTexture": true,
                     "shininess": 50.0,
-                    "textureName": "",
+                    "textureName": "Atlas_00001",
                     "uvFlipY": false
                 },
                 "Script": {
@@ -567,6 +570,205 @@
                         0.0,
                         0.0
                     ]
+                }
+            }
+        },
+        {
+            "name": "Generator",
+            "type": "MeshObject",
+            "components": {
+                "Transform": {
+                    "degrees": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "isBillboard": false,
+                    "rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ],
+                    "scale": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "translation": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ]
+                },
+                "MeshFilter": {
+                    "modelID": 0,
+                    "modelName": "Cube"
+                },
+                "MeshRenderer": {
+                    "visible": true
+                },
+                "Script": {
+                    "scriptName": "Generator"
+                }
+            }
+        },
+        {
+            "name": "Wall",
+            "type": "MeshObject",
+            "components": {
+                "Transform": {
+                    "degrees": [
+                        -0.0,
+                        0.0,
+                        -0.0
+                    ],
+                    "isBillboard": false,
+                    "rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ],
+                    "scale": [
+                        1.0,
+                        20.0,
+                        100.0
+                    ],
+                    "translation": [
+                        10.867532730102539,
+                        -32.36940383911133,
+                        0.0
+                    ]
+                },
+                "MeshFilter": {
+                    "modelID": 0,
+                    "modelName": "Cube"
+                },
+                "MeshRenderer": {
+                    "visible": true
+                },
+                "Material": {
+                    "Color": [
+                        0.7843137383460999,
+                        0.7843137383460999,
+                        0.7843137383460999,
+                        1.0
+                    ],
+                    "enableLighting": true,
+                    "enableTexture": true,
+                    "shininess": 50.0,
+                    "textureName": "IMGP5480_seamless",
+                    "uvFlipY": false
+                },
+                "Script": {
+                    "scriptName": "Wall"
+                }
+            }
+        },
+        {
+            "name": "PlayerMissile",
+            "type": "MeshObject",
+            "components": {
+                "Transform": {
+                    "degrees": [
+                        -0.0,
+                        0.0,
+                        -0.0
+                    ],
+                    "isBillboard": false,
+                    "rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ],
+                    "scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "translation": [
+                        -20.986202239990234,
+                        -39.65427780151367,
+                        0.0
+                    ]
+                },
+                "MeshFilter": {
+                    "modelID": 7,
+                    "modelName": "missile"
+                },
+                "MeshRenderer": {
+                    "visible": true
+                },
+                "Material": {
+                    "Color": [
+                        0.7843137383460999,
+                        0.7843137383460999,
+                        0.7843137383460999,
+                        1.0
+                    ],
+                    "enableLighting": true,
+                    "enableTexture": true,
+                    "shininess": 50.0,
+                    "textureName": "Atlas_00002",
+                    "uvFlipY": false
+                },
+                "Script": {
+                    "scriptName": "PlayerBullet"
+                }
+            }
+        },
+        {
+            "name": "EnemyBullet",
+            "type": "MeshObject",
+            "components": {
+                "Transform": {
+                    "degrees": [
+                        -0.0,
+                        0.0,
+                        -0.0
+                    ],
+                    "isBillboard": false,
+                    "rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ],
+                    "scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "translation": [
+                        -13.335433006286621,
+                        -39.65427780151367,
+                        0.0
+                    ]
+                },
+                "MeshFilter": {
+                    "modelID": 7,
+                    "modelName": "missile"
+                },
+                "MeshRenderer": {
+                    "visible": true
+                },
+                "Material": {
+                    "Color": [
+                        0.7843137383460999,
+                        0.7843137383460999,
+                        0.7843137383460999,
+                        1.0
+                    ],
+                    "enableLighting": true,
+                    "enableTexture": true,
+                    "shininess": 50.0,
+                    "textureName": "Atlas_00002",
+                    "uvFlipY": false
+                },
+                "Script": {
+                    "scriptName": "EnemyBullet"
                 }
             }
         }

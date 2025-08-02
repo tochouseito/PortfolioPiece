@@ -4,5 +4,10 @@
     "frameRate": 60,
     "fixedDeltaTime": 0.01666666753590107,
     "debugMode": false,
-    "skyTexName": "vz_classic_land_cubemap_ue"
+    "skyTexName": "vz_classic_land_cubemap_ue",
+    "gravity": [
+        0.0,
+        -9.8100004196167,
+        0.0
+    ]
 }
