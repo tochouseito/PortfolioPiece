@@ -41,7 +41,7 @@
       <Optimization>Disabled</Optimization>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <PreprocessorDefinitions>_DEBUG;EXPORT_SCRIPT_API;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(ProjectDir);..\..\PhysicsEngine\include;..\..\Cho\GameCore\ScriptAPI;..\..\Cho\GameCore\Marionnette;..\..\ChoMath\include;..\..\ChoMath;..\..\Cho;;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);..\..\PhysicsEngine\include;..\..\Cho\GameCore\ScriptAPI;..\..\Cho\GameCore\Marionnette;..\..\ChoMath\include;..\..\ChoMath;..\..\Cho;$(ProjectDir)Assets\Scripts\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
       <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
@@ -51,7 +51,7 @@
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>ChoMath.lib;ChoEngine.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(ProjectDir)..\..\..\generated\$(Configuration)\;$(ProjectDir)..\..\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(ProjectDir)..\..\..\generated\outputs\$(Configuration)\;$(ProjectDir)..\..\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -60,7 +60,7 @@
       <Optimization>Disabled</Optimization>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <PreprocessorDefinitions>NDEBUG;EXPORT_SCRIPT_API;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(ProjectDir);..\..\PhysicsEngine\include;..\..\Cho\GameCore\ScriptAPI;..\..\Cho\GameCore\Marionnette;..\..\ChoMath\include;..\..\ChoMath;..\..\Cho;;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);..\..\PhysicsEngine\include;..\..\Cho\GameCore\ScriptAPI;..\..\Cho\GameCore\Marionnette;..\..\ChoMath\include;..\..\ChoMath;..\..\Cho;$(ProjectDir)Assets\Scripts\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
       <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
@@ -72,7 +72,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>ChoMath.lib;ChoEngine.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(ProjectDir)..\..\..\generated\$(Configuration)\;$(ProjectDir)..\..\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(ProjectDir)..\..\..\generated\outputs\$(Configuration)\;$(ProjectDir)..\..\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -88,7 +88,8 @@
     <ClCompile Include="Assets\Scripts\Player\PlayerBullet.cpp" />
     <ClCompile Include="Assets\Scripts\UI\Reticle.cpp" />
     <ClCompile Include="Assets\Scripts\UI\Target.cpp" />
-    <ClCompile Include="Assets\Scripts\Player\PlayerMisslile.cpp" />
+    <ClCompile Include="Assets\Scripts\Enemy\EnemyMissile.cpp" />
+    <ClCompile Include="Assets\Scripts\Player\PlayerMissile.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Assets\Scripts\BulletType.h" />
@@ -104,7 +105,8 @@
     <ClInclude Include="Assets\Scripts\Player\PlayerBullet.h" />
     <ClInclude Include="Assets\Scripts\UI\Reticle.h" />
     <ClInclude Include="Assets\Scripts\UI\Target.h" />
-    <ClInclude Include="Assets\Scripts\Player\PlayerMisslile.h" />
+    <ClInclude Include="Assets\Scripts\Enemy\EnemyMissile.h" />
+    <ClInclude Include="Assets\Scripts\Player\PlayerMissile.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
 </Project>

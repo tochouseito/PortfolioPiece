@@ -1,7 +1,10 @@
 #pragma once
 #include "Marionnette.h"
 
+// 前方宣言
 class Player;
+class Generator;
+
 class PlayerBullet : public Marionnette
 {
 public:
@@ -16,6 +19,7 @@ public:
 	bool IsActive() const { return m_IsActive; } // アクティブ状態を取得
 private:
 	Player* m_Player = nullptr; // プレイヤーオブジェクトへのポインタ
+	Generator* m_Generator = nullptr;// 弾生成器
 
 	float m_Speed = 400.0f; // 弾の移動速度
     Vector3 m_Direction{};// 進行方向

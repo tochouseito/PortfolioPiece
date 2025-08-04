@@ -1,11 +1,6 @@
 #include "MainCamera.h"
 using namespace ChoSystem;
-#include "../Player/PlayerBullet.h"
-#include "../Player/PlayerMisslile.h"
-#include "../Enemy/EnemyBullet.h"
-#include "../Enemy/EnemyMissile.h"
-#include "../FieldObject/Wall.h"
-#include "../FieldObject/Ground.h"
+#include "Player/Player.h"
 
 void MainCamera::Start()
 {

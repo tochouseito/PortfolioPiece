@@ -1,11 +1,11 @@
 #pragma once
 #include "Marionnette.h"
 
-class PlayerMisslile : public Marionnette
+class PlayerMissile : public Marionnette
 {
 public:
 	// コンストラクタ
-    PlayerMisslile(GameObject& object) : Marionnette(object) {}
+    PlayerMissile(GameObject& object) : Marionnette(object) {}
     // 初期化処理
     void Start() override;
 	// 毎フレーム処理

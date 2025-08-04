@@ -23,6 +23,8 @@ public:
     void Update() override;
 	// プレイヤー弾生成
 	void GeneratePlayerBullet(const PlayerBulletType& type, const Vector3& pos);
+	// プレイヤー弾削除
+	void RemovePlayerBullet(const std::wstring& name);
 private:
 	PlayerBullet* m_PlayerBullet = nullptr;
 	PlayerMissile* m_PlayerMissile = nullptr;

@@ -1,11 +1,11 @@
 #include "Generator.h"
 using namespace ChoSystem;
-#include "../Player/PlayerBullet.h"
-#include "../Player/PlayerMissile.h"
-#include "../Enemy/EnemyBullet.h"
-//#include "../Enemy/EnemyMissile.h"
-#include "../FieldObject/Wall.h"
-#include "../FieldObject/Ground.h"
+#include "Player/PlayerBullet.h"
+#include "Player/PlayerMissile.h"
+#include "Enemy/EnemyBullet.h"
+#include "Enemy/EnemyMissile.h"
+#include "FieldObject/Ground.h"
+#include "FieldObject/Wall.h"
 
 void Generator::Start()
 {
@@ -27,6 +27,11 @@ void Generator::GeneratePlayerBullet(const PlayerBulletType& type, const Vector3
 {
 	GameObject* dst = CloneGameObject(&m_PlayerBullet->gameObject, pos);
 	m_PlayerBullets.push_back(dst->GetName());
+}
+
+void Generator::RemovePlayerBullet(const std::wstring& name)
+{
+	m_PlayerBullets.remove(name);
 }
 
 REGISTER_SCRIPT_FACTORY(Generator);

@@ -1,7 +1,9 @@
 #pragma once
 #include "Marionnette.h"
 
+// 前方宣言
 class Player;
+
 class Reticle : public Marionnette
 {
 public:

@@ -1,7 +1,7 @@
 #include "Reticle.h"
-#include "Player.h"
-#include "Enemy.h"
 using namespace ChoSystem;
+#include "Player/Player.h"
+#include "Enemy/Enemy.h"
 
 void Reticle::Start()
 {

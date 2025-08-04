@@ -2,15 +2,19 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="Assets\Scripts\Camera\BaseCamera.cpp" />
-    <ClCompile Include="Assets\Scripts\BlockGenerator.cpp" />
     <ClCompile Include="Assets\Scripts\Camera\MainCamera.cpp" />
-    <ClCompile Include="Assets\Scripts\Player.cpp" />
-    <ClCompile Include="Assets\Scripts\PlayerBullet.cpp" />
-    <ClCompile Include="Assets\Scripts\PlayerBulletGenerator.cpp" />
-    <ClCompile Include="Assets\Scripts\Target.cpp" />
     <ClCompile Include="Assets\Scripts\Camera\TPSCamera.cpp" />
-    <ClCompile Include="Assets\Scripts\Enemy.cpp" />
-    <ClCompile Include="Assets\Scripts\Reticle.cpp" />
+    <ClCompile Include="Assets\Scripts\Enemy\Enemy.cpp" />
+    <ClCompile Include="Assets\Scripts\Enemy\EnemyBullet.cpp" />
+    <ClCompile Include="Assets\Scripts\FieldObject\Ground.cpp" />
+    <ClCompile Include="Assets\Scripts\FieldObject\Wall.cpp" />
+    <ClCompile Include="Assets\Scripts\Generator\Generator.cpp" />
+    <ClCompile Include="Assets\Scripts\Player\Player.cpp" />
+    <ClCompile Include="Assets\Scripts\Player\PlayerBullet.cpp" />
+    <ClCompile Include="Assets\Scripts\UI\Reticle.cpp" />
+    <ClCompile Include="Assets\Scripts\UI\Target.cpp" />
+    <ClCompile Include="Assets\Scripts\Enemy\EnemyMissile.cpp" />
+    <ClCompile Include="Assets\Scripts\Player\PlayerMissile.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source Files">
@@ -22,15 +26,19 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Assets\Scripts\Camera\BaseCamera.h" />
-    <ClInclude Include="Assets\Scripts\BlockGenerator.h" />
     <ClInclude Include="Assets\Scripts\BulletType.h" />
     <ClInclude Include="Assets\Scripts\Camera\MainCamera.h" />
-    <ClInclude Include="Assets\Scripts\Player.h" />
-    <ClInclude Include="Assets\Scripts\PlayerBullet.h" />
-    <ClInclude Include="Assets\Scripts\PlayerBulletGenerator.h" />
-    <ClInclude Include="Assets\Scripts\Target.h" />
     <ClInclude Include="Assets\Scripts\Camera\TPSCamera.h" />
-    <ClInclude Include="Assets\Scripts\Enemy.h" />
-    <ClInclude Include="Assets\Scripts\Reticle.h" />
+    <ClInclude Include="Assets\Scripts\Enemy\Enemy.h" />
+    <ClInclude Include="Assets\Scripts\Enemy\EnemyBullet.h" />
+    <ClInclude Include="Assets\Scripts\FieldObject\Ground.h" />
+    <ClInclude Include="Assets\Scripts\FieldObject\Wall.h" />
+    <ClInclude Include="Assets\Scripts\Generator\Generator.h" />
+    <ClInclude Include="Assets\Scripts\Player\Player.h" />
+    <ClInclude Include="Assets\Scripts\Player\PlayerBullet.h" />
+    <ClInclude Include="Assets\Scripts\UI\Reticle.h" />
+    <ClInclude Include="Assets\Scripts\UI\Target.h" />
+    <ClInclude Include="Assets\Scripts\Enemy\EnemyMissile.h" />
+    <ClInclude Include="Assets\Scripts\Player\PlayerMissile.h" />
   </ItemGroup>
 </Project>

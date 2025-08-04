@@ -1,31 +1,24 @@
 #include "Player.h"
 using namespace ChoSystem;
-#include "PlayerBulletGenerator.h"
+#include "UI/Target.h"
 #include "Camera/MainCamera.h"
-#include <functional>
+#include "Generator/Generator.h"
 
 void Player::Start()
 {
 	// 初期化処理
-	/*m_Target = &FindGameObjectByName(L"Target");
-	m_Camera = &FindGameObjectByName(L"MainCamera");
-	m_BulletGenerator = &FindGameObjectByName(L"PlayerBulletGenerator");
-	m_BulletGeneratorScript = m_BulletGenerator->GetScriptInstance<PlayerBulletGenerator>();*/
-	//m_Camera = FindGameObjectByName(L"TPSCamera");
+	// ターゲットを取得
+	m_Target = GetMarionnette<Target>(L"Target");
 	m_Camera = GetMarionnette<MainCamera>(L"TPSCamera");
+	m_Generator = GetMarionnette<Generator>(L"Generator");
 	Camera camera = m_Camera->GetComponent<Camera>();
 	camera->fovAngleY = 45.0f; // FOVを設定
-	//m_Camera->camera.fovAngleY() = 45.0f;
 	velocity.Initialize();
 	baseQuaternion.Initialize();
 }
 
 void Player::Update()
 {
-	m_Target = FindGameObjectByName(L"Target");
-	//m_Camera = FindGameObjectByName(L"TPSCamera");
-	m_BulletGenerator = FindGameObjectByName(L"PlayerBulletGenerator");
-	m_BulletGeneratorScript = m_BulletGenerator->GetScriptInstance<PlayerBulletGenerator>();
 	// 毎フレーム処理
 	if (!isDodging)
 	{
@@ -217,9 +210,8 @@ void Player::Attack()
 	// 攻撃処理
 	if (Input::TriggerKey(DIK_SPACE))
 	{
-		// PlayerBulletGeneratorを生成
-		m_BulletGeneratorScript = m_BulletGenerator->GetScriptInstance<PlayerBulletGenerator>();
-		m_BulletGeneratorScript->GenerateBullet(PLAYER_BULLET_TYPE_NORMAL, 1);
+		// 弾の生成
+		m_Generator->GeneratePlayerBullet(PLAYER_BULLET_TYPE_NORMAL, transform->position);
 	}
 }
 

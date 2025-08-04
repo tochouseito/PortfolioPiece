@@ -2,8 +2,9 @@
 #include "Marionnette.h"
 
 // 前方宣言
-class PlayerBulletGenerator; 
+class Target;
 class MainCamera;
+class Generator;
 
 class Player : public Marionnette
 {
@@ -29,12 +30,11 @@ private:
     void Dodge();
 
     // ターゲット
-	GameObject* m_Target = nullptr;
+	Target* m_Target = nullptr;
     // カメラ
 	MainCamera* m_Camera = nullptr;
     // 弾生成器
-	GameObject* m_BulletGenerator = nullptr;
-	PlayerBulletGenerator* m_BulletGeneratorScript = nullptr;
+	Generator* m_Generator = nullptr; // 弾生成器
 
     // パラメータ
 	Vector3 velocity;// 現在の速度
