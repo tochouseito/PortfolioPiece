@@ -7,7 +7,7 @@
     "skyTexName": "vz_classic_land_cubemap_ue",
     "gravity": [
         0.0,
-        -9.8100004196167,
+        0.0,
         0.0
     ]
 }

@@ -8,9 +8,9 @@
             "components": {
                 "Transform": {
                     "degrees": [
+                        -0.0,
                         0.0,
-                        0.0,
-                        0.0
+                        -0.0
                     ],
                     "isBillboard": false,
                     "rotation": [
@@ -26,12 +26,12 @@
                     ],
                     "translation": [
                         0.0,
-                        0.0,
+                        50.01072692871094,
                         0.0
                     ]
                 },
                 "MeshFilter": {
-                    "modelID": 6,
+                    "modelID": 7,
                     "modelName": "f16"
                 },
                 "MeshRenderer": {
@@ -71,7 +71,7 @@
                     ],
                     "restitution": 0.0,
                     "velocity": [
-                        0.0,
+                        14.0,
                         0.0,
                         0.0
                     ]
@@ -182,9 +182,9 @@
             "components": {
                 "Transform": {
                     "degrees": [
+                        -0.0,
                         0.0,
-                        0.0,
-                        0.0
+                        -0.0
                     ],
                     "isBillboard": false,
                     "rotation": [
@@ -194,19 +194,19 @@
                         1.0
                     ],
                     "scale": [
-                        400.0,
-                        1.0,
-                        400.0
+                        11.0,
+                        11.0,
+                        11.0
                     ],
                     "translation": [
                         0.0,
-                        -10.0,
+                        -15.0,
                         0.0
                     ]
                 },
                 "MeshFilter": {
-                    "modelID": 0,
-                    "modelName": "Cube"
+                    "modelID": 6,
+                    "modelName": "DemoTerrain"
                 },
                 "MeshRenderer": {
                     "visible": true
@@ -221,7 +221,7 @@
                     "enableLighting": true,
                     "enableTexture": true,
                     "shininess": 50.0,
-                    "textureName": "IMGP5493_seamless_1",
+                    "textureName": "cliff1",
                     "uvFlipY": false
                 },
                 "Script": {
@@ -274,16 +274,16 @@
             "components": {
                 "Transform": {
                     "degrees": [
-                        -0.0,
-                        0.0,
-                        -0.0
+                        -180.0,
+                        -5.008955668017734e-06,
+                        -180.0
                     ],
-                    "isBillboard": false,
+                    "isBillboard": true,
                     "rotation": [
-                        0.0,
-                        0.0,
-                        0.0,
-                        1.0
+                        4.371138473402425e-08,
+                        -1.0,
+                        4.371138473402425e-08,
+                        4.371139183945161e-08
                     ],
                     "scale": [
                         1.0,
@@ -291,14 +291,14 @@
                         1.0
                     ],
                     "translation": [
-                        -20.986202239990234,
+                        -24.2805118560791,
                         -39.65427780151367,
                         0.0
                     ]
                 },
                 "MeshFilter": {
-                    "modelID": 7,
-                    "modelName": "missile"
+                    "modelID": 0,
+                    "modelName": "Cube"
                 },
                 "MeshRenderer": {
                     "visible": true
@@ -313,7 +313,7 @@
                     "enableLighting": true,
                     "enableTexture": true,
                     "shininess": 50.0,
-                    "textureName": "Atlas_00002",
+                    "textureName": "sun",
                     "uvFlipY": false
                 },
                 "Script": {
@@ -403,7 +403,7 @@
                     ]
                 },
                 "MeshFilter": {
-                    "modelID": 6,
+                    "modelID": 7,
                     "modelName": "f16"
                 },
                 "MeshRenderer": {
@@ -566,13 +566,13 @@
                         1.0
                     ],
                     "translation": [
-                        -20.986202239990234,
+                        -17.731918334960938,
                         -39.65427780151367,
                         0.0
                     ]
                 },
                 "MeshFilter": {
-                    "modelID": 7,
+                    "modelID": 8,
                     "modelName": "missile"
                 },
                 "MeshRenderer": {
@@ -625,7 +625,7 @@
                     ]
                 },
                 "MeshFilter": {
-                    "modelID": 7,
+                    "modelID": 8,
                     "modelName": "missile"
                 },
                 "MeshRenderer": {
@@ -678,7 +678,7 @@
                     ]
                 },
                 "MeshFilter": {
-                    "modelID": 7,
+                    "modelID": 8,
                     "modelName": "missile"
                 },
                 "MeshRenderer": {
@@ -699,6 +699,46 @@
                 },
                 "Script": {
                     "scriptName": "EnemyMissile"
+                }
+            }
+        },
+        {
+            "name": "EnemySpawner",
+            "type": "MeshObject",
+            "components": {
+                "Transform": {
+                    "degrees": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "isBillboard": false,
+                    "rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ],
+                    "scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "translation": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ]
+                },
+                "MeshFilter": {
+                    "modelID": 0,
+                    "modelName": "Cube"
+                },
+                "MeshRenderer": {
+                    "visible": true
+                },
+                "Script": {
+                    "scriptName": "EnemySpawner"
                 }
             }
         }

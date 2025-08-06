@@ -26,7 +26,9 @@ void Generator::Update()
 void Generator::GeneratePlayerBullet(const PlayerBulletType& type, const Vector3& pos)
 {
 	GameObject* dst = CloneGameObject(&m_PlayerBullet->gameObject, pos);
-	PlayerBullet* bullet = dst->
+	PlayerBullet* bullet = dst->GetMarionnette<PlayerBullet>();
+	bullet->SetActive(true);
+	bullet->Start();
 	m_PlayerBullets.push_back(dst->GetName());
 }
 
