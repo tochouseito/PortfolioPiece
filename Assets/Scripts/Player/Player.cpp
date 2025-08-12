@@ -66,6 +66,7 @@ void Player::OnCollisionExit(GameObject& other)
 void Player::Move()
 {
 	// 移動処理
+
 	// 左右移動
 	if(Input::PushKey(DIK_A))
 	{
@@ -125,6 +126,9 @@ void Player::Move()
 	if (pos.x >= limitPos.x && velocity.x > 0.0f) velocity.x = 0.0f;
 	if (pos.y <= -limitPos.y && velocity.y < 0.0f) velocity.y = 0.0f;
 	if (pos.y >= limitPos.y && velocity.y > 0.0f) velocity.y = 0.0f;
+
+	// 前方移動
+	velocity.z = speed;
 
 	// 適用
 	Rigidbody3D rb = GetComponent<Rigidbody3D>();

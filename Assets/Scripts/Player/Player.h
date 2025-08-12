@@ -38,18 +38,21 @@ private:
     // 弾生成器
 	Generator* m_Generator = nullptr; // 弾生成器
 
+    // 初期値
+	Vector3 initialPosition{ 0.0f, 0.0f, 0.0f }; // 初期位置
+
     // パラメータ
 	Vector3 velocity;// 現在の速度
 	float acceleration = 2.0f; // 加速度
 
     // 減衰
     float damping = 0.9f;// 減衰係数
-    Vector2 limitPos{ 30.0f, 20.0f };
+    Vector2 limitPos{ 30.0f, 50.0f };
     float smoothLimitRange = 10.0f; // 近づいたら減速が始まる範囲
     float curve = 1.0f; // 減衰の強さ
 
 
-    float speed = 20.0f; // 移動速度
+    float speed = 100.0f; // 移動速度
 	float fowardSpeed = 0.0f; // 前方移動速度
 	float maxSpeed = 0.0f; // 最大速度
 	float minSpeed = 0.0f; // 最小速度
