@@ -61,7 +61,7 @@
                         0.5
                     ],
                     "isKinematic": false,
-                    "isSensor": false,
+                    "isSensor": true,
                     "mass": 1.0,
                     "quaternion": [
                         0.0,
@@ -71,7 +71,7 @@
                     ],
                     "restitution": 0.0,
                     "velocity": [
-                        14.0,
+                        0.0,
                         0.0,
                         0.0
                     ]
@@ -318,6 +318,29 @@
                 },
                 "Script": {
                     "scriptName": "PlayerBullet"
+                },
+                "Rigidbody3D": {
+                    "friction": 0.30000001192092896,
+                    "halfsize": [
+                        0.5,
+                        0.5,
+                        0.5
+                    ],
+                    "isKinematic": false,
+                    "isSensor": false,
+                    "mass": 1.0,
+                    "quaternion": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ],
+                    "restitution": 0.0,
+                    "velocity": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ]
                 }
             }
         },
@@ -433,7 +456,7 @@
                         2.0
                     ],
                     "isKinematic": false,
-                    "isSensor": false,
+                    "isSensor": true,
                     "mass": 1.0,
                     "quaternion": [
                         0.0,
@@ -593,6 +616,29 @@
                 },
                 "Script": {
                     "scriptName": "PlayerMissile"
+                },
+                "Rigidbody3D": {
+                    "friction": 0.30000001192092896,
+                    "halfsize": [
+                        0.5,
+                        0.5,
+                        0.5
+                    ],
+                    "isKinematic": false,
+                    "isSensor": true,
+                    "mass": 1.0,
+                    "quaternion": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ],
+                    "restitution": 0.0,
+                    "velocity": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ]
                 }
             }
         },
@@ -646,6 +692,29 @@
                 },
                 "Script": {
                     "scriptName": "EnemyBullet"
+                },
+                "Rigidbody3D": {
+                    "friction": 0.30000001192092896,
+                    "halfsize": [
+                        0.5,
+                        0.5,
+                        0.5
+                    ],
+                    "isKinematic": false,
+                    "isSensor": true,
+                    "mass": 1.0,
+                    "quaternion": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ],
+                    "restitution": 0.0,
+                    "velocity": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ]
                 }
             }
         },
@@ -699,6 +768,29 @@
                 },
                 "Script": {
                     "scriptName": "EnemyMissile"
+                },
+                "Rigidbody3D": {
+                    "friction": 0.30000001192092896,
+                    "halfsize": [
+                        0.5,
+                        0.5,
+                        0.5
+                    ],
+                    "isKinematic": false,
+                    "isSensor": true,
+                    "mass": 1.0,
+                    "quaternion": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ],
+                    "restitution": 0.0,
+                    "velocity": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ]
                 }
             }
         },

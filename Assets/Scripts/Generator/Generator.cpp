@@ -23,7 +23,7 @@ void Generator::Start()
 void Generator::Update()
 {
     // 毎フレーム処理
-    GenerateTerrain();
+    // GenerateTerrain();
 }
 
 void Generator::GeneratePlayerBullet(const PlayerBulletType& type, const Vector3& pos)
@@ -31,7 +31,7 @@ void Generator::GeneratePlayerBullet(const PlayerBulletType& type, const Vector3
 	GameObject* dst = CloneGameObject(&m_PlayerBullet->gameObject, pos);
 	PlayerBullet* bullet = dst->GetMarionnette<PlayerBullet>();
 	bullet->SetActive(true);
-	bullet->Start();
+	// bullet->Start();
 	m_PlayerBullets.push_back(dst->GetName());
 }
 

@@ -11,8 +11,12 @@ void PlayerBullet::Start()
     if (!m_IsActive) { return; }
     m_Direction = chomath::RotateVector(Vector3(0.0f, 0.0f, 1.0f), m_Player->transform->quaternion);
     m_Direction.Normalize();
+    m_Velocity.Initialize();
 	transform->quaternion = m_Player->transform->quaternion;
-	m_LifeTime = 60.0f * 6.0f; // ライフタイムを設定
+	m_LifeTime = 60.0f * 3.0f; // ライフタイムを設定
+    // m_Speed = m_Player->GetSpeed() * m_Speed;
+    // ハードコーディング！！！
+	m_Speed = 50.0f; // 弾の移動速度を設定
 }
 
 void PlayerBullet::Update()
@@ -20,7 +24,7 @@ void PlayerBullet::Update()
 	if (!m_IsActive) return;
 	
     // テスト
-    transform->position += m_Direction * (m_Speed * DeltaTime());
+    m_Velocity = m_Direction * (m_Speed * DeltaTime());
     if (m_LifeTime <= 0.0f)
     {
         // ライフタイムが0以下なら非アクティブにする
@@ -35,6 +39,8 @@ void PlayerBullet::Update()
 
     // ライフタイム更新
 	m_LifeTime--;
+	Rigidbody3D rb = GetComponent<Rigidbody3D>();
+	rb->velocity = m_Velocity; // Rigidbody3Dの速度を更新
 }
 
 // 衝突時の処理
