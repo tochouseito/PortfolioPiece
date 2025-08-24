@@ -10,4 +10,6 @@ public:
     void Start() override;
 	// 毎フレーム処理
     void Update() override;
+private:
+    bool m_IsActive = false;
 };

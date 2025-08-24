@@ -22,6 +22,8 @@ public:
     void OnCollisionEnter(GameObject& other) override;
     void OnCollisionStay(GameObject& other) override;
     void OnCollisionExit(GameObject& other) override;
+    // 座標取得
+    Vector3 GetPosition() { return transform->position; }
     // 速度取得
 	float GetSpeed() const { return speed; }
 private:
