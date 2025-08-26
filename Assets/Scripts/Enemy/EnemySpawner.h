@@ -16,6 +16,8 @@ public:
     void Start() override;
 	// 毎フレーム処理
     void Update() override;
+    
+    void RemoveEnemy(const std::wstring& name);
 private:
     void SpawnEnemy();
 

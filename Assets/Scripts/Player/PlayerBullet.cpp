@@ -16,15 +16,15 @@ void PlayerBullet::Start()
 	m_LifeTime = 60.0f * 3.0f; // ライフタイムを設定
     // m_Speed = m_Player->GetSpeed() * m_Speed;
     // ハードコーディング！！！
-	m_Speed = 50.0f; // 弾の移動速度を設定
+	m_Speed = 40.0f; // 弾の移動速度を設定
 }
 
 void PlayerBullet::Update()
 {
-	if (!m_IsActive) return;
-	
+    if (!m_IsActive) return;
+
     // テスト
-    m_Velocity = m_Direction * (m_Speed * DeltaTime());
+    m_Velocity = m_Direction * m_Speed;
     if (m_LifeTime <= 0.0f)
     {
         // ライフタイムが0以下なら非アクティブにする
