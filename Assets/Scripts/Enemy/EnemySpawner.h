@@ -21,6 +21,9 @@ public:
 private:
     void SpawnEnemy();
 
+    // テスト用
+	void HorizontalSpawn();
+
     Player* m_Player = nullptr;
     Enemy* m_Enemy = nullptr;
 	std::list<std::wstring> m_Enemies;

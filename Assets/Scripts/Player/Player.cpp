@@ -13,7 +13,7 @@ void Player::Start()
 	m_Generator = GetMarionnette<Generator>(L"Generator");
 	Camera camera = m_Camera->GetComponent<Camera>();
 	camera->fovAngleY = 45.0f; // FOVを設定
-	velocity.Initialize();
+	m_Velocity.Initialize();
 	baseQuaternion.Initialize();
 }
 
@@ -70,69 +70,56 @@ void Player::Move()
 	// 左右移動
 	if(Input::PushKey(DIK_A))
 	{
-		velocity.x -= acceleration;
+		m_Velocity.x -= m_Acceleration;
 	}
 	if(Input::PushKey(DIK_D))
 	{
-		velocity.x += acceleration;
+		m_Velocity.x += m_Acceleration;
 	}
 	// 上下移動
 	if(Input::PushKey(DIK_W))
 	{
-		velocity.y += acceleration;
+		m_Velocity.y += m_Acceleration;
 	}
 	if(Input::PushKey(DIK_S))
 	{
-		velocity.y -= acceleration;
-	}
-
-	// X軸（左右）の減衰
-	if (!Input::PushKey(DIK_A) && !Input::PushKey(DIK_D))
-	{
-		velocity.x *= damping;
-		// 一定以下になったら停止
-		if (std::abs(velocity.x) < 0.01f) velocity.x = 0.0f;
-	}
-
-	// Y軸（上下）の減衰
-	if (!Input::PushKey(DIK_W) && !Input::PushKey(DIK_S))
-	{
-		velocity.y *= damping;
-		if (std::abs(velocity.y) < 0.01f) velocity.y = 0.0f;
+		m_Velocity.y -= m_Acceleration;
 	}
 
 	// 移動制限
-	Vector3 pos = transform->position;
-
-	// 壁に近づいている方向にだけ減衰
-	// X軸 減衰
-	if ((velocity.x > 0.0f && pos.x > 0.0f) || (velocity.x < 0.0f && pos.x < 0.0f))
-	{
-		float distToLimitX = limitPos.x - std::abs(pos.x);
-		float t = chomath::Clamp(distToLimitX / smoothLimitRange, 0.0f, 1.0f);
-		velocity.x *= std::pow(t, curve);
-	}
-
-	// Y軸 減衰
-	if ((velocity.y > 0.0f && pos.y > 0.0f) || (velocity.y < 0.0f && pos.y < 0.0f))
-	{
-		float distToLimitY = limitPos.y - std::abs(pos.y);
-		float t = chomath::Clamp(distToLimitY / smoothLimitRange, 0.0f, 1.0f);
-		velocity.y *= std::pow(t, curve);
-	}
-
-	// 範囲外に出るなら速度を0に
-	if (pos.x <= -limitPos.x && velocity.x < 0.0f) velocity.x = 0.0f;
-	if (pos.x >= limitPos.x && velocity.x > 0.0f) velocity.x = 0.0f;
-	if (pos.y <= -limitPos.y && velocity.y < 0.0f) velocity.y = 0.0f;
-	if (pos.y >= limitPos.y && velocity.y > 0.0f) velocity.y = 0.0f;
+	// MoveLimit();
 
 	// 前方移動
-	velocity.z = speed;
+	m_Velocity.z = speed;
 
 	// 適用
 	Rigidbody3D rb = GetComponent<Rigidbody3D>();
-	rb->velocity = velocity;
+	rb->velocity = m_Velocity;
+
+	// 回転
+
+	if (Input::PushKey(DIK_LEFTARROW))
+	{
+		m_AngularVelocity.y += m_AngularAcceleration;
+	}
+
+	if (Input::PushKey(DIK_RIGHTARROW))
+	{
+		m_AngularVelocity.y -= m_AngularAcceleration;
+	}
+
+	if (Input::PushKey(DIK_UPARROW))
+	{
+		m_AngularVelocity.x += m_AngularAcceleration;
+	}
+
+	if (Input::PushKey(DIK_DOWNARROW))
+	{
+		m_AngularVelocity.x -= m_AngularAcceleration;
+	}
+
+	// 適用
+	rb->angularVelocity = m_AngularVelocity;
 
 	// 回転
 	// Z軸回転
@@ -276,6 +263,52 @@ void Player::SlowDown()
 	//}
 }
 
+
+// 移動制限
+void Player::MoveLimit()
+{
+	// X軸（左右）の減衰
+	if (!Input::PushKey(DIK_A) && !Input::PushKey(DIK_D))
+	{
+		m_Velocity.x *= damping;
+		// 一定以下になったら停止
+		if (std::abs(m_Velocity.x) < 0.01f) m_Velocity.x = 0.0f;
+	}
+
+	// Y軸（上下）の減衰
+	if (!Input::PushKey(DIK_W) && !Input::PushKey(DIK_S))
+	{
+		m_Velocity.y *= damping;
+		if (std::abs(m_Velocity.y) < 0.01f) m_Velocity.y = 0.0f;
+	}
+
+	// 移動制限
+	Vector3 pos = transform->position;
+
+	// 壁に近づいている方向にだけ減衰
+	// X軸 減衰
+	if ((m_Velocity.x > 0.0f && pos.x > 0.0f) || (m_Velocity.x < 0.0f && pos.x < 0.0f))
+	{
+		float distToLimitX = limitPos.x - std::abs(pos.x);
+		float t = chomath::Clamp(distToLimitX / smoothLimitRange, 0.0f, 1.0f);
+		m_Velocity.x *= std::pow(t, curve);
+	}
+
+	// Y軸 減衰
+	if ((m_Velocity.y > 0.0f && pos.y > 0.0f) || (m_Velocity.y < 0.0f && pos.y < 0.0f))
+	{
+		float distToLimitY = limitPos.y - std::abs(pos.y);
+		float t = chomath::Clamp(distToLimitY / smoothLimitRange, 0.0f, 1.0f);
+		m_Velocity.y *= std::pow(t, curve);
+	}
+
+	// 範囲外に出るなら速度を0に
+	if (pos.x <= -limitPos.x && m_Velocity.x < 0.0f) m_Velocity.x = 0.0f;
+	if (pos.x >= limitPos.x && m_Velocity.x > 0.0f) m_Velocity.x = 0.0f;
+	if (pos.y <= -limitPos.y && m_Velocity.y < 0.0f) m_Velocity.y = 0.0f;
+	if (pos.y >= limitPos.y && m_Velocity.y > 0.0f) m_Velocity.y = 0.0f;
+}
+
 void Player::Attack()
 {
 	// 攻撃処理
@@ -298,7 +331,7 @@ void Player::Dodge()
 			dodgeTimer = 0.0f;
 
 			// 回避終了：速度やロールをリセット
-			velocity *= 0.5f;
+			m_Velocity *= 0.5f;
 			transform->degrees.z = 0.0f; // 傾きを元に戻す（任意）
 			return;
 		}
@@ -312,7 +345,7 @@ void Player::Dodge()
 			: Vector3(-1.0f, 0.0f, 0.0f); // 左
 
 		Vector3 dir = chomath::RotateVector(dodgeVec, transform->quaternion);
-		velocity = Vector3::Normalize(dir) * dodgeMoveSpeed;
+		m_Velocity = Vector3::Normalize(dir) * dodgeMoveSpeed;
 		return;
 	}
 
@@ -335,7 +368,7 @@ void Player::Dodge()
 float Player::SmoothLimitRange(const float& distance)
 {
 	float limitFactor = chomath::Clamp(distance / smoothLimitRange, 0.0f, 1.0f);
-	return acceleration * DeltaTime() * limitFactor;
+	return m_Acceleration * DeltaTime() * limitFactor;
 }
 
 REGISTER_SCRIPT_FACTORY(Player);

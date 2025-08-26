@@ -30,6 +30,8 @@ private:
     void Move();
     void Boost();
 	void SlowDown();
+    // 移動制限
+    void MoveLimit();
     void Attack();
     void Dodge();
     // 減衰処理
@@ -46,8 +48,10 @@ private:
 	Vector3 initialPosition{ 0.0f, 0.0f, 0.0f }; // 初期位置
 
     // パラメータ
-	Vector3 velocity;// 現在の速度
-	float acceleration = 2.0f; // 加速度
+    Vector3 m_Velocity = {};// 現在の速度
+	float m_Acceleration = 2.0f; // 加速度
+    Vector3 m_AngularVelocity = {};// 角速度
+    float m_AngularAcceleration = 2.0f;// 角加速度
 
     // 減衰
     float damping = 0.9f;// 減衰係数

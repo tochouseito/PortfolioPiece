@@ -15,7 +15,8 @@ void EnemySpawner::Update()
     // 毎フレーム処理
 	if (Input::TriggerKey(DIK_E))
 	{
-		SpawnEnemy();
+		// SpawnEnemy();
+		HorizontalSpawn();
 	}
 }
 
@@ -33,6 +34,24 @@ void EnemySpawner::SpawnEnemy()
 	Enemy* enemy = dst->GetMarionnette<Enemy>();
 	enemy->SetActive(true);
 	m_Enemies.push_back(dst->GetName());
+}
+
+void EnemySpawner::HorizontalSpawn()
+{
+	// プレイヤーの位置を基準に左右にスポーン
+	Vector3 basePos = m_Player->GetPosition();
+	// プレイヤーより奥にスポーン
+	basePos.z += 50.0f;
+	float spacing = 20.0f; // 敵同士の間隔
+	for (int i = -2; i <= 2; ++i)
+	{
+		Vector3 spawnPos = basePos;
+		spawnPos.x += i * spacing;
+		GameObject* dst = CloneGameObject(&m_Enemy->gameObject, spawnPos);
+		Enemy* enemy = dst->GetMarionnette<Enemy>();
+		enemy->SetActive(true);
+		m_Enemies.push_back(dst->GetName());
+	}
 }
 
 REGISTER_SCRIPT_FACTORY(EnemySpawner);
