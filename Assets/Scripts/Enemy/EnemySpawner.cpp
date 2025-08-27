@@ -22,7 +22,7 @@ void EnemySpawner::Update()
 
 void EnemySpawner::RemoveEnemy(const std::wstring& name)
 {
-	m_Enemies.remove(name);
+	m_EnemyMap.erase(name);
 }
 
 void EnemySpawner::SpawnEnemy()
@@ -33,7 +33,7 @@ void EnemySpawner::SpawnEnemy()
 	GameObject* dst = CloneGameObject(&m_Enemy->gameObject, spawnPos);
 	Enemy* enemy = dst->GetMarionnette<Enemy>();
 	enemy->SetActive(true);
-	m_Enemies.push_back(dst->GetName());
+	m_EnemyMap[dst->GetName()] = enemy;
 }
 
 void EnemySpawner::HorizontalSpawn()
@@ -42,6 +42,7 @@ void EnemySpawner::HorizontalSpawn()
 	Vector3 basePos = m_Player->GetPosition();
 	// プレイヤーより奥にスポーン
 	basePos.z += 50.0f;
+	basePos.y += 10.0f;
 	float spacing = 20.0f; // 敵同士の間隔
 	for (int i = -2; i <= 2; ++i)
 	{
@@ -50,7 +51,7 @@ void EnemySpawner::HorizontalSpawn()
 		GameObject* dst = CloneGameObject(&m_Enemy->gameObject, spawnPos);
 		Enemy* enemy = dst->GetMarionnette<Enemy>();
 		enemy->SetActive(true);
-		m_Enemies.push_back(dst->GetName());
+		m_EnemyMap[dst->GetName()] = enemy;
 	}
 }
 

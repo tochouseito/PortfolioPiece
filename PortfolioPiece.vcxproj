@@ -41,7 +41,7 @@
       <Optimization>Disabled</Optimization>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <PreprocessorDefinitions>_DEBUG;EXPORT_SCRIPT_API;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(ProjectDir);..\..\PhysicsEngine\include;..\..\Cho\GameCore\ScriptAPI;..\..\Cho\GameCore\Marionnette;..\..\ChoMath\include;..\..\ChoMath;..\..\Cho;$(ProjectDir)Assets\Scripts\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)Assets/Scripts;..\..\PhysicsEngine\include;..\..\Cho\GameCore\ScriptAPI;..\..\Cho\GameCore\Marionnette;..\..\ChoMath\include;..\..\ChoMath;..\..\Cho;;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
       <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
@@ -60,7 +60,7 @@
       <Optimization>Disabled</Optimization>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <PreprocessorDefinitions>NDEBUG;EXPORT_SCRIPT_API;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(ProjectDir);..\..\PhysicsEngine\include;..\..\Cho\GameCore\ScriptAPI;..\..\Cho\GameCore\Marionnette;..\..\ChoMath\include;..\..\ChoMath;..\..\Cho;$(ProjectDir)Assets\Scripts\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)Assets/Scripts;..\..\PhysicsEngine\include;..\..\Cho\GameCore\ScriptAPI;..\..\Cho\GameCore\Marionnette;..\..\ChoMath\include;..\..\ChoMath;..\..\Cho;;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
       <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
@@ -82,6 +82,7 @@
     <ClCompile Include="Assets\Scripts\Enemy\Enemy.cpp" />
     <ClCompile Include="Assets\Scripts\Enemy\EnemyBullet.cpp" />
     <ClCompile Include="Assets\Scripts\Enemy\EnemyMissile.cpp" />
+    <ClCompile Include="Assets\Scripts\Enemy\EnemySpawner.cpp" />
     <ClCompile Include="Assets\Scripts\FieldObject\Ground.cpp" />
     <ClCompile Include="Assets\Scripts\FieldObject\Wall.cpp" />
     <ClCompile Include="Assets\Scripts\Generator\Generator.cpp" />
@@ -90,7 +91,7 @@
     <ClCompile Include="Assets\Scripts\Player\PlayerMissile.cpp" />
     <ClCompile Include="Assets\Scripts\UI\Reticle.cpp" />
     <ClCompile Include="Assets\Scripts\UI\Target.cpp" />
-    <ClCompile Include="Assets\Scripts\Enemy\EnemySpawner.cpp" />
+    <ClCompile Include="LockOn.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Assets\Scripts\BulletType.h" />
@@ -100,6 +101,7 @@
     <ClInclude Include="Assets\Scripts\Enemy\Enemy.h" />
     <ClInclude Include="Assets\Scripts\Enemy\EnemyBullet.h" />
     <ClInclude Include="Assets\Scripts\Enemy\EnemyMissile.h" />
+    <ClInclude Include="Assets\Scripts\Enemy\EnemySpawner.h" />
     <ClInclude Include="Assets\Scripts\FieldObject\Ground.h" />
     <ClInclude Include="Assets\Scripts\FieldObject\Wall.h" />
     <ClInclude Include="Assets\Scripts\Generator\Generator.h" />
@@ -108,7 +110,7 @@
     <ClInclude Include="Assets\Scripts\Player\PlayerMissile.h" />
     <ClInclude Include="Assets\Scripts\UI\Reticle.h" />
     <ClInclude Include="Assets\Scripts\UI\Target.h" />
-    <ClInclude Include="Assets\Scripts\Enemy\EnemySpawner.h" />
+    <ClInclude Include="LockOn.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
 </Project>

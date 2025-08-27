@@ -44,6 +44,9 @@ private:
     // 弾生成器
 	Generator* m_Generator = nullptr; // 弾生成器
 
+    // ロックオンリスト
+	std::unordered_map<std::wstring, GameObject*> m_LockOnMap;
+
     // 初期値
 	Vector3 initialPosition{ 0.0f, 0.0f, 0.0f }; // 初期位置
 

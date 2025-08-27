@@ -3,6 +3,8 @@
 
 // 前方宣言
 class EnemySpawner;
+class Target;
+class LockOn;
 
 class Enemy : public Marionnette
 {
@@ -15,10 +17,18 @@ public:
     void Update() override;
 	// アクティブ設定
 	void SetActive(bool isActive) { m_IsActive = isActive; }
+	bool IsActive() const { return m_IsActive; }
+	// ロックオン設定
+	bool IsLockOnTarget() const { return m_IsLockOnTarget; }
+	void EnableLockOnTarget(LockOn* lockOn) { m_IsLockOnTarget = true; }
+	void UnableLockOnTarget();
 	// 衝突関数
 	void OnCollisionEnter(GameObject& other) override;
 private:
 	EnemySpawner* m_EnemySpawner = nullptr;
+	Target* m_Target = nullptr;
+	LockOn* m_LockOn = nullptr;
 
     bool m_IsActive = false;
+	bool m_IsLockOnTarget = false;// ロックオンされているか
 };

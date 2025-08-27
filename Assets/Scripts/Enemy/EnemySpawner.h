@@ -1,6 +1,7 @@
 #pragma once
 #include "Marionnette.h"
 #include <list>
+#include <unordered_map>
 #include <string>
 
 // 前方宣言
@@ -18,6 +19,7 @@ public:
     void Update() override;
     
     void RemoveEnemy(const std::wstring& name);
+	std::unordered_map<std::wstring, Enemy*>& GetEnemyMap() { return m_EnemyMap; }
 private:
     void SpawnEnemy();
 
@@ -26,5 +28,5 @@ private:
 
     Player* m_Player = nullptr;
     Enemy* m_Enemy = nullptr;
-	std::list<std::wstring> m_Enemies;
+	std::unordered_map<std::wstring, Enemy*> m_EnemyMap;
 };

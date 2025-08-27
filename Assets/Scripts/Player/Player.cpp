@@ -312,10 +312,17 @@ void Player::MoveLimit()
 void Player::Attack()
 {
 	// 攻撃処理
+	// マシンガン
 	if (Input::TriggerKey(DIK_SPACE))
 	{
 		// 弾の生成
 		m_Generator->GeneratePlayerBullet(PLAYER_BULLET_TYPE_NORMAL, transform->position);
+	}
+	// ミサイル
+	if (Input::TriggerKey(DIK_LSHIFT))
+	{
+		// 弾の生成
+		m_Generator->GeneratePlayerBullet(PLAYER_BULLET_TYPE_MISSILE, transform->position);
 	}
 }
 
