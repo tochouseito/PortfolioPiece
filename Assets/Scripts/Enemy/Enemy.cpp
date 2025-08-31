@@ -2,7 +2,7 @@
 using namespace ChoSystem;
 #include "Enemy/EnemySpawner.h"
 #include "UI/Target.h"
-#include "LockOn.h"
+#include "UI/LockOn.h"
 
 void Enemy::Start()
 {
@@ -22,7 +22,7 @@ void Enemy::UnableLockOnTarget()
 { 
 	if (!m_IsLockOnTarget) return;
 	m_IsLockOnTarget = false;
-	m_Target->RemoveLockOnList(m_LockOn->gameObject.GetName());
+	m_Target->RemoveLockOn(m_LockOn->gameObject.GetName());
 	DestroyGameObject(&m_LockOn->gameObject);
 	m_LockOn = nullptr;
 }

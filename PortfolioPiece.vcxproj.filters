@@ -15,6 +15,8 @@
     <ClCompile Include="Assets\Scripts\UI\Target.cpp" />
     <ClCompile Include="Assets\Scripts\Enemy\EnemyMissile.cpp" />
     <ClCompile Include="Assets\Scripts\Player\PlayerMissile.cpp" />
+    <ClCompile Include="Assets\Scripts\Enemy\EnemySpawner.cpp" />
+    <ClCompile Include="Assets\Scripts\UI\LockOn.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source Files">
@@ -26,7 +28,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Assets\Scripts\Camera\BaseCamera.h" />
-    <ClInclude Include="Assets\Scripts\BulletType.h" />
     <ClInclude Include="Assets\Scripts\Camera\MainCamera.h" />
     <ClInclude Include="Assets\Scripts\Camera\TPSCamera.h" />
     <ClInclude Include="Assets\Scripts\Enemy\Enemy.h" />
@@ -40,5 +41,7 @@
     <ClInclude Include="Assets\Scripts\UI\Target.h" />
     <ClInclude Include="Assets\Scripts\Enemy\EnemyMissile.h" />
     <ClInclude Include="Assets\Scripts\Player\PlayerMissile.h" />
+    <ClInclude Include="Assets\Scripts\Enemy\EnemySpawner.h" />
+    <ClInclude Include="Assets\Scripts\UI\LockOn.h" />
   </ItemGroup>
 </Project>

@@ -1,6 +1,7 @@
 #include "Player.h"
 using namespace ChoSystem;
 #include "UI/Target.h"
+#include "UI/LockOn.h"
 #include "Camera/MainCamera.h"
 #include "Generator/Generator.h"
 
@@ -316,13 +317,24 @@ void Player::Attack()
 	if (Input::TriggerKey(DIK_SPACE))
 	{
 		// 弾の生成
-		m_Generator->GeneratePlayerBullet(PLAYER_BULLET_TYPE_NORMAL, transform->position);
+		m_Generator->GeneratePlayerBullet();
 	}
 	// ミサイル
 	if (Input::TriggerKey(DIK_LSHIFT))
 	{
-		// 弾の生成
-		m_Generator->GeneratePlayerBullet(PLAYER_BULLET_TYPE_MISSILE, transform->position);
+		// ロックオンリストを取得
+		auto& lockOnMap = m_Target->GetLockOnMap();
+		if (lockOnMap.empty()) return; // ロックオンしていなければ終了
+		// 全員に発射
+		for(auto& pair : lockOnMap)
+		{
+			LockOn* lockOn = pair.second;
+			if (!lockOn) continue;
+			if (lockOn->GetIsAttacked()) continue; // 既に攻撃されたならスキップ
+			// 弾の生成
+			m_Generator->GeneratePlayerMissile(lockOn->GetTargetEnemy());
+			lockOn->SetIsAttacked(true); // 攻撃されたフラグを立てる
+		}
 	}
 }
 

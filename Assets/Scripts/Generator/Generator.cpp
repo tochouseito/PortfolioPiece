@@ -7,6 +7,7 @@ using namespace ChoSystem;
 #include "Enemy/EnemyMissile.h"
 #include "FieldObject/Ground.h"
 #include "FieldObject/Wall.h"
+#include "Enemy/Enemy.h"
 
 void Generator::Start()
 {
@@ -26,8 +27,9 @@ void Generator::Update()
     // GenerateTerrain();
 }
 
-void Generator::GeneratePlayerBullet(const PlayerBulletType& type, const Vector3& pos)
+void Generator::GeneratePlayerBullet()
 {
+	Vector3 pos = m_Player->transform->position;
 	GameObject* dst = CloneGameObject(&m_PlayerBullet->gameObject, pos);
 	PlayerBullet* bullet = dst->GetMarionnette<PlayerBullet>();
 	bullet->SetActive(true);
@@ -38,6 +40,23 @@ void Generator::GeneratePlayerBullet(const PlayerBulletType& type, const Vector3
 void Generator::RemovePlayerBullet(const std::wstring& name)
 {
 	m_PlayerBullets.remove(name);
+}
+
+void Generator::GeneratePlayerMissile(Enemy* target)
+{
+	// ミサイル生成
+	// プレイヤーの位置を取得
+	Vector3 pos = m_Player->transform->position;
+	GameObject* dst = CloneGameObject(&m_PlayerMissile->gameObject, pos);
+	PlayerMissile* missile = dst->GetMarionnette<PlayerMissile>();
+	missile->SetActive(true);
+	missile->SetTargetEnemy(target);
+	m_PlayerMissiles.push_back(dst->GetName());
+}
+
+void Generator::RemovePlayerMissile(const std::wstring& name)
+{
+	m_PlayerMissiles.remove(name);
 }
 
 void Generator::GenerateTerrain()

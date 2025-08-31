@@ -24,7 +24,7 @@ void PlayerBullet::Update()
     if (!m_IsActive) return;
 
     // テスト
-    m_Velocity = m_Direction * m_Speed;
+	m_Velocity = (m_Direction * m_Speed) * DeltaTime();
     if (m_LifeTime <= 0.0f)
     {
         // ライフタイムが0以下なら非アクティブにする

@@ -1,6 +1,6 @@
 #pragma once
 #include "Marionnette.h"
-#include <list>
+#include <unordered_map>
 
 // 前方宣言
 class Player;
@@ -17,20 +17,20 @@ public:
     void Start() override;
 	// 毎フレーム処理
     void Update() override;
-	// ロックオンリスト取得
-	std::list<std::wstring>& GetLockOnList() { return m_LockOnList; }
+	// ロックオンマップ取得
+	std::unordered_map<std::wstring, LockOn*>& GetLockOnMap() { return m_LockOnMap; }
 	// リストから削除
-	void RemoveLockOnList(const std::wstring& name);
+	void RemoveLockOn(const std::wstring& name);
 private:
     void EnemyLockOn();
 
-	Player* m_Player = nullptr;// プレイヤー
-	MainCamera* m_MainCamera = nullptr;// メインカメラ
-	EnemySpawner* m_EnemySpawner = nullptr;// エネミースポナー
-	LockOn* m_LockOn = nullptr;// ロックオン
-	std::list<std::wstring> m_LockOnList;// ロックオンリスト
+	Player* m_Player = nullptr;				// プレイヤー
+	MainCamera* m_MainCamera = nullptr;		// メインカメラ
+	EnemySpawner* m_EnemySpawner = nullptr;	// エネミースポナー
+	LockOn* m_LockOn = nullptr;				// ロックオン
+	std::unordered_map<std::wstring, LockOn*> m_LockOnMap; // ロックオンマップ
 
     // パラメータ
     Vector3 offset = Vector3(0.0f, 0.0f, 40.0f);
-	float lockOnRadius = 120.0f;// ロックオン半径
+	float lockOnRadius = 120.0f;			// ロックオン半径
 };

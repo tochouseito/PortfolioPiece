@@ -2,7 +2,6 @@
 #include "Marionnette.h"
 #include <list>
 #include <string>
-#include "../BulletType.h"
 
 // 前方宣言
 class Player;
@@ -12,6 +11,7 @@ class EnemyBullet;
 class EnemyMissile;
 class Wall;
 class Ground;
+class Enemy;
 
 class Generator : public Marionnette
 {
@@ -23,9 +23,13 @@ public:
 	// 毎フレーム処理
     void Update() override;
 	// プレイヤー弾生成
-	void GeneratePlayerBullet(const PlayerBulletType& type, const Vector3& pos);
+	void GeneratePlayerBullet();
 	// プレイヤー弾削除
 	void RemovePlayerBullet(const std::wstring& name);
+	// プレイヤーミサイル生成
+	void GeneratePlayerMissile(Enemy* target);
+	// プレイヤーミサイル削除
+	void RemovePlayerMissile(const std::wstring& name);
 private:
 	// 地形生成
 	void GenerateTerrain();

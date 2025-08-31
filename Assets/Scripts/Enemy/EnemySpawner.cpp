@@ -41,7 +41,7 @@ void EnemySpawner::HorizontalSpawn()
 	// プレイヤーの位置を基準に左右にスポーン
 	Vector3 basePos = m_Player->GetPosition();
 	// プレイヤーより奥にスポーン
-	basePos.z += 50.0f;
+	basePos.z += 100.0f;
 	basePos.y += 10.0f;
 	float spacing = 20.0f; // 敵同士の間隔
 	for (int i = -2; i <= 2; ++i)

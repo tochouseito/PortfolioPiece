@@ -91,10 +91,9 @@
     <ClCompile Include="Assets\Scripts\Player\PlayerMissile.cpp" />
     <ClCompile Include="Assets\Scripts\UI\Reticle.cpp" />
     <ClCompile Include="Assets\Scripts\UI\Target.cpp" />
-    <ClCompile Include="LockOn.cpp" />
+    <ClCompile Include="Assets\Scripts\UI\LockOn.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Assets\Scripts\BulletType.h" />
     <ClInclude Include="Assets\Scripts\Camera\BaseCamera.h" />
     <ClInclude Include="Assets\Scripts\Camera\MainCamera.h" />
     <ClInclude Include="Assets\Scripts\Camera\TPSCamera.h" />
@@ -110,7 +109,7 @@
     <ClInclude Include="Assets\Scripts\Player\PlayerMissile.h" />
     <ClInclude Include="Assets\Scripts\UI\Reticle.h" />
     <ClInclude Include="Assets\Scripts\UI\Target.h" />
-    <ClInclude Include="LockOn.h" />
+    <ClInclude Include="Assets\Scripts\UI\LockOn.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
 </Project>
