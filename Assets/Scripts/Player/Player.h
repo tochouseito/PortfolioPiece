@@ -63,7 +63,7 @@ private:
     float curve = 1.0f; // 減衰の強さ
 
 
-    float speed = 0.0f; // 移動速度
+    float speed = 100.0f; // 移動速度
 	float fowardSpeed = 0.0f; // 前方移動速度
 	float maxSpeed = 0.0f; // 最大速度
 	float minSpeed = 0.0f; // 最小速度

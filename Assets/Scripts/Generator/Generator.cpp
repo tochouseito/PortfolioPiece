@@ -24,7 +24,7 @@ void Generator::Start()
 void Generator::Update()
 {
     // 毎フレーム処理
-    // GenerateTerrain();
+    GenerateTerrain();
 }
 
 void Generator::GeneratePlayerBullet()

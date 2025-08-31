@@ -205,8 +205,8 @@
                     ]
                 },
                 "MeshFilter": {
-                    "modelID": 6,
-                    "modelName": "DemoTerrain"
+                    "modelID": 8,
+                    "modelName": "lowDemoTerrain"
                 },
                 "MeshRenderer": {
                     "visible": true
@@ -595,7 +595,7 @@
                     ]
                 },
                 "MeshFilter": {
-                    "modelID": 8,
+                    "modelID": 9,
                     "modelName": "missile"
                 },
                 "MeshRenderer": {
@@ -671,7 +671,7 @@
                     ]
                 },
                 "MeshFilter": {
-                    "modelID": 8,
+                    "modelID": 9,
                     "modelName": "missile"
                 },
                 "MeshRenderer": {
@@ -747,7 +747,7 @@
                     ]
                 },
                 "MeshFilter": {
-                    "modelID": 8,
+                    "modelID": 9,
                     "modelName": "missile"
                 },
                 "MeshRenderer": {
