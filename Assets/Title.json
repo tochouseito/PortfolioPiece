@@ -1,0 +1,281 @@
+{
+    "fileType": "SceneFile",
+    "sceneName": "Title",
+    "objects": [
+        {
+            "name": "TitlePlayer",
+            "type": "MeshObject",
+            "components": {
+                "Transform": {
+                    "degrees": [
+                        -17.799999237060547,
+                        136.0,
+                        -0.0
+                    ],
+                    "isBillboard": false,
+                    "rotation": [
+                        -0.05795552209019661,
+                        0.9160204529762268,
+                        -0.1434449851512909,
+                        0.37009620666503906
+                    ],
+                    "scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "translation": [
+                        0.0,
+                        -3.200000047683716,
+                        20.0
+                    ]
+                },
+                "MeshFilter": {
+                    "modelID": 7,
+                    "modelName": "f16"
+                },
+                "MeshRenderer": {
+                    "visible": true
+                },
+                "Material": {
+                    "Color": [
+                        0.7843137383460999,
+                        0.7843137383460999,
+                        0.7843137383460999,
+                        1.0
+                    ],
+                    "enableLighting": true,
+                    "enableTexture": true,
+                    "shininess": 50.0,
+                    "textureName": "Atlas_00001",
+                    "uvFlipY": false
+                },
+                "Script": {
+                    "scriptName": "TitlePlayerAnimation"
+                }
+            }
+        },
+        {
+            "name": "TitleCamera",
+            "type": "Camera",
+            "components": {
+                "Transform": {
+                    "degrees": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "isBillboard": false,
+                    "rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ],
+                    "scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "translation": [
+                        0.0,
+                        0.0,
+                        -11.100000381469727
+                    ]
+                },
+                "Camera": {
+                    "aspectRatio": 1.7777777910232544,
+                    "farZ": 1000.0,
+                    "fovAngleY": 0.7853981852531433,
+                    "nearZ": 0.10000000149011612
+                }
+            }
+        },
+        {
+            "name": "TitleLight",
+            "type": "Light",
+            "components": {
+                "Transform": {
+                    "degrees": [
+                        45.0,
+                        45.0,
+                        0.0
+                    ],
+                    "isBillboard": false,
+                    "rotation": [
+                        0.3535534143447876,
+                        0.3535534143447876,
+                        0.14644663035869598,
+                        0.8535533547401428
+                    ],
+                    "scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "translation": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ]
+                },
+                "Light": {
+                    "active": true,
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "decay": 1.0,
+                    "intensity": 1.0,
+                    "range": 10.0,
+                    "spotAngle": 45.0,
+                    "spotFalloffStart": 0.0,
+                    "type": 0
+                }
+            }
+        },
+        {
+            "name": "TitleUI",
+            "type": "UI",
+            "components": {
+                "Transform": {
+                    "degrees": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "isBillboard": false,
+                    "rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ],
+                    "scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "translation": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ]
+                },
+                "Material": {
+                    "Color": [
+                        0.7843137383460999,
+                        0.7843137383460999,
+                        0.7843137383460999,
+                        1.0
+                    ],
+                    "enableLighting": true,
+                    "enableTexture": true,
+                    "shininess": 50.0,
+                    "textureName": "DemoTitle",
+                    "uvFlipY": false
+                },
+                "UISprite": {
+                    "anchorPoint": [
+                        0.0,
+                        0.0
+                    ],
+                    "position": [
+                        714.0,
+                        144.0
+                    ],
+                    "rotation": 0.0,
+                    "scale": [
+                        2.0,
+                        2.0
+                    ],
+                    "size": [
+                        256.0,
+                        64.0
+                    ],
+                    "textureLeftTop": [
+                        0.0,
+                        0.0
+                    ],
+                    "textureSize": [
+                        0.0,
+                        0.0
+                    ]
+                }
+            }
+        },
+        {
+            "name": "StartButtonUI",
+            "type": "UI",
+            "components": {
+                "Transform": {
+                    "degrees": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "isBillboard": false,
+                    "rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ],
+                    "scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "translation": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ]
+                },
+                "Material": {
+                    "Color": [
+                        0.7843137383460999,
+                        0.7843137383460999,
+                        0.7843137383460999,
+                        1.0
+                    ],
+                    "enableLighting": true,
+                    "enableTexture": true,
+                    "shininess": 50.0,
+                    "textureName": "DemoStartButton",
+                    "uvFlipY": false
+                },
+                "UISprite": {
+                    "anchorPoint": [
+                        0.0,
+                        0.0
+                    ],
+                    "position": [
+                        714.0,
+                        821.0
+                    ],
+                    "rotation": 0.0,
+                    "scale": [
+                        2.0,
+                        2.0
+                    ],
+                    "size": [
+                        256.0,
+                        64.0
+                    ],
+                    "textureLeftTop": [
+                        0.0,
+                        0.0
+                    ],
+                    "textureSize": [
+                        0.0,
+                        0.0
+                    ]
+                }
+            }
+        }
+    ],
+    "mainCamera": "TitleCamera"
+}

@@ -1,6 +1,6 @@
 {
     "fileType": "GameSettings",
-    "startScene": "MainScene",
+    "startScene": "Title",
     "frameRate": 60,
     "fixedDeltaTime": 0.01666666753590107,
     "debugMode": false,
