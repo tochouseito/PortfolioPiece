@@ -38,6 +38,9 @@ private:
 	Vector3 m_Velocity = Vector3::Zero();// 速度
 	Vector3 m_AngleVelocity = Vector3::Zero();// 角速度
 	float m_LifeTime = 60.0f;
-	float m_Speed = 80.0f;// 移動速度
+	float m_MaxSpeed = 230.0f;// 移動速度
 	float m_AngleSpeed = 1.5f;// 角速度
+	float m_ElapsedTime = 0.0f; // 経過時間
+	float m_AccelDuration = 1.5f; // 加速時間
+	float m_CurrentSpeed = 0.0f; // 現在の速度
 };

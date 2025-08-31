@@ -11,11 +11,14 @@ void Enemy::Start()
 	m_Target = GetMarionnette<Target>(L"Target");
     // タグ設定
 	gameObject.SetTag("Enemy");
+	if (!m_IsActive) { return; }
 }
 
 void Enemy::Update()
 {
     // 毎フレーム処理
+	if (!m_IsActive) return;
+	Move();
 }
 
 void Enemy::EnableLockOnTarget(LockOn* lockOn)
@@ -40,6 +43,16 @@ void Enemy::OnCollisionEnter(GameObject& other)
 	m_EnemySpawner->RemoveEnemy(gameObject.GetName());
 	UnableLockOnTarget();
 	DestroyGameObject(&gameObject);
+}
+
+void Enemy::Move()
+{
+	// 前方移動
+	m_Velocity.z = m_Speed;
+
+	// 適用
+	Rigidbody3D rb = GetComponent<Rigidbody3D>();
+	rb->velocity = m_Velocity;
 }
 
 REGISTER_SCRIPT_FACTORY(Enemy);

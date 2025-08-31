@@ -25,7 +25,7 @@ private:
 	Generator* m_Generator = nullptr;// 弾生成器
 
 	float m_LifeTime = 60.0f * 6.0f;
-	float m_Speed = 3.0f; // 弾の移動速度
+	float m_Speed = 180.0f; // 弾の移動速度
 	Vector3 m_Velocity{}; // 弾の速度
     Vector3 m_Direction{};// 進行方向
 	bool m_IsActive = false; // アクティブ状態かどうか

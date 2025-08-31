@@ -17,8 +17,6 @@ void PlayerBullet::Start()
 	transform->quaternion = m_Player->transform->quaternion;
 	m_LifeTime = 60.0f * 3.0f; // ライフタイムを設定
     // m_Speed = m_Player->GetSpeed() * m_Speed;
-    // ハードコーディング！！！
-	m_Speed = 40.0f; // 弾の移動速度を設定
 }
 
 void PlayerBullet::Update()
