@@ -8,6 +8,8 @@ void PlayerBullet::Start()
     // 初期化処理
     m_Player = GetMarionnette<Player>(L"Player");
 	m_Generator = GetMarionnette<Generator>(L"Generator");
+	// タグ設定
+	gameObject.SetTag("PlayerAttack");
     if (!m_IsActive) { return; }
     m_Direction = chomath::RotateVector(Vector3(0.0f, 0.0f, 1.0f), m_Player->transform->quaternion);
     m_Direction.Normalize();

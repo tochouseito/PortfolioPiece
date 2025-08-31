@@ -20,7 +20,7 @@ public:
 	bool IsActive() const { return m_IsActive; }
 	// ロックオン設定
 	bool IsLockOnTarget() const { return m_IsLockOnTarget; }
-	void EnableLockOnTarget(LockOn* lockOn) { m_IsLockOnTarget = true; }
+	void EnableLockOnTarget(LockOn* lockOn);
 	void UnableLockOnTarget();
 	// 衝突関数
 	void OnCollisionEnter(GameObject& other) override;

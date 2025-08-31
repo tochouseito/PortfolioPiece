@@ -18,6 +18,12 @@ void Enemy::Update()
     // 毎フレーム処理
 }
 
+void Enemy::EnableLockOnTarget(LockOn* lockOn)
+{
+	m_IsLockOnTarget = true;
+	m_LockOn = lockOn;
+}
+
 void Enemy::UnableLockOnTarget()
 { 
 	if (!m_IsLockOnTarget) return;
