@@ -1,0 +1,15 @@
+{
+    "fileType": "GameSettings",
+    "startScene": "Title",
+    "frameRate": 60,
+    "fixedDeltaTime": 0.01666666753590107,
+    "debugMode": false,
+    "skyTexName": "vz_classic_land_cubemap_ue",
+    "gravity": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "titleBar": "TestTitleBar",
+    "exeNae": "TestExeName"
+}

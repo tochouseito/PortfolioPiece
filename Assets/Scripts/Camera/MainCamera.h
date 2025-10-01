@@ -1,0 +1,29 @@
+#pragma once
+#include "Marionnette.h"
+
+class Player;
+class MainCamera : public Marionnette
+{
+public:
+	// コンストラクタ
+    MainCamera(GameObject& object) : Marionnette(object) {}
+    // 初期化処理
+    void Start() override;
+	// 毎フレーム処理
+    void Update() override;
+private:
+	// ラグ追従
+	void LagFollow();
+
+	Player* m_Player = nullptr; // プレイヤーオブジェクトへのポインタ
+
+	// オフセット
+	const Vector3 offset = Vector3(0.0f, 5.0f, -30.0f); // オフセット
+	const Vector3 lookOffset = Vector3(0.0f, 2.0f, 10.0f); // 視線の少し前
+	const float followSpeed = 5.0f; // 追従速度
+	const float rotateSpeed = 5.0f; // 回転速度
+
+	float m_FOVOnBoost = 80.0f; // ブースト時のFOV
+	float m_BoostFovTransitionDuration = 1;
+	float m_DefaultFOV = 60;
+};
