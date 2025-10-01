@@ -1,5 +1,5 @@
 #include "Enemy.h"
-using namespace ChoSystem;
+using namespace theatriaSystem;
 #include "Enemy/EnemySpawner.h"
 #include "UI/Target.h"
 #include "UI/LockOn.h"

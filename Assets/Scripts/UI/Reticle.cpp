@@ -1,5 +1,5 @@
 #include "Reticle.h"
-using namespace ChoSystem;
+using namespace theatriaSystem;
 #include "Player/Player.h"
 #include "Enemy/Enemy.h"
 

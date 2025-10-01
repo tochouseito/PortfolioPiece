@@ -1,5 +1,5 @@
 #include "Ground.h"
-using namespace ChoSystem;
+using namespace theatriaSystem;
 
 void Ground::Start()
 {

@@ -1,5 +1,5 @@
 #include "EnemyBullet.h"
-using namespace ChoSystem;
+using namespace theatriaSystem;
 
 void EnemyBullet::Start()
 {

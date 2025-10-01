@@ -1,5 +1,5 @@
 #include "LockOn.h"
-using namespace ChoSystem;
+using namespace theatriaSystem;
 
 void LockOn::Start()
 {

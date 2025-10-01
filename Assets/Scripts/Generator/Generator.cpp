@@ -1,5 +1,5 @@
 #include "Generator.h"
-using namespace ChoSystem;
+using namespace theatriaSystem;
 #include "Player/Player.h"
 #include "Player/PlayerBullet.h"
 #include "Player/PlayerMissile.h"

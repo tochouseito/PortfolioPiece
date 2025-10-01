@@ -1,5 +1,5 @@
 #include "Wall.h"
-using namespace ChoSystem;
+using namespace theatriaSystem;
 
 void Wall::Start()
 {

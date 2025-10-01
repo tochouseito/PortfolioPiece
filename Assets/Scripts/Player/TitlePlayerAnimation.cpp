@@ -1,5 +1,5 @@
 #include "TitlePlayerAnimation.h"
-using namespace ChoSystem;
+using namespace theatriaSystem;
 
 namespace
 {

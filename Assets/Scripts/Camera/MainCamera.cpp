@@ -1,5 +1,5 @@
 #include "MainCamera.h"
-using namespace ChoSystem;
+using namespace theatriaSystem;
 #include "Player/Player.h"
 
 void MainCamera::Start()

@@ -1,5 +1,5 @@
 #include "Target.h"
-using namespace ChoSystem;
+using namespace theatriaSystem;
 #include "Player/Player.h"
 #include "Camera/MainCamera.h"
 #include "Enemy/EnemySpawner.h"
