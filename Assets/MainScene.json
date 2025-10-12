@@ -54,13 +54,21 @@
                     "scriptName": "Player"
                 },
                 "Rigidbody3D": {
+                    "active": true,
+                    "bodyType": 1,
+                    "fixedPositionX": false,
+                    "fixedPositionY": false,
+                    "fixedPositionZ": false,
+                    "fixedRotationX": false,
+                    "fixedRotationY": false,
+                    "fixedRotationZ": false,
                     "friction": 0.30000001192092896,
+                    "gravityScale": 1.0,
                     "halfsize": [
                         0.5,
                         0.5,
                         0.5
                     ],
-                    "isKinematic": false,
                     "isSensor": true,
                     "mass": 1.0,
                     "quaternion": [
@@ -320,13 +328,21 @@
                     "scriptName": "PlayerBullet"
                 },
                 "Rigidbody3D": {
+                    "active": true,
+                    "bodyType": 1,
+                    "fixedPositionX": false,
+                    "fixedPositionY": false,
+                    "fixedPositionZ": false,
+                    "fixedRotationX": false,
+                    "fixedRotationY": false,
+                    "fixedRotationZ": false,
                     "friction": 0.30000001192092896,
+                    "gravityScale": 1.0,
                     "halfsize": [
                         0.5,
                         0.5,
                         0.5
                     ],
-                    "isKinematic": false,
                     "isSensor": false,
                     "mass": 1.0,
                     "quaternion": [
@@ -449,13 +465,21 @@
                     "scriptName": "Enemy"
                 },
                 "Rigidbody3D": {
+                    "active": true,
+                    "bodyType": 1,
+                    "fixedPositionX": false,
+                    "fixedPositionY": false,
+                    "fixedPositionZ": false,
+                    "fixedRotationX": false,
+                    "fixedRotationY": false,
+                    "fixedRotationZ": false,
                     "friction": 0.30000001192092896,
+                    "gravityScale": 1.0,
                     "halfsize": [
                         2.0,
                         2.0,
                         2.0
                     ],
-                    "isKinematic": false,
                     "isSensor": true,
                     "mass": 1.0,
                     "quaternion": [
@@ -618,13 +642,21 @@
                     "scriptName": "PlayerMissile"
                 },
                 "Rigidbody3D": {
+                    "active": true,
+                    "bodyType": 1,
+                    "fixedPositionX": false,
+                    "fixedPositionY": false,
+                    "fixedPositionZ": false,
+                    "fixedRotationX": false,
+                    "fixedRotationY": false,
+                    "fixedRotationZ": false,
                     "friction": 0.30000001192092896,
+                    "gravityScale": 1.0,
                     "halfsize": [
                         0.5,
                         0.5,
                         0.5
                     ],
-                    "isKinematic": false,
                     "isSensor": true,
                     "mass": 1.0,
                     "quaternion": [
@@ -694,13 +726,21 @@
                     "scriptName": "EnemyBullet"
                 },
                 "Rigidbody3D": {
+                    "active": true,
+                    "bodyType": 1,
+                    "fixedPositionX": false,
+                    "fixedPositionY": false,
+                    "fixedPositionZ": false,
+                    "fixedRotationX": false,
+                    "fixedRotationY": false,
+                    "fixedRotationZ": false,
                     "friction": 0.30000001192092896,
+                    "gravityScale": 1.0,
                     "halfsize": [
                         0.5,
                         0.5,
                         0.5
                     ],
-                    "isKinematic": false,
                     "isSensor": true,
                     "mass": 1.0,
                     "quaternion": [
@@ -770,13 +810,21 @@
                     "scriptName": "EnemyMissile"
                 },
                 "Rigidbody3D": {
+                    "active": true,
+                    "bodyType": 1,
+                    "fixedPositionX": false,
+                    "fixedPositionY": false,
+                    "fixedPositionZ": false,
+                    "fixedRotationX": false,
+                    "fixedRotationY": false,
+                    "fixedRotationZ": false,
                     "friction": 0.30000001192092896,
+                    "gravityScale": 1.0,
                     "halfsize": [
                         0.5,
                         0.5,
                         0.5
                     ],
-                    "isKinematic": false,
                     "isSensor": true,
                     "mass": 1.0,
                     "quaternion": [
