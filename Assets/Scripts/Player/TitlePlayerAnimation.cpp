@@ -27,11 +27,6 @@ void TitlePlayerAnimation::Update()
     Vector3 pos = m_BasePos;
     pos.y += m_Amplitude * std::sin(m_Phase);
     transform->position = pos;
-	// スペースキーが押されたらシーン切り替え
-	if (Input::TriggerKey(DIK_SPACE))
-	{
-		sceneManager.LoadScene(L"MainScene");
-	}
 }
 
 REGISTER_SCRIPT_FACTORY(TitlePlayerAnimation);

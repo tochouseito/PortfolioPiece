@@ -51,7 +51,7 @@
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>ChoMath.lib;TheatriaEngine.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>C:\Users\sinse\source\repos\TheatriaEngine\generated\outputs\Debug;$(ProjectDir);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\sinse\source\repos\TheatriaEngine\generated\outputs\$(Configuration);$(ProjectDir);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -72,7 +72,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>ChoMath.lib;TheatriaEngine.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>C:\Users\sinse\source\repos\TheatriaEngine\generated\outputs\Debug;$(ProjectDir);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\sinse\source\repos\TheatriaEngine\generated\outputs\$(Configuration);$(ProjectDir);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -93,6 +93,9 @@
     <ClCompile Include="Assets\Scripts\UI\Reticle.cpp" />
     <ClCompile Include="Assets\Scripts\UI\Target.cpp" />
     <ClCompile Include="Assets\Scripts\Player\TitlePlayerAnimation.cpp" />
+    <ClCompile Include="Assets\Scripts\FadeSprite.cpp" />
+    <ClCompile Include="Assets\Scripts\TitleManager.cpp" />
+    <ClCompile Include="Assets\Scripts\GameManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Assets\Scripts\Camera\BaseCamera.h" />
@@ -112,6 +115,9 @@
     <ClInclude Include="Assets\Scripts\UI\Reticle.h" />
     <ClInclude Include="Assets\Scripts\UI\Target.h" />
     <ClInclude Include="Assets\Scripts\Player\TitlePlayerAnimation.h" />
+    <ClInclude Include="Assets\Scripts\FadeSprite.h" />
+    <ClInclude Include="Assets\Scripts\TitleManager.h" />
+    <ClInclude Include="Assets\Scripts\GameManager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
 </Project>

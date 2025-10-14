@@ -934,6 +934,130 @@
                     "scriptName": "LockOn"
                 }
             }
+        },
+        {
+            "name": "FadeSprite",
+            "type": "UI",
+            "components": {
+                "Transform": {
+                    "degrees": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "isBillboard": false,
+                    "rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ],
+                    "scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "translation": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ]
+                },
+                "Material": {
+                    "Color": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ],
+                    "enableLighting": true,
+                    "enableTexture": false,
+                    "shininess": 50.0,
+                    "textureName": "",
+                    "uvFlipY": false
+                },
+                "Script": {
+                    "fields": {
+                        "duration": {
+                            "minmax": [
+                                0,
+                                100
+                            ],
+                            "name": "duration",
+                            "type": "float",
+                            "value": 1.0
+                        }
+                    },
+                    "scriptName": "FadeSprite"
+                },
+                "UISprite": {
+                    "anchorPoint": [
+                        0.0,
+                        0.0
+                    ],
+                    "position": [
+                        0.0,
+                        0.0
+                    ],
+                    "rotation": 0.0,
+                    "scale": [
+                        1.0,
+                        1.0
+                    ],
+                    "size": [
+                        1920.0,
+                        1080.0
+                    ],
+                    "textureLeftTop": [
+                        0.0,
+                        0.0
+                    ],
+                    "textureSize": [
+                        0.0,
+                        0.0
+                    ]
+                }
+            }
+        },
+        {
+            "name": "GameManager",
+            "type": "MeshObject",
+            "components": {
+                "Transform": {
+                    "degrees": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "isBillboard": false,
+                    "rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ],
+                    "scale": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "translation": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ]
+                },
+                "MeshFilter": {
+                    "modelID": 0,
+                    "modelName": "Cube"
+                },
+                "MeshRenderer": {
+                    "visible": true
+                },
+                "Script": {
+                    "scriptName": "GameManager"
+                }
+            }
         }
     ],
     "mainCamera": "MainCamera"
