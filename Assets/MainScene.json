@@ -968,7 +968,7 @@
                         0.0,
                         0.0,
                         0.0,
-                        1.0
+                        0.0
                     ],
                     "enableLighting": true,
                     "enableTexture": false,
