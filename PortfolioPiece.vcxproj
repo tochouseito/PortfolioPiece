@@ -96,6 +96,7 @@
     <ClCompile Include="Assets\Scripts\FadeSprite.cpp" />
     <ClCompile Include="Assets\Scripts\TitleManager.cpp" />
     <ClCompile Include="Assets\Scripts\GameManager.cpp" />
+    <ClCompile Include="Assets\Scripts\GameOverText.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Assets\Scripts\Camera\BaseCamera.h" />
@@ -118,6 +119,7 @@
     <ClInclude Include="Assets\Scripts\FadeSprite.h" />
     <ClInclude Include="Assets\Scripts\TitleManager.h" />
     <ClInclude Include="Assets\Scripts\GameManager.h" />
+    <ClInclude Include="Assets\Scripts\GameOverText.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
 </Project>

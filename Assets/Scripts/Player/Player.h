@@ -46,6 +46,9 @@ private:
     math::float3 m_AngularVelocity{};
     float   m_AngularAcceleration = 2.0f;
 
+    // 生存フラグ
+	bool m_IsAlive = true;
+
     // 減衰・制限
     float   damping = 0.9f;
     math::float2 limitPos{ 30.0f, 50.0f };

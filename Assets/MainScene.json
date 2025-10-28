@@ -1058,6 +1058,79 @@
                     "scriptName": "GameManager"
                 }
             }
+        },
+        {
+            "name": "GameOverText",
+            "type": "UI",
+            "components": {
+                "Transform": {
+                    "degrees": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "isBillboard": false,
+                    "rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ],
+                    "scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "translation": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ]
+                },
+                "Material": {
+                    "Color": [
+                        0.7843137383460999,
+                        0.7843137383460999,
+                        0.7843137383460999,
+                        0.0
+                    ],
+                    "enableLighting": true,
+                    "enableTexture": true,
+                    "shininess": 50.0,
+                    "textureName": "gameover",
+                    "uvFlipY": false
+                },
+                "Script": {
+                    "scriptName": "GameOverText"
+                },
+                "UISprite": {
+                    "anchorPoint": [
+                        0.0,
+                        0.0
+                    ],
+                    "position": [
+                        580.0,
+                        370.0
+                    ],
+                    "rotation": 0.0,
+                    "scale": [
+                        3.0,
+                        3.0
+                    ],
+                    "size": [
+                        256.0,
+                        64.0
+                    ],
+                    "textureLeftTop": [
+                        0.0,
+                        0.0
+                    ],
+                    "textureSize": [
+                        0.0,
+                        0.0
+                    ]
+                }
+            }
         }
     ],
     "mainCamera": "MainCamera"

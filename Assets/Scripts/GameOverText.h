@@ -1,11 +1,11 @@
 #pragma once
 #include "Marionnette.h"
 
-class FadeSprite : public Marionnette
+class GameOverText : public Marionnette
 {
 public:
 	// コンストラクタ
-    FadeSprite(GameObject& object) : Marionnette(object) {}
+    GameOverText(GameObject& object) : Marionnette(object) {}
     // 初期化処理
     void Start() override;
 	// 毎フレーム処理

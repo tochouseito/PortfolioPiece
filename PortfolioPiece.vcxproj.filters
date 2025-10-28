@@ -18,6 +18,9 @@
     <ClCompile Include="Assets\Scripts\Enemy\EnemySpawner.cpp" />
     <ClCompile Include="Assets\Scripts\UI\LockOn.cpp" />
     <ClCompile Include="Assets\Scripts\Player\TitlePlayerAnimation.cpp" />
+    <ClCompile Include="Assets\Scripts\FadeSprite.cpp" />
+    <ClCompile Include="Assets\Scripts\TitleManager.cpp" />
+    <ClCompile Include="Assets\Scripts\GameManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source Files">
@@ -45,30 +48,13 @@
     <ClInclude Include="Assets\Scripts\Enemy\EnemySpawner.h" />
     <ClInclude Include="Assets\Scripts\UI\LockOn.h" />
     <ClInclude Include="Assets\Scripts\Player\TitlePlayerAnimation.h" />
-    <ClInclude Include="FadeSprite.h" />
+    <ClInclude Include="Assets\Scripts\FadeSprite.h" />
+    <ClInclude Include="Assets\Scripts\TitleManager.h" />
+    <ClInclude Include="Assets\Scripts\GameManager.h" />
+    <ClInclude Include="GameOverText.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="FadeSprite.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="TitleManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="TitleManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="GameManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="GameManager.cpp">
+    <ClCompile Include="GameOverText.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
