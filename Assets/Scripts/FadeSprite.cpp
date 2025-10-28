@@ -50,7 +50,7 @@ void FadeSprite::FadeIn()
 	auto mtl = GetComponent<Material>();
 	if (mtl)
 	{
-		float alpha = chomath::Lerp(0.0f, 1.0f, elapsedTime / duration);
+		float alpha = math::Lerp(0.0f, 1.0f, elapsedTime / duration);
 		mtl->color.a = alpha;
 	}
 	if (elapsedTime >= duration)
@@ -68,7 +68,7 @@ void FadeSprite::FadeOut()
 	auto mtl = GetComponent<Material>();
 	if (mtl)
 	{
-		float alpha = chomath::Lerp(1.0f, 0.0f, elapsedTime / duration);
+		float alpha = math::Lerp(1.0f, 0.0f, elapsedTime / duration);
 		mtl->color.a = alpha;
 	}
 	if (elapsedTime >= duration)

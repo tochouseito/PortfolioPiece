@@ -79,7 +79,7 @@ void Generator::GenerateTerrain()
             continue; // 既に生成されている地形はスキップ
 		}
         float z = i * m_TerrainOffset.z;
-        Vector3 position(m_TerrainOffset.x, m_TerrainOffset.y, z);
+        math::float3 position(m_TerrainOffset.x, m_TerrainOffset.y, z);
         GameObject* newGround = CloneGameObject(&m_Ground->gameObject, position);
         Ground* groundScript = newGround->GetMarionnette<Ground>();
         groundScript->SetScale(Scale(11.0f, 11.0f, 11.0f)); // スケール設定

@@ -40,7 +40,7 @@ void Player::Update()
 		if (m_Camera)
 		{
 			Camera cam = m_Camera->GetComponent<Camera>();
-			cam->fovAngleY = chomath::Lerp(cam->fovAngleY, m_DefaultFov, 8.0f * DeltaTime());
+			cam->fovAngleY = math::Lerp(cam->fovAngleY, m_DefaultFov, 8.0f * DeltaTime());
 		}
 		return;
 	}
@@ -122,7 +122,7 @@ void Player::Boost()
 	if (isBoosting)
 	{
 		// 前方方向へ強い加速
-		const Vector3 forward = chomath::RotateVector(Vector3(0.0f, 0.0f, 1.0f), transform->quaternion);
+		const Vector3 forward = math::RotateVector(Vector3(0.0f, 0.0f, 1.0f), transform->quaternion);
 		// 「瞬間的インパルス」寄り：DeltaTimeを掛けてフレーム依存性を抑える
 		m_Velocity += forward * (boostPower * DeltaTime());
 
@@ -139,7 +139,7 @@ void Player::Boost()
 	else
 	{
 		// 非ブースト時はFOVを通常へ戻す
-		if (cam) cam->fovAngleY = chomath::Lerp(cam->fovAngleY, m_DefaultFov, 8.0f * DeltaTime());
+		if (cam) cam->fovAngleY = math::Lerp(cam->fovAngleY, m_DefaultFov, 8.0f * DeltaTime());
 	}
 
 	// 速度の最終適用（Moveで適用済みだがブースト加算後にも反映したい場合は再適用）
@@ -178,7 +178,7 @@ void Player::MoveLimit()
 	if ((m_Velocity.x > 0.0f && pos.x > 0.0f) || (m_Velocity.x < 0.0f && pos.x < 0.0f))
 	{
 		float distToLimitX = limitPos.x - std::abs(pos.x);
-		float t = chomath::Clamp(distToLimitX / smoothLimitRange, 0.0f, 1.0f);
+		float t = math::Clamp(distToLimitX / smoothLimitRange, 0.0f, 1.0f);
 		m_Velocity.x *= std::pow(t, curve);
 	}
 
@@ -186,7 +186,7 @@ void Player::MoveLimit()
 	if ((m_Velocity.y > 0.0f && pos.y > 0.0f) || (m_Velocity.y < 0.0f && pos.y < 0.0f))
 	{
 		float distToLimitY = limitPos.y - std::abs(pos.y);
-		float t = chomath::Clamp(distToLimitY / smoothLimitRange, 0.0f, 1.0f);
+		float t = math::Clamp(distToLimitY / smoothLimitRange, 0.0f, 1.0f);
 		m_Velocity.y *= std::pow(t, curve);
 	}
 
@@ -249,12 +249,12 @@ void Player::Dodge()
 		transform->degrees.z += rotateDir * dodgeRotateSpeed * DeltaTime();
 
 		// ローカルX方向へスライド
-		const Vector3 dodgeLocal = (dodgeDirection == 1)
-			? Vector3(1.0f, 0.0f, 0.0f)  // 右
-			: Vector3(-1.0f, 0.0f, 0.0f); // 左
+		const math::float3 dodgeLocal = (dodgeDirection == 1)
+			? math::float3(1.0f, 0.0f, 0.0f)  // 右
+			: math::float3(-1.0f, 0.0f, 0.0f); // 左
 
-		const Vector3 dodgeWorld = chomath::RotateVector(dodgeLocal, transform->quaternion);
-		m_Velocity = Vector3::Normalize(dodgeWorld) * dodgeMoveSpeed;
+		const math::float3 dodgeWorld = math::RotateVector(dodgeLocal, transform->quaternion);
+		m_Velocity = math::float3::Normalize(dodgeWorld) * dodgeMoveSpeed;
 
 		// 前進を残したい場合は以下を加算（任意）
 		// m_Velocity += chomath::RotateVector(Vector3(0,0,1), transform->quaternion) * (speed * 0.5f);
@@ -269,7 +269,7 @@ void Player::Dodge()
 // 減衰処理
 float Player::SmoothLimitRange(const float& distance)
 {
-	float limitFactor = chomath::Clamp(distance / smoothLimitRange, 0.0f, 1.0f);
+	float limitFactor = math::Clamp(distance / smoothLimitRange, 0.0f, 1.0f);
 	return m_Acceleration * DeltaTime() * limitFactor;
 }
 

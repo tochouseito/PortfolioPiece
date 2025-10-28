@@ -19,7 +19,7 @@ public:
 	// 回避行動フラグGet
 	bool IsDodging() const { return isDodging; }
     // 座標取得
-    Vector3 GetPosition() { return transform->position; }
+    math::float3 GetPosition() { return transform->position; }
     // 速度取得
 	float GetSpeed() const { return speed; }
 private:
@@ -38,17 +38,17 @@ private:
 
     std::unordered_map<std::wstring, GameObject*> m_LockOnMap;
 
-    Vector3 initialPosition{ 0.0f, 0.0f, 0.0f };
+    math::float3 initialPosition{ 0.0f, 0.0f, 0.0f };
 
     // 運動パラメータ
-    Vector3 m_Velocity{};              // 現在速度
+    math::float3 m_Velocity{};              // 現在速度
     float   m_Acceleration = 2.0f;     // 加速度
-    Vector3 m_AngularVelocity{};
+    math::float3 m_AngularVelocity{};
     float   m_AngularAcceleration = 2.0f;
 
     // 減衰・制限
     float   damping = 0.9f;
-    Vector2 limitPos{ 30.0f, 50.0f };
+    math::float2 limitPos{ 30.0f, 50.0f };
     float   smoothLimitRange = 10.0f;
     float   curve = 1.0f;
 

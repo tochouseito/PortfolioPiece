@@ -24,7 +24,7 @@ void TitlePlayerAnimation::Update()
     }
 
     // y をサインで上下させる（x,z は固定）
-    Vector3 pos = m_BasePos;
+    math::float3 pos = m_BasePos;
     pos.y += m_Amplitude * std::sin(m_Phase);
     transform->position = pos;
 }

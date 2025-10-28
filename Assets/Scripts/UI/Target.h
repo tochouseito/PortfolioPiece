@@ -31,6 +31,6 @@ private:
 	std::unordered_map<std::wstring, LockOn*> m_LockOnMap; // ロックオンマップ
 
     // パラメータ
-    Vector3 offset = Vector3(0.0f, 0.0f, 40.0f);
+    math::float3 offset = math::float3(0.0f, 0.0f, 40.0f);
 	float lockOnRadius = 120.0f;			// ロックオン半径
 };

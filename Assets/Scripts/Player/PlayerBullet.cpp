@@ -11,7 +11,7 @@ void PlayerBullet::Start()
 	// タグ設定
 	gameObject.SetTag("PlayerAttack");
     if (!m_IsActive) { return; }
-    m_Direction = chomath::RotateVector(Vector3(0.0f, 0.0f, 1.0f), m_Player->transform->quaternion);
+    m_Direction = math::RotateVector(math::float3(0.0f, 0.0f, 1.0f), m_Player->transform->quaternion);
     m_Direction.Normalize();
     m_Velocity.Initialize();
 	transform->quaternion = m_Player->transform->quaternion;

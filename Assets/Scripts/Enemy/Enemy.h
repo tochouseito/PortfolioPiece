@@ -34,5 +34,5 @@ private:
     bool m_IsActive = false;
 	bool m_IsLockOnTarget = false;// ロックオンされているか
 	float m_Speed = 110.0f;// 移動速度
-	Vector3 m_Velocity = Vector3::Zero();// 速度
+	math::float3 m_Velocity = math::float3::Zero();// 速度
 };

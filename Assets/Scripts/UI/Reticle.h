@@ -18,5 +18,5 @@ private:
     Player* m_Player = nullptr;
 
     // パラメータ
-    Vector3 offset = Vector3(0.0f, 0.0f, 40.0f);
+    math::float3 offset = math::float3(0.0f, 0.0f, 40.0f);
 };

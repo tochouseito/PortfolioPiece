@@ -42,7 +42,7 @@ private:
 	Wall* m_Wall = nullptr;
 	Ground* m_Ground = nullptr;
 	uint32_t m_TerrainCount = 0;
-	Vector3 m_TerrainOffset = Vector3(0.0f, -15.0f, 1000.0f); // 地形のオフセット
+	math::float3 m_TerrainOffset = math::float3(0.0f, -15.0f, 1000.0f); // 地形のオフセット
 	std::unordered_map<uint32_t, GameObject*> m_TerrainMap;
 	std::list<std::wstring> m_PlayerBullets;
 	std::list<std::wstring> m_PlayerMissiles;

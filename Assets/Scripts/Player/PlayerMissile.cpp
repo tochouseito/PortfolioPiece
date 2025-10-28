@@ -57,24 +57,24 @@ void PlayerMissile::Homing()
 	Vector3 toEnemy = enemyPos - transform->position;
 	toEnemy.Normalize();
     m_Direction = toEnemy;
-    m_Velocity = chomath::Slerp(m_Velocity, m_Direction, 1.0f);
+    m_Velocity = math::Slerp(m_Velocity, m_Direction, 1.0f);
     m_Velocity.Normalize();
 
     // 速度イージング
     // 経過時間割合
     float t = m_ElapsedTime / m_AccelDuration;
-	t = chomath::Clamp(t, 0.0f, 1.0f);
+	t = math::Clamp(t, 0.0f, 1.0f);
 	// イージング関数で補正（EaseOutQuad）
-	float ease = chomath::easing::EaseInQuad(t);
+	float ease = math::easing::EaseInQuad(t);
 	// 速度に反映
-	m_CurrentSpeed = chomath::Lerp(m_Player->GetSpeed(), m_MaxSpeed, ease);
+	m_CurrentSpeed = math::Lerp(m_Player->GetSpeed(), m_MaxSpeed, ease);
     
     m_ElapsedTime += DeltaTime();
 
     m_Velocity *= m_CurrentSpeed;
 
     // 回転姿勢をターゲット方向に向ける
-    Quaternion targetRot = chomath::MakeLookRotation(m_Velocity, Vector3(0.0f,1.0f,0.0f));
+    Quaternion targetRot = math::MakeLookRotation(m_Velocity, Vector3(0.0f,1.0f,0.0f));
     // 現在の回転から目標回転へ補間
 	rb->quaternion = Quaternion::Slerp(rb->quaternion, targetRot, 1.0f);
 }

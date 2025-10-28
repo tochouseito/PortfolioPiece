@@ -7,7 +7,7 @@ class MainCamera : public Marionnette
 public:
 	struct Rig
 	{
-		Vector3 pos;
+		math::float3 pos;
 		Quaternion rot;
 		float fovDeg;
 	};
@@ -45,12 +45,12 @@ private:
 	float lookAhead_ = 6.0f; // 視線の先（自機前方）
 
 	// ブレンド用キャッシュ
-	Vector3 endIntroPos_{};
+	math::float3 endIntroPos_{};
 	Quaternion endIntroRot_{};
 
 	// オフセット
-	const Vector3 offset = Vector3(0.0f, 5.0f, -30.0f); // オフセット
-	const Vector3 lookOffset = Vector3(0.0f, 2.0f, 10.0f); // 視線の少し前
+	const math::float3 offset = math::float3(0.0f, 5.0f, -30.0f); // オフセット
+	const math::float3 lookOffset = math::float3(0.0f, 2.0f, 10.0f); // 視線の少し前
 	const float followSpeed = 5.0f; // 追従速度
 	const float rotateSpeed = 5.0f; // 回転速度
 

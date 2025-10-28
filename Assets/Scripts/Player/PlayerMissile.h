@@ -33,10 +33,10 @@ private:
 
 	// パラメータ
     bool m_IsActive = false;
-	Vector3 m_Direction = Vector3(0.0f, 0.0f, 1.0f);// 進行方向
-	Vector3 m_Angle = Vector3::Zero();// 角度
-	Vector3 m_Velocity = Vector3::Zero();// 速度
-	Vector3 m_AngleVelocity = Vector3::Zero();// 角速度
+	math::float3 m_Direction = math::float3(0.0f, 0.0f, 1.0f);// 進行方向
+	math::float3 m_Angle = math::float3::Zero();// 角度
+	math::float3 m_Velocity = math::float3::Zero();// 速度
+	math::float3 m_AngleVelocity = math::float3::Zero();// 角速度
 	float m_LifeTime = 60.0f;
 	float m_MaxSpeed = 230.0f;// 移動速度
 	float m_AngleSpeed = 1.5f;// 角速度
