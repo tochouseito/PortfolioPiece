@@ -22,6 +22,12 @@ public:
     math::float3 GetPosition() { return transform->position; }
     // 速度取得
 	float GetSpeed() const { return speed; }
+
+    // 
+    void SetClear()
+    {
+		isClear = true;
+    }
 private:
     void Move();
     void Boost();
@@ -86,4 +92,6 @@ private:
 
     float limitFactor = 0.5f;
     Quaternion baseQuaternion;
+
+	bool isClear = false;
 };

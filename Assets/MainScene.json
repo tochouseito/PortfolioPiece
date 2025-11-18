@@ -1097,7 +1097,7 @@
                     "enableLighting": true,
                     "enableTexture": true,
                     "shininess": 50.0,
-                    "textureName": "gameover",
+                    "textureName": "GameClear",
                     "uvFlipY": false
                 },
                 "Script": {

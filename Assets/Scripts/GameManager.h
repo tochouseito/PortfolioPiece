@@ -23,4 +23,7 @@ private:
 	bool gameOverTriggered = false;
 	bool gameOverStarted = false;
 	bool sceneChanged = false;
+
+	bool clearTriggered = false;
+	bool clearStarted = false;
 };

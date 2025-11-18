@@ -18,7 +18,7 @@ void Player::Start()
 	m_Velocity.Initialize();
 	baseQuaternion.Initialize();
 
-	//REGISTER_FIELD(speed);
+	// REGISTER_FIELD(speed);
 	// 必要に応じて UI デバッグ用に以下も公開可
 	// REGISTER_FIELD(boostDuration);
 	// REGISTER_FIELD(boostCooldown);
@@ -82,6 +82,12 @@ void Player::Move()
 	if (Input::PushKey(DIK_D)) m_Velocity.x += m_Acceleration;
 	if (Input::PushKey(DIK_W)) m_Velocity.y += m_Acceleration;
 	if (Input::PushKey(DIK_S)) m_Velocity.y -= m_Acceleration;
+
+	if (isClear)
+	{
+		speed = 400.0f;
+		m_Velocity.y = 200.0f;
+	}
 
 	// 前方巡航速度（常にZ+方向へ）
 	m_Velocity.z = speed;

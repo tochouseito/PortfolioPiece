@@ -20,7 +20,7 @@ void GameManager::Update()
 {
     // 毎フレーム処理
     // 2秒後にフェードイン
-    if (timer >= 3.0f)
+    /*if (timer >= 3.0f)
     {
         if (fadeSprite)
         {
@@ -34,6 +34,51 @@ void GameManager::Update()
                 if (!gameOverStarted)
                 {
 					gameOverStarted = true;
+                    gameOverText->StartFadeIn();
+                }
+            }
+        }
+    }
+    else
+    {
+        timer += DeltaTime();
+    }
+    if (gameOverStarted)
+    {
+        if (!sceneChanged && Input::TriggerKey(DIK_SPACE))
+        {
+            sceneChanged = true;
+            if (gameOverText && !gameOverText->IsFading())
+            {
+                gameOverText->StartFadeOut();
+            }
+        }
+        if (sceneChanged && gameOverText && !gameOverText->IsFading())
+        {
+            sceneManager.LoadScene(L"Title");
+            sceneChanged = false;
+        }
+    }*/
+
+    if (timer >= 3.0f)
+    {
+        if (player)
+        {
+            player->SetClear();
+        }
+
+        if (fadeSprite)
+        {
+            if (!gameOverTriggered)
+            {
+                gameOverTriggered = true;
+                fadeSprite->StartFadeIn();
+            }
+            if (!fadeSprite->IsFading())
+            {
+                if (!gameOverStarted)
+                {
+                    gameOverStarted = true;
                     gameOverText->StartFadeIn();
                 }
             }
