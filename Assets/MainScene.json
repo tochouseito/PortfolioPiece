@@ -1131,6 +1131,256 @@
                     ]
                 }
             }
+        },
+        {
+            "name": "MainParticle",
+            "type": "ParticleSystem",
+            "components": {
+                "Transform": {
+                    "degrees": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "isBillboard": false,
+                    "rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ],
+                    "scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "translation": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ]
+                },
+                "MeshFilter": {
+                    "modelID": 0,
+                    "modelName": "Cube"
+                },
+                "MeshRenderer": {
+                    "visible": true
+                },
+                "Material": {
+                    "Color": [
+                        0.949367105960846,
+                        0.42684251070022583,
+                        0.03204617276787758,
+                        1.0
+                    ],
+                    "enableLighting": true,
+                    "enableTexture": false,
+                    "shininess": 50.0,
+                    "textureName": "",
+                    "uvFlipY": false
+                },
+                "Particle": {
+                    "count": 1024
+                },
+                "Emitter": {
+                    "emitCount": 10,
+                    "frequency": 0.0,
+                    "frequencyTime": 272.1485900878906,
+                    "isBillboard": false,
+                    "isFadeOut": true,
+                    "lifeTime": [
+                        20.0,
+                        0.0
+                    ],
+                    "position": {
+                        "acceleration": [
+                            {
+                                "x": [
+                                    0.0,
+                                    0.0
+                                ]
+                            },
+                            {
+                                "y": [
+                                    0.0,
+                                    0.0
+                                ]
+                            },
+                            {
+                                "z": [
+                                    0.0,
+                                    0.0
+                                ]
+                            }
+                        ],
+                        "value": [
+                            {
+                                "x": [
+                                    0.0,
+                                    0.0
+                                ]
+                            },
+                            {
+                                "y": [
+                                    0.0,
+                                    0.0
+                                ]
+                            },
+                            {
+                                "z": [
+                                    0.0,
+                                    0.0
+                                ]
+                            }
+                        ],
+                        "velocity": [
+                            {
+                                "x": [
+                                    0.0,
+                                    4.0
+                                ]
+                            },
+                            {
+                                "y": [
+                                    0.0,
+                                    4.0
+                                ]
+                            },
+                            {
+                                "z": [
+                                    6.0,
+                                    3.0
+                                ]
+                            }
+                        ]
+                    },
+                    "rotation": {
+                        "acceleration": [
+                            {
+                                "x": [
+                                    0.0,
+                                    0.0
+                                ]
+                            },
+                            {
+                                "y": [
+                                    0.0,
+                                    0.0
+                                ]
+                            },
+                            {
+                                "z": [
+                                    0.0,
+                                    0.0
+                                ]
+                            }
+                        ],
+                        "value": [
+                            {
+                                "x": [
+                                    0.0,
+                                    0.0
+                                ]
+                            },
+                            {
+                                "y": [
+                                    0.0,
+                                    0.0
+                                ]
+                            },
+                            {
+                                "z": [
+                                    0.0,
+                                    0.0
+                                ]
+                            }
+                        ],
+                        "velocity": [
+                            {
+                                "x": [
+                                    0.0,
+                                    0.0
+                                ]
+                            },
+                            {
+                                "y": [
+                                    0.0,
+                                    0.0
+                                ]
+                            },
+                            {
+                                "z": [
+                                    0.0,
+                                    0.0
+                                ]
+                            }
+                        ]
+                    },
+                    "scale": {
+                        "acceleration": [
+                            {
+                                "x": [
+                                    0.0,
+                                    0.0
+                                ]
+                            },
+                            {
+                                "y": [
+                                    0.0,
+                                    0.0
+                                ]
+                            },
+                            {
+                                "z": [
+                                    0.0,
+                                    0.0
+                                ]
+                            }
+                        ],
+                        "value": [
+                            {
+                                "x": [
+                                    1.0,
+                                    0.0
+                                ]
+                            },
+                            {
+                                "y": [
+                                    1.0,
+                                    0.0
+                                ]
+                            },
+                            {
+                                "z": [
+                                    1.0,
+                                    0.0
+                                ]
+                            }
+                        ],
+                        "velocity": [
+                            {
+                                "x": [
+                                    0.0,
+                                    0.0
+                                ]
+                            },
+                            {
+                                "y": [
+                                    0.0,
+                                    0.0
+                                ]
+                            },
+                            {
+                                "z": [
+                                    0.0,
+                                    0.0
+                                ]
+                            }
+                        ]
+                    }
+                }
+            }
         }
     ],
     "mainCamera": "MainCamera"

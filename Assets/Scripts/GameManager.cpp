@@ -60,7 +60,7 @@ void GameManager::Update()
         }
     }*/
 
-    if (timer >= 3.0f)
+    /*if (timer >= 3.0f)
     {
         if (player)
         {
@@ -103,7 +103,7 @@ void GameManager::Update()
             sceneManager.LoadScene(L"Title");
             sceneChanged = false;
         }
-    }
+    }*/
 }
 
 REGISTER_SCRIPT_FACTORY(GameManager);

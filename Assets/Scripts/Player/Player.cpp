@@ -11,6 +11,9 @@ void Player::Start()
 	m_Camera = GetMarionnette<MainCamera>(L"MainCamera");
 	m_Generator = GetMarionnette<Generator>(L"Generator");
 
+	GameObject* particleObj = FindGameObjectByName(L"MainParticle");
+	particleObj->transform->parent = this->gameObject.transform;
+
 	Camera camera = m_Camera->GetComponent<Camera>();
 	m_DefaultFov = 45.0f;
 	camera->fovAngleY = m_DefaultFov;
@@ -73,6 +76,11 @@ void Player::Update()
 
 	// 攻撃処理
 	Attack();
+
+	GameObject* particleObj = FindGameObjectByName(L"MainParticle");
+	particleObj->transform->position = transform->position;
+	Emitter emitter = GetEmitterComponent(*particleObj);
+	emitter->emit = true;
 }
 
 void Player::Move()
