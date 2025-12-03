@@ -86,10 +86,26 @@ void Player::Update()
 void Player::Move()
 {
 	// --- 平行移動 ---
-	if (Input::PushKey(DIK_A)) m_Velocity.x -= m_Acceleration;
-	if (Input::PushKey(DIK_D)) m_Velocity.x += m_Acceleration;
-	if (Input::PushKey(DIK_W)) m_Velocity.y += m_Acceleration;
-	if (Input::PushKey(DIK_S)) m_Velocity.y -= m_Acceleration;
+	if (Input::PushKey(DIK_A))
+	{ 
+		m_Velocity.x -= m_Acceleration;
+		transform->degrees.z += -1.0f * rotateSpeed;
+	}
+	if (Input::PushKey(DIK_D))
+	{
+		m_Velocity.x += m_Acceleration;
+		transform->degrees.z += 1.0f * rotateSpeed;
+	}
+	if (Input::PushKey(DIK_W))
+	{
+		m_Velocity.y += m_Acceleration;
+		transform->degrees.x += -1.0f * rotateSpeed;
+	}
+	if (Input::PushKey(DIK_S))
+	{
+		m_Velocity.y -= m_Acceleration;
+		transform->degrees.x += 1.0f * rotateSpeed;
+	}
 
 	if (isClear)
 	{
@@ -99,6 +115,9 @@ void Player::Move()
 
 	// 前方巡航速度（常にZ+方向へ）
 	m_Velocity.z = speed;
+
+	// 移動制限
+	MoveLimit();
 
 	// Rigidbody へ適用
 	Rigidbody3D rb = GetComponent<Rigidbody3D>();

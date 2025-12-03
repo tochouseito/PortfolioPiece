@@ -50,14 +50,14 @@ private:
     math::float3 m_Velocity{};              // 現在速度
     float   m_Acceleration = 2.0f;     // 加速度
     math::float3 m_AngularVelocity{};
-    float   m_AngularAcceleration = 2.0f;
+    float   m_AngularAcceleration = 0.1f;
 
     // 生存フラグ
 	bool m_IsAlive = true;
 
     // 減衰・制限
     float   damping = 0.9f;
-    math::float2 limitPos{ 30.0f, 50.0f };
+    math::float2 limitPos{ 30.0f, 100.0f };
     float   smoothLimitRange = 10.0f;
     float   curve = 1.0f;
 
@@ -67,7 +67,7 @@ private:
     float maxSpeed = 0.0f;
     float minSpeed = 0.0f;
 
-    float rotateSpeed = 2.0f;
+    float rotateSpeed = 20.0f;
 
     // === ブースト関連 ===
     const float boostPower = 20.0f;  // 1フレームあたりの追加加速係数（前方へ）

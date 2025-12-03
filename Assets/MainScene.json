@@ -385,7 +385,7 @@
                     "translation": [
                         0.0,
                         0.0,
-                        50.0
+                        100.0
                     ]
                 },
                 "MeshFilter": {
@@ -1150,9 +1150,9 @@
                         1.0
                     ],
                     "scale": [
-                        1.0,
-                        1.0,
-                        1.0
+                        0.0,
+                        0.0,
+                        0.0
                     ],
                     "translation": [
                         0.0,
@@ -1186,7 +1186,7 @@
                 "Emitter": {
                     "emitCount": 10,
                     "frequency": 0.0,
-                    "frequencyTime": 272.1485900878906,
+                    "frequencyTime": 2847.61083984375,
                     "isBillboard": false,
                     "isFadeOut": true,
                     "lifeTime": [

@@ -1,8 +1,11 @@
 #pragma once
 #include "Marionnette.h"
 #include <list>
+#include <vector>
 #include <unordered_map>
 #include <string>
+#include <filesystem>
+#include "Vector3.h"
 
 // 前方宣言
 class Enemy;
@@ -26,7 +29,11 @@ private:
     // テスト用
 	void HorizontalSpawn();
 
+    std::vector<float3> LoadEnemySpawnPoints(const std::filesystem::path& jsonPath);
+
     Player* m_Player = nullptr;
     Enemy* m_Enemy = nullptr;
 	std::unordered_map<std::wstring, Enemy*> m_EnemyMap;
+
+	std::vector<float3> m_SpawnPoints;
 };
