@@ -23,8 +23,8 @@ void EnemySpawner::Update()
     // 毎フレーム処理
 	if (Input::TriggerKey(DIK_E))
 	{
-		SpawnEnemy();
-		// HorizontalSpawn();
+		//SpawnEnemy();
+		HorizontalSpawn();
 	}
 }
 

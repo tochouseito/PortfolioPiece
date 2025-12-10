@@ -124,10 +124,26 @@ void Player::Move()
 	rb->velocity = m_Velocity;
 
 	// --- 回転入力 ---
-	if (Input::PushKey(DIK_LEFTARROW))  m_AngularVelocity.y += m_AngularAcceleration;
-	if (Input::PushKey(DIK_RIGHTARROW)) m_AngularVelocity.y -= m_AngularAcceleration;
-	if (Input::PushKey(DIK_UPARROW))    m_AngularVelocity.x += m_AngularAcceleration;
-	if (Input::PushKey(DIK_DOWNARROW))  m_AngularVelocity.x -= m_AngularAcceleration;
+	if (Input::PushKey(DIK_LEFTARROW)) 
+	{
+		//m_AngularVelocity.y -= m_AngularAcceleration;
+		transform->degrees.y += -1.0f * rotateSpeed;
+	}
+	if (Input::PushKey(DIK_RIGHTARROW))
+	{
+		//m_AngularVelocity.y += m_AngularAcceleration;
+		transform->degrees.y += 1.0f * rotateSpeed;
+	}
+	if (Input::PushKey(DIK_UPARROW))
+	{
+		//m_AngularVelocity.x -= m_AngularAcceleration;
+		transform->degrees.x += -1.0f * rotateSpeed;
+	}
+	if (Input::PushKey(DIK_DOWNARROW))
+	{
+		//m_AngularVelocity.x += m_AngularAcceleration;
+		transform->degrees.x += 1.0f * rotateSpeed;
+	}
 
 	rb->angularVelocity = m_AngularVelocity;
 }

@@ -9,30 +9,34 @@ class LockOn;
 class Enemy : public Marionnette
 {
 public:
-	// コンストラクタ
     Enemy(GameObject& object) : Marionnette(object) {}
-    // 初期化処理
     void Start() override;
-	// 毎フレーム処理
     void Update() override;
-	// アクティブ設定
-	void SetActive(bool isActive) { m_IsActive = isActive; }
-	bool IsActive() const { return m_IsActive; }
-	// ロックオン設定
-	bool IsLockOnTarget() const { return m_IsLockOnTarget; }
-	void EnableLockOnTarget(LockOn* lockOn);
-	void UnableLockOnTarget();
-	// 衝突関数
-	void OnCollisionEnter(GameObject& other) override;
+
+    void SetActive(bool isActive) { m_IsActive = isActive; }
+    bool IsActive() const { return m_IsActive; }
+
+    bool IsLockOnTarget() const { return m_IsLockOnTarget; }
+    void EnableLockOnTarget(LockOn* lockOn);
+    void UnableLockOnTarget();
+
+    void OnCollisionEnter(GameObject& other) override;
+
 private:
-	void Move();
+    void Move();
+    void DeadAnimation();
+    void BeginDead(); // ★ 死亡開始処理
 
-	EnemySpawner* m_EnemySpawner = nullptr;
-	Target* m_Target = nullptr;
-	LockOn* m_LockOn = nullptr;
+    EnemySpawner* m_EnemySpawner = nullptr;
+    Target* m_Target = nullptr;
+    LockOn* m_LockOn = nullptr;
 
-    bool m_IsActive = false;
-	bool m_IsLockOnTarget = false;// ロックオンされているか
-	float m_Speed = 110.0f;// 移動速度
-	math::float3 m_Velocity = math::float3::Zero();// 速度
+    bool  m_IsActive = false;
+    bool  m_IsLockOnTarget = false;
+    bool  m_IsDying = false;   // ★ 死亡中フラグ
+    float m_Speed = 110.0f;
+    math::float3 m_Velocity = math::float3::Zero();
+
+    float m_DeadDuration = 1.5f;      // ★ 墜落アニメーションの長さ（秒）
+    float m_DeadTimer = 0.0f;      // ★ 残り時間
 };
