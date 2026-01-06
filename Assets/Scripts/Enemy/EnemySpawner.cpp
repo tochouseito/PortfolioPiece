@@ -64,6 +64,10 @@ void EnemySpawner::HorizontalSpawn()
 		GameObject* dst = CloneGameObject(&m_Enemy->gameObject, spawnPos);
 		Enemy* enemy = dst->GetMarionnette<Enemy>();
 		enemy->SetActive(true);
+        Enemy::MoveSettings s{};
+		s.weaveFreqHz = 0.5f;
+		s.weaveYawDeg = 30.0f;
+		enemy->SetMovePattern(Enemy::MovePattern::WeaveYaw, s);
 		m_EnemyMap[dst->GetName()] = enemy;
 	}
 }
