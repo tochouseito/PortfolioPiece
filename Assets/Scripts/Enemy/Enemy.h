@@ -1,5 +1,8 @@
+// Enemy.h
 #pragma once
 #include "Marionnette.h"
+
+#include <random>   // ★追加：乱数
 
 // 前方宣言
 class EnemySpawner;
@@ -22,41 +25,10 @@ public:
 
     void OnCollisionEnter(GameObject& other) override;
 
-    // ★ 追加：スポーナーから挙動を指定できるようにする
-    enum class MovePattern : uint8_t
-    {
-        Straight = 0,   // 直進
-        WeaveYaw,       // S字（ヨー振り）
-        SwoopPitch,     // 上下（ピッチ振り）
-        ConstantTurn,   // 一定旋回
-    };
-
-    struct MoveSettings
-    {
-        float turnResponse = 6.0f;     // dir追従の速さ（大きいほどキビキビ）
-        float weaveYawDeg = 25.0f;     // ヨー最大角（度）
-        float weaveFreqHz = 0.6f;      // 周波数（Hz）
-        float swoopPitchDeg = 18.0f;   // ピッチ最大角（度）
-        float swoopFreqHz = 0.35f;     // 周波数（Hz）
-        float constTurnDegPerSec = 40.0f; // 一定旋回（度/秒）
-        float bankFactor = 1.2f;       // バンク量（見た目用）
-    };
-
-    void SetMovePattern(MovePattern pattern, const MoveSettings& settings) noexcept
-    {
-        m_MovePattern = pattern;
-        m_MoveSettings = settings;
-        m_MoveTime = 0.0f;
-    }
-
 private:
     void Move();
     void DeadAnimation();
-    void BeginDead();
-
-    // ★ 追加：内部ヘルパ
-    math::float3 CalcDesiredDir(float dt);
-    void ApplyMove(const math::float3& dir);
+    void BeginDead(); // ★ 死亡開始処理
 
 private:
     EnemySpawner* m_EnemySpawner = nullptr;
@@ -65,16 +37,24 @@ private:
 
     bool  m_IsActive = false;
     bool  m_IsLockOnTarget = false;
-    bool  m_IsDying = false;
+    bool  m_IsDying = false;   // ★ 死亡中フラグ
     float m_Speed = 110.0f;
     math::float3 m_Velocity = math::float3::Zero();
 
-    float m_DeadDuration = 1.5f;
-    float m_DeadTimer = 0.0f;
+    float m_DeadDuration = 1.5f; // ★ 墜落アニメーションの長さ（秒）
+    float m_DeadTimer = 0.0f;    // ★ 残り時間
 
-    // ★ 追加：移動用ステート
-    MovePattern  m_MovePattern = MovePattern::Straight;
-    MoveSettings m_MoveSettings{};
-    float        m_MoveTime = 0.0f;
-    math::float3 m_MoveDir = math::float3(0.0f, 0.0f, 1.0f); // 正規化前提
+    // ===== ★追加：3秒ごとランダム旋回 =====
+    float m_RandomIntervalSec = 1.0f;   // ★ 3秒ごと
+    float m_RandomTimer = 0.0f;
+
+    float m_RandomYawRangeDeg = 35.0f;  // ★ 左右の最大（度）
+    float m_RandomPitchRangeDeg = 12.0f;// ★ 上下の最大（度）
+
+    float m_TurnResponse = 6.0f;        // ★ 旋回の追従速度（大きいほどキビキビ）
+
+    math::float3 m_MoveDir = math::float3(0.0f, 0.0f, 1.0f);      // 現在の進行方向（正規化前提）
+    math::float3 m_TargetDir = math::float3(0.0f, 0.0f, 1.0f);    // 次の目標方向（正規化前提）
+
+    std::mt19937 m_Rng{}; // ★乱数
 };
