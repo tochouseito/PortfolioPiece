@@ -16,6 +16,14 @@ void MainCamera::Update()
 {
     // 毎フレーム処理
 	const float dt = DeltaTime();
+
+	if (Input::TriggerKey(DIK_R))
+	{
+		mode_ = Mode::Intro;
+		introTime_ = 0.0f;
+		blendTime_ = 0.0f;
+	}
+
     switch (mode_)
     {
     case Mode::Intro:
@@ -68,55 +76,45 @@ void MainCamera::LagFollow()
 
 void MainCamera::UpdateIntroArc(float dt)
 {
-    introTime_ += dt;
-    float t01 = Clamp01(introTime_ / introDuration_);
+	introTime_ += dt;
 
-    // 曲線
-    float u = EaseInOut(t01);            // 角度用
-    float theta = float(M_PI) * u;           // 0 → π
-    float R = std::lerp(Rstart_, Rend_, EaseOut(t01));
-    float H = std::lerp(0.0f, Hmax_, u);
+	const float shotDuration = introDuration_ / static_cast<float>(kIntroShotCount);
+	int shotIndex = static_cast<int>(introTime_ / shotDuration);
+	if (shotIndex < 0)
+	{
+		shotIndex = 0;
+	}
+	else if (shotIndex >= kIntroShotCount)
+	{
+		shotIndex = kIntroShotCount - 1;
+	}
 
-    // 自機ローカル座標で円弧：+Z前, +X右, +Y上 を仮定
-    math::float3 local;
-    local.x = std::sin(theta) * R;          // 右→左へ
-    local.z = std::cos(theta) * R;          // 前(θ=0)→背後(θ=π)
-    local.y = H;
+	const float shotTime = introTime_ - (static_cast<float>(shotIndex) * shotDuration);
+	const float shotT = Clamp01(shotTime / shotDuration);
+	const float easedT = EaseInOut(shotT);
 
-    // 終盤で背後の所定距離にスムーズに寄せる（0.7→1.0の間でスナップ）
-    math::float3 localEnd = { 0.0f, Hmax_, -backEnd_ };
-    float snapW = Clamp01((t01 - 0.7f) / 0.3f);
-    local = math::float3::Lerp(local, localEnd, snapW);
+	const auto& ppos = m_Player->transform->position;
+	const auto& prot = m_Player->transform->quaternion;
 
-    // ワールドへ変換
-    const auto& ppos = m_Player->transform->position;
-    const auto& prot = m_Player->transform->quaternion;
-    math::float3 worldPos = ppos + math::RotateVector(local, prot);
+	math::float3 localOffset = math::float3::Lerp(
+		introShotStartOffsets_[shotIndex],
+		introShotEndOffsets_[shotIndex],
+		easedT);
+	math::float3 worldPos = ppos + math::RotateVector(localOffset, prot);
+	math::float3 lookTarget = ppos;
+	math::float3 forward = (lookTarget - worldPos).Normalize();
+	math::float3 up = math::float3{ 0,1,0 };
 
-    // 視線は自機（少し先）を見る
-    math::float3 lookTarget = ppos + math::RotateVector(math::float3{ 0,0,lookAhead_ }, prot);
-    math::float3 fwd = (lookTarget - worldPos).Normalize();
-    math::float3 up = math::float3{ 0,1,0 };
+	transform->position = worldPos;
+	transform->quaternion = math::MakeLookRotation(forward, up);
 
-	Quaternion lookRot = math::MakeLookRotation(fwd, up);
-
-    // 軽いロール（θ速度に応じた演出：開始/終端は弱く中央強め）
-    float bankDeg = 10.0f * std::sin(theta) * (1.0f - (1.0f - t01) * (1.0f - t01));
-	Quaternion bank = math::MakeRotateAxisAngleQuaternion(fwd, math::DegreesToRadians(backEnd_));
-    Quaternion finalRot = bank * lookRot;
-
-    // 反映
-    transform->position = worldPos;
-    transform->quaternion = finalRot;
-
-    // 終了判定→通常追従へブレンド
-    if (t01 >= 1.0f)
-    {
-        endIntroPos_ = transform->position;
-        endIntroRot_ = transform->quaternion;
-        mode_ = Mode::BlendToFollow;
-        blendTime_ = 0.0f;
-    }
+	if (introTime_ >= introDuration_)
+	{
+		endIntroPos_ = transform->position;
+		endIntroRot_ = transform->quaternion;
+		mode_ = Mode::BlendToFollow;
+		blendTime_ = 0.0f;
+	}
 }
 
 REGISTER_SCRIPT_FACTORY(MainCamera);

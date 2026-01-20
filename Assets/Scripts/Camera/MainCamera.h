@@ -32,17 +32,23 @@ private:
 	Mode mode_ = Mode::Intro;
 
 	// イントロ演出パラメータ（お好みで調整）
-	float introDuration_ = 2.4f;   // 0→π の演出時間
+	float introDuration_ = 2.4f;   // 1カメ→2カメ→3カメの合計時間
 	float blendDuration_ = 0.4f;   // イントロ終端→通常追従へのブレンド時間
 	float introTime_ = 0.0f;
 	float blendTime_ = 0.0f;
 
-	// 軌道形状
-	float Rstart_ = 35.0f;   // 開始半径（前方距離）
-	float Rend_ = 18.0f;   // 終端近くの半径
-	float Hmax_ = 8.0f;    // 最高高度（上方向オフセット）
-	float backEnd_ = 16.0f;   // 最終的に背後で取りたい距離
-	float lookAhead_ = 6.0f; // 視線の先（自機前方）
+	// イントロ用インサートカメラ（ローカル空間）
+	static constexpr int kIntroShotCount = 3;
+	const math::float3 introShotStartOffsets_[kIntroShotCount] = {
+		math::float3(8.0f, 2.0f, 12.0f),   // 1カメ開始
+		math::float3(-12.0f, 3.0f, 6.0f),  // 2カメ開始
+		math::float3(2.0f, 5.0f, -10.0f),  // 3カメ開始
+	};
+	const math::float3 introShotEndOffsets_[kIntroShotCount] = {
+		math::float3(4.0f, 2.5f, 6.0f),    // 1カメ終了
+		math::float3(-8.0f, 3.5f, 2.0f),   // 2カメ終了
+		math::float3(-2.0f, 4.0f, -6.0f),  // 3カメ終了
+	};
 
 	// ブレンド用キャッシュ
 	math::float3 endIntroPos_{};
