@@ -21,7 +21,7 @@ void EnemySpawner::Start()
 void EnemySpawner::Update()
 {
     // 毎フレーム処理
-	if (Input::TriggerKey(DIK_E))
+	if (Input::TriggerKey(DIK_G))
 	{
 		//SpawnEnemy();
 		HorizontalSpawn();

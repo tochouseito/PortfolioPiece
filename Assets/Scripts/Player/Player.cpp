@@ -52,7 +52,7 @@ void Player::Update()
 	// 入力処理（移動・回転）
 	Move();
 
-	// 回避開始（Q:左 / R:右）
+	// 回避開始（Q:左 / E:右）
 	if (Input::TriggerKey(DIK_Q))
 	{
 		isDodging = true;
@@ -62,7 +62,7 @@ void Player::Update()
 		Dodge();
 		return;
 	}
-	if (Input::TriggerKey(DIK_R))
+	if (Input::TriggerKey(DIK_E))
 	{
 		isDodging = true;
 		dodgeDirection = +1;
@@ -158,7 +158,7 @@ void Player::Boost()
 	if (isDodging) return;
 
 	// 起動
-	if (!isBoosting && boostCooldownTimer <= 0.0f && Input::TriggerKey(DIK_E))
+	if (!isBoosting && boostCooldownTimer <= 0.0f && Input::TriggerKey(DIK_SPACE))
 	{
 		isBoosting = true;
 		boostTimer = boostDuration;
@@ -176,7 +176,7 @@ void Player::Boost()
 		m_Velocity += forward * (boostPower * DeltaTime());
 
 		// FOVをワイド化へ補間
-		// if (cam) cam->fovAngleY = chomath::Lerp(cam->fovAngleY, boostFov, 10.0f * DeltaTime());
+		if (cam) cam->fovAngleY = math::Lerp(cam->fovAngleY, boostFov, 10.0f * DeltaTime());
 
 		// タイマ消化
 		boostTimer -= DeltaTime();
