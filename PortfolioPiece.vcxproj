@@ -97,6 +97,10 @@
     <ClCompile Include="Assets\Scripts\TitleManager.cpp" />
     <ClCompile Include="Assets\Scripts\GameManager.cpp" />
     <ClCompile Include="Assets\Scripts\GameOverText.cpp" />
+    <ClCompile Include="Assets\Scripts\UI\PoseBackend.cpp" />
+    <ClCompile Include="Assets\Scripts\UI\PoseClose.cpp" />
+    <ClCompile Include="Assets\Scripts\UI\PoseReturnTitle.cpp" />
+    <ClCompile Include="Assets\Scripts\UI\uiState.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Assets\Scripts\Camera\BaseCamera.h" />
@@ -120,6 +124,10 @@
     <ClInclude Include="Assets\Scripts\TitleManager.h" />
     <ClInclude Include="Assets\Scripts\GameManager.h" />
     <ClInclude Include="Assets\Scripts\GameOverText.h" />
+    <ClInclude Include="Assets\Scripts\UI\PoseBackend.h" />
+    <ClInclude Include="Assets\Scripts\UI\PoseClose.h" />
+    <ClInclude Include="Assets\Scripts\UI\PoseReturnTitle.h" />
+    <ClInclude Include="Assets\Scripts\UI\uiState.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
 </Project>

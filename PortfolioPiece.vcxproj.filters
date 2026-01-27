@@ -53,5 +53,31 @@
     <ClInclude Include="Assets\Scripts\TitleManager.h" />
     <ClInclude Include="Assets\Scripts\GameManager.h" />
     <ClInclude Include="Assets\Scripts\GameOverText.h" />
+    <ClInclude Include="PoseBackend.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="PoseBackend.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="PoseReturnTitle.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="PoseReturnTitle.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="PoseClose.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="PoseClose.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
