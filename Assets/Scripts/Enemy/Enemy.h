@@ -28,6 +28,10 @@ public:
 
 private:
     void Move();
+    void UpdateAttack();
+    void FireBurst();
+    void FireMissile();
+    void UpdateRam(float dt);
     void DeadAnimation();
     void BeginDead(); // ★ 死亡開始処理
 
@@ -35,6 +39,8 @@ private:
     EnemySpawner* m_EnemySpawner = nullptr;
     Target* m_Target = nullptr;
     LockOn* m_LockOn = nullptr;
+    class Player* m_Player = nullptr;
+    class Generator* m_Generator = nullptr;
 
     bool  m_IsActive = false;
     bool  m_IsLockOnTarget = false;
@@ -65,4 +71,21 @@ private:
     float m_ApproachArriveRadius = 5.0f;
     float m_ApproachSpeed = 140.0f;
     float m_MinAltitude = 20.0f;
+
+    enum class AttackPattern
+    {
+        Burst,
+        HomingMissile,
+        Ram,
+    };
+
+    AttackPattern m_AttackPattern = AttackPattern::Burst;
+    float m_AttackTimer = 0.0f;
+    float m_BurstInterval = 1.2f;
+    float m_BurstSpread = 0.18f;
+    float m_MissileInterval = 2.8f;
+    bool m_IsRamming = false;
+    float m_RamPrepareTimer = 0.0f;
+    float m_RamPrepareDelay = 0.4f;
+    float m_RamSpeed = 220.0f;
 };

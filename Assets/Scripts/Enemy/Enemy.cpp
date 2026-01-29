@@ -5,6 +5,8 @@ using namespace theatriaSystem;
 #include "Enemy/EnemySpawner.h"
 #include "UI/Target.h"
 #include "UI/LockOn.h"
+#include "Player/Player.h"
+#include "Generator/Generator.h"
 
 #include <cmath>
 #include <algorithm>
@@ -61,6 +63,8 @@ void Enemy::Start()
     // 1) 参照取得
     m_EnemySpawner = GetMarionnette<EnemySpawner>(L"EnemySpawner");
     m_Target = GetMarionnette<Target>(L"Target");
+    m_Player = GetMarionnette<Player>(L"Player");
+    m_Generator = GetMarionnette<Generator>(L"Generator");
 
     // 2) タグ設定
     gameObject.SetTag("Enemy");
@@ -83,6 +87,23 @@ void Enemy::Start()
     {
         return;
     }
+
+    // 6) 攻撃パターンを決定
+    {
+        std::uniform_int_distribution<int> patternDist(0, 2);
+        m_AttackPattern = static_cast<AttackPattern>(patternDist(m_Rng));
+
+        if (m_AttackPattern == AttackPattern::Burst)
+        {
+            std::uniform_real_distribution<float> offset(0.0f, m_BurstInterval);
+            m_AttackTimer = offset(m_Rng);
+        }
+        else if (m_AttackPattern == AttackPattern::HomingMissile)
+        {
+            std::uniform_real_distribution<float> offset(0.0f, m_MissileInterval);
+            m_AttackTimer = offset(m_Rng);
+        }
+    }
 }
 
 void Enemy::Update()
@@ -102,6 +123,9 @@ void Enemy::Update()
 
     // 3) 移動
     Move();
+
+    // 4) 攻撃
+    UpdateAttack();
 }
 
 void Enemy::EnableLockOnTarget(LockOn* lockOn)
@@ -149,6 +173,21 @@ void Enemy::OnCollisionEnter(GameObject& other)
     // 1) プレイヤー攻撃以外は無視
     if (other.GetTag() != "PlayerAttack")
     {
+        if (other.GetTag() == "Player")
+        {
+            if (m_IsDying)
+            {
+                return;
+            }
+
+            if (m_EnemySpawner)
+            {
+                m_EnemySpawner->RemoveEnemy(gameObject.GetName());
+            }
+
+            UnableLockOnTarget();
+            BeginDead();
+        }
         return;
     }
 
@@ -175,6 +214,43 @@ void Enemy::Move()
 {
     // 1) dt
     const float dt = DeltaTime();
+
+    if (m_IsRamming && m_Player)
+    {
+        const math::float3 toPlayer = m_Player->transform->position - transform->position;
+        const math::float3 dir = normalize3(toPlayer);
+        m_Velocity = dir * m_RamSpeed;
+
+        Rigidbody3D rb = GetComponent<Rigidbody3D>();
+        if (rb)
+        {
+            rb->velocity = m_Velocity;
+        }
+
+        auto transformComp = GetComponent<Transform>();
+        if (transformComp)
+        {
+            const float yaw = std::atan2(dir.x, dir.z);
+            const float pitch = -std::atan2(dir.y, std::sqrt(dir.x * dir.x + dir.z * dir.z));
+            transformComp->degrees.y = rad_to_deg(yaw);
+            transformComp->degrees.x = rad_to_deg(pitch);
+            transformComp->degrees.z = -rad_to_deg(yaw) * 0.2f;
+        }
+
+        if (transform->position.y < m_MinAltitude)
+        {
+            transform->position.y = m_MinAltitude;
+            if (m_Velocity.y < 0.0f)
+            {
+                m_Velocity.y = 0.0f;
+                if (rb)
+                {
+                    rb->velocity = m_Velocity;
+                }
+            }
+        }
+        return;
+    }
 
     // 1.5) 生成直後のアプローチ移動
     if (m_IsApproaching)
@@ -300,6 +376,90 @@ void Enemy::Move()
 
             // ロールは任意。ここは「それっぽく」軽く入れるだけ（不要なら0でOK）
             transform->degrees.z = -rad_to_deg(yaw) * 0.4f;
+        }
+    }
+}
+
+void Enemy::UpdateAttack()
+{
+    if (!m_IsActive || m_IsDying)
+    {
+        return;
+    }
+
+    const float dt = DeltaTime();
+
+    if (m_AttackPattern == AttackPattern::Ram)
+    {
+        UpdateRam(dt);
+        return;
+    }
+
+    if (m_IsApproaching)
+    {
+        return;
+    }
+
+    m_AttackTimer -= dt;
+    if (m_AttackTimer > 0.0f)
+    {
+        return;
+    }
+
+    if (m_AttackPattern == AttackPattern::Burst)
+    {
+        FireBurst();
+        m_AttackTimer = m_BurstInterval;
+    }
+    else if (m_AttackPattern == AttackPattern::HomingMissile)
+    {
+        FireMissile();
+        m_AttackTimer = m_MissileInterval;
+    }
+}
+
+void Enemy::FireBurst()
+{
+    if (!m_Generator || !m_Player)
+    {
+        return;
+    }
+
+    const math::float3 toPlayer = m_Player->transform->position - transform->position;
+    const math::float3 baseDir = normalize3(toPlayer);
+
+    const float offsets[3] = { -m_BurstSpread, 0.0f, m_BurstSpread };
+    for (float offset : offsets)
+    {
+        math::float3 dir = math::float3(baseDir.x + offset, baseDir.y, baseDir.z);
+        dir = normalize3(dir);
+        m_Generator->GenerateEnemyBullet(transform->position, dir);
+    }
+}
+
+void Enemy::FireMissile()
+{
+    if (!m_Generator)
+    {
+        return;
+    }
+
+    m_Generator->GenerateEnemyMissile(transform->position);
+}
+
+void Enemy::UpdateRam(float dt)
+{
+    if (m_IsApproaching)
+    {
+        return;
+    }
+
+    if (!m_IsRamming)
+    {
+        m_RamPrepareTimer += dt;
+        if (m_RamPrepareTimer >= m_RamPrepareDelay)
+        {
+            m_IsRamming = true;
         }
     }
 }

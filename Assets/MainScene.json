@@ -315,13 +315,13 @@
                     "Color": [
                         0.7843137383460999,
                         0.7843137383460999,
-                        0.7843137383460999,
+                        0.0,
                         1.0
                     ],
                     "enableLighting": true,
                     "enableTexture": true,
                     "shininess": 50.0,
-                    "textureName": "sun",
+                    "textureName": "circle",
                     "uvFlipY": false
                 },
                 "Script": {
@@ -703,8 +703,8 @@
                     ]
                 },
                 "MeshFilter": {
-                    "modelID": 9,
-                    "modelName": "missile"
+                    "modelID": 0,
+                    "modelName": "Cube"
                 },
                 "MeshRenderer": {
                     "visible": true
@@ -719,7 +719,7 @@
                     "enableLighting": true,
                     "enableTexture": true,
                     "shininess": 50.0,
-                    "textureName": "Atlas_00002",
+                    "textureName": "sun",
                     "uvFlipY": false
                 },
                 "Script": {
@@ -796,8 +796,8 @@
                 "Material": {
                     "Color": [
                         0.7843137383460999,
-                        0.7843137383460999,
-                        0.7843137383460999,
+                        0.0,
+                        0.0,
                         1.0
                     ],
                     "enableLighting": true,
@@ -1186,7 +1186,7 @@
                 "Emitter": {
                     "emitCount": 10,
                     "frequency": 0.0,
-                    "frequencyTime": 8623.3408203125,
+                    "frequencyTime": 8772.865234375,
                     "isBillboard": false,
                     "isFadeOut": true,
                     "lifeTime": [
@@ -1485,7 +1485,7 @@
                         0.0,
                         0.0,
                         0.0,
-                        0.3921568691730499
+                        0.0
                     ],
                     "enableLighting": true,
                     "enableTexture": true,
@@ -1558,7 +1558,7 @@
                         0.7843137383460999,
                         0.7843137383460999,
                         0.7843137383460999,
-                        1.0
+                        0.0
                     ],
                     "enableLighting": true,
                     "enableTexture": true,
@@ -1631,7 +1631,7 @@
                         0.7843137383460999,
                         0.7843137383460999,
                         0.7843137383460999,
-                        1.0
+                        0.0
                     ],
                     "enableLighting": true,
                     "enableTexture": true,

@@ -10,6 +10,7 @@ void Player::Start()
 	m_Target = GetMarionnette<Target>(L"Target");
 	m_Camera = GetMarionnette<MainCamera>(L"MainCamera");
 	m_Generator = GetMarionnette<Generator>(L"Generator");
+	gameObject.SetTag("Player");
 
 	m_Particle = FindGameObjectByName(L"MainParticle");
 	if (m_Particle)

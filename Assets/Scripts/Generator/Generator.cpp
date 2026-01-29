@@ -16,7 +16,7 @@ void Generator::Start()
 	m_PlayerBullet = GetMarionnette<PlayerBullet>(L"PlayerBullet");
 	m_PlayerMissile = GetMarionnette<PlayerMissile>(L"PlayerMissile");
 	m_EnemyBullet = GetMarionnette<EnemyBullet>(L"EnemyBullet");
-	//m_EnemyMissile = GetMarionnette<EnemyMissile>(L"EnemyMissile");
+	m_EnemyMissile = GetMarionnette<EnemyMissile>(L"EnemyMissile");
 	m_Wall = GetMarionnette<Wall>(L"Wall");
 	m_Ground = GetMarionnette<Ground>(L"Ground");
 }
@@ -57,6 +57,43 @@ void Generator::GeneratePlayerMissile(Enemy* target)
 void Generator::RemovePlayerMissile(const std::wstring& name)
 {
 	m_PlayerMissiles.remove(name);
+}
+
+void Generator::GenerateEnemyBullet(const math::float3& position, const math::float3& direction)
+{
+	if (!m_EnemyBullet)
+	{
+		return;
+	}
+
+	GameObject* dst = CloneGameObject(&m_EnemyBullet->gameObject, position);
+	EnemyBullet* bullet = dst->GetMarionnette<EnemyBullet>();
+	bullet->SetActive(true);
+	bullet->SetDirection(direction);
+	m_EnemyBullets.push_back(dst->GetName());
+}
+
+void Generator::RemoveEnemyBullet(const std::wstring& name)
+{
+	m_EnemyBullets.remove(name);
+}
+
+void Generator::GenerateEnemyMissile(const math::float3& position)
+{
+	if (!m_EnemyMissile)
+	{
+		return;
+	}
+
+	GameObject* dst = CloneGameObject(&m_EnemyMissile->gameObject, position);
+	EnemyMissile* missile = dst->GetMarionnette<EnemyMissile>();
+	missile->SetActive(true);
+	m_EnemyMissiles.push_back(dst->GetName());
+}
+
+void Generator::RemoveEnemyMissile(const std::wstring& name)
+{
+	m_EnemyMissiles.remove(name);
 }
 
 void Generator::GenerateTerrain()

@@ -30,6 +30,14 @@ public:
 	void GeneratePlayerMissile(Enemy* target);
 	// プレイヤーミサイル削除
 	void RemovePlayerMissile(const std::wstring& name);
+	// 敵弾生成
+	void GenerateEnemyBullet(const math::float3& position, const math::float3& direction);
+	// 敵弾削除
+	void RemoveEnemyBullet(const std::wstring& name);
+	// 敵ミサイル生成
+	void GenerateEnemyMissile(const math::float3& position);
+	// 敵ミサイル削除
+	void RemoveEnemyMissile(const std::wstring& name);
 private:
 	// 地形生成
 	void GenerateTerrain();
