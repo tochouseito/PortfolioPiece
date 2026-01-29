@@ -98,33 +98,30 @@ void Player::Move()
 {
 	// --- 平行移動 ---
 	const int inputX = (Input::PushKey(DIK_D) ? 1 : 0) + (Input::PushKey(DIK_A) ? -1 : 0);
-	if (Input::PushKey(DIK_A))
-	{ 
-		m_Velocity.x -= m_Acceleration;
-	}
-	if (Input::PushKey(DIK_D))
-	{
-		m_Velocity.x += m_Acceleration;
-	}
-	if (Input::PushKey(DIK_W))
-	{
-		m_Velocity.y += m_Acceleration;
-		transform->degrees.x += -1.0f * rotateSpeed;
-	}
-	if (Input::PushKey(DIK_S))
-	{
-		m_Velocity.y -= m_Acceleration;
-		transform->degrees.x += 1.0f * rotateSpeed;
-	}
+	const int inputY = (Input::PushKey(DIK_W) ? 1 : 0) + (Input::PushKey(DIK_S) ? -1 : 0);
 
 	if (isClear)
 	{
 		speed = 400.0f;
-		m_Velocity.y = 200.0f;
 	}
 
 	// 前方巡航速度（常にZ+方向へ）
 	m_Velocity.z = speed;
+
+	// 入力に追従した速度へ補間（キビキビ）
+	float targetVX = static_cast<float>(inputX) * moveMaxX;
+	float targetVY = static_cast<float>(inputY) * moveMaxY;
+	if (isClear)
+	{
+		targetVX = 0.0f;
+		targetVY = 200.0f;
+	}
+	const float accelX = (inputX == 0) ? moveDecel : moveAccel;
+	const float accelY = (inputY == 0) ? moveDecel : moveAccel;
+	const float tX = math::Clamp(accelX * DeltaTime(), 0.0f, 1.0f);
+	const float tY = math::Clamp(accelY * DeltaTime(), 0.0f, 1.0f);
+	m_Velocity.x = math::Lerp(m_Velocity.x, targetVX, tX);
+	m_Velocity.y = math::Lerp(m_Velocity.y, targetVY, tY);
 
 	// 移動制限
 	MoveLimit();
@@ -137,6 +134,11 @@ void Player::Move()
 	const float targetRoll = static_cast<float>(inputX) * rollMaxDeg;
 	const float rollSpeed = (inputX == 0) ? rollReturn : rollSmooth;
 	transform->degrees.z = math::Lerp(transform->degrees.z, targetRoll, rollSpeed * DeltaTime());
+
+	// ピッチ（縦移動に合わせてなめらかに傾ける）
+	const float targetPitch = static_cast<float>(-inputY) * pitchMaxDeg;
+	const float pitchSpeed = (inputY == 0) ? pitchReturn : pitchSmooth;
+	transform->degrees.x = math::Lerp(transform->degrees.x, targetPitch, pitchSpeed * DeltaTime());
 
 	// --- 回転入力 ---
 	if (Input::PushKey(DIK_LEFTARROW)) 

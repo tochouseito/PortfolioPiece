@@ -35,14 +35,17 @@ void MainCamera::Update()
         blendTime_ += dt;
         float t = Clamp01(blendTime_ / blendDuration_);
 
+        math::float3 playerForward = math::RotateVector(math::float3(0.0f, 0.0f, 1.0f), m_Player->transform->quaternion).Normalize();
+        Quaternion noRollRot = math::MakeLookRotation(playerForward, math::float3(0.0f, 1.0f, 0.0f));
+
         // 通常追従の目標姿勢を1フレームだけ計算（反映はブレンド後）
         // 位置は LagFollow と同等の “理想位置” を算出して補間する
         math::float3 followDesiredPos =
             m_Player->transform->position +
-            math::RotateVector(offset, m_Player->transform->quaternion);
+            math::RotateVector(offset, noRollRot);
 
         // 回転は自機向きへ（LagFollowと同等の方針）
-        Quaternion followDesiredRot = m_Player->transform->quaternion;
+        Quaternion followDesiredRot = noRollRot;
 
         transform->position = math::float3::Lerp(endIntroPos_, followDesiredPos, t);
         transform->quaternion = Quaternion::Slerp(endIntroRot_, followDesiredRot, t);
@@ -63,14 +66,16 @@ void MainCamera::Update()
 void MainCamera::LagFollow()
 {
 	// プレイヤーの位置からオフセットをかけたターゲット位置を計算
-    math::float3 desiredPos = m_Player->transform->position + math::RotateVector(offset, m_Player->transform->quaternion);
+    math::float3 playerForward = math::RotateVector(math::float3(0.0f, 0.0f, 1.0f), m_Player->transform->quaternion).Normalize();
+    Quaternion noRollRot = math::MakeLookRotation(playerForward, math::float3(0.0f, 1.0f, 0.0f));
+    math::float3 desiredPos = m_Player->transform->position + math::RotateVector(offset, noRollRot);
 	// 遅延追従
 	transform->position = math::float3::Lerp(transform->position, desiredPos, followSpeed * DeltaTime());
 	// カメラの向き
-    math::float3 lookTarget = m_Player->transform->position + math::RotateVector(lookOffset, m_Player->transform->quaternion);
+    math::float3 lookTarget = m_Player->transform->position + math::RotateVector(lookOffset, noRollRot);
     math::float3 forward = lookTarget - transform->position;
 	// カメラの向きを回転
-	Quaternion desiredRot = m_Player->transform->quaternion;
+	Quaternion desiredRot = math::MakeLookRotation(forward.Normalize(), math::float3(0.0f, 1.0f, 0.0f));
 	transform->quaternion = Quaternion::Slerp(transform->quaternion, desiredRot, rotateSpeed * DeltaTime());
 }
 

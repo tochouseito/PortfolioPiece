@@ -75,7 +75,15 @@ private:
     float rollMaxDeg = 20.0f;
     float rollSmooth = 10.0f;
     float rollReturn = 14.0f;
+    float pitchMaxDeg = 12.0f;
+    float pitchSmooth = 10.0f;
+    float pitchReturn = 14.0f;
     float minAltitude = 20.0f;
+
+    float moveMaxX = 80.0f;
+    float moveMaxY = 80.0f;
+    float moveAccel = 12.0f;
+    float moveDecel = 16.0f;
 
     // === ブースト関連 ===
     const float boostPower = 20.0f;  // 1フレームあたりの追加加速係数（前方へ）
