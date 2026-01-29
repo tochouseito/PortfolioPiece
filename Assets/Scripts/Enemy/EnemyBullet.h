@@ -15,6 +15,7 @@ public:
 
 	void SetActive(bool isActive) { m_IsActive = isActive; }
 	void SetDirection(const math::float3& dir) { m_Direction = dir; }
+	int GetDamage() const { return m_Damage; }
 private:
 	class Generator* m_Generator = nullptr;
 
@@ -23,4 +24,5 @@ private:
 	float m_Speed = 180.0f;
 	math::float3 m_Direction = math::float3(0.0f, 0.0f, 1.0f);
 	math::float3 m_Velocity = math::float3::Zero();
+	int m_Damage = 1;
 };

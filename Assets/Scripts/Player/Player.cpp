@@ -4,6 +4,9 @@ using namespace theatriaSystem;
 #include "UI/LockOn.h"
 #include "Camera/MainCamera.h"
 #include "Generator/Generator.h"
+#include "Enemy/EnemyBullet.h"
+#include "Enemy/EnemyMissile.h"
+#include "Enemy/Enemy.h"
 
 void Player::Start()
 {
@@ -17,6 +20,9 @@ void Player::Start()
 	{
 		m_Particle->transform->parent = this->gameObject.transform;
 	}
+
+	m_DefaultScale = transform->scale;
+	m_CurrentHp = m_MaxHp;
 
 	Camera camera = m_Camera->GetComponent<Camera>();
 	m_DefaultFov = 45.0f;
@@ -37,6 +43,17 @@ void Player::Start()
 
 void Player::Update()
 {
+	if (m_IsDown)
+	{
+		UpdateDownState();
+		return;
+	}
+
+	if (m_IsInvincible)
+	{
+		UpdateBlink(DeltaTime());
+	}
+
 	// 回避中は回避処理のみ行う
 	if (isDodging)
 	{
@@ -93,6 +110,112 @@ void Player::UpdateDodgeState()
 		cam->fovAngleY = math::Lerp(cam->fovAngleY, m_DefaultFov, 8.0f * DeltaTime());
 	}
 	UpdateParticle();
+}
+
+void Player::UpdateDownState()
+{
+	const float dt = DeltaTime();
+
+	m_DownTimer += dt;
+	Rigidbody3D rb = GetComponent<Rigidbody3D>();
+	if (rb)
+	{
+		m_Velocity = math::float3(0.0f, -m_DownFallSpeed, 0.0f);
+		rb->velocity = m_Velocity;
+	}
+
+	if (m_DownTimer >= m_RespawnDelay)
+	{
+		Respawn();
+	}
+}
+
+void Player::ApplyDamage(int damage)
+{
+	if (m_IsInvincible || m_IsDown)
+	{
+		return;
+	}
+
+	m_CurrentHp -= damage;
+	if (m_CurrentHp <= 0)
+	{
+		BeginDown();
+		return;
+	}
+
+	m_IsInvincible = true;
+	m_InvincibleTimer = m_InvincibleDuration;
+	m_BlinkTimer = 0.0f;
+	m_BlinkVisible = true;
+	transform->scale = m_DefaultScale;
+}
+
+void Player::BeginDown()
+{
+	m_IsDown = true;
+	m_IsInvincible = false;
+	m_InvincibleTimer = 0.0f;
+	m_BlinkTimer = 0.0f;
+	m_BlinkVisible = true;
+	transform->scale = m_DefaultScale;
+	m_DownTimer = 0.0f;
+	isDodging = false;
+	isBoosting = false;
+
+	if (m_Camera)
+	{
+		m_Camera->SetFollowEnabled(false);
+	}
+}
+
+void Player::Respawn()
+{
+	m_IsDown = false;
+	m_CurrentHp = m_MaxHp;
+	m_IsInvincible = true;
+	m_InvincibleTimer = m_InvincibleDuration;
+	m_BlinkTimer = 0.0f;
+	m_BlinkVisible = true;
+	transform->scale = m_DefaultScale;
+
+	m_Velocity = math::float3::Zero();
+	transform->position.y = minAltitude;
+
+	Rigidbody3D rb = GetComponent<Rigidbody3D>();
+	if (rb)
+	{
+		rb->velocity = m_Velocity;
+	}
+
+	if (m_Camera)
+	{
+		m_Camera->SetFollowEnabled(true);
+	}
+}
+
+void Player::UpdateBlink(float dt)
+{
+	if (!m_IsInvincible)
+	{
+		return;
+	}
+
+	m_InvincibleTimer -= dt;
+	m_BlinkTimer += dt;
+	if (m_BlinkTimer >= m_BlinkInterval)
+	{
+		m_BlinkTimer = 0.0f;
+		m_BlinkVisible = !m_BlinkVisible;
+		transform->scale = m_BlinkVisible ? m_DefaultScale : Scale(0.0f, 0.0f, 0.0f);
+	}
+
+	if (m_InvincibleTimer <= 0.0f)
+	{
+		m_IsInvincible = false;
+		m_BlinkVisible = true;
+		transform->scale = m_DefaultScale;
+	}
 }
 
 void Player::Move()
@@ -310,6 +433,41 @@ void Player::UpdateParticle()
 	m_Particle->transform->position = transform->position;
 	Emitter emitter = GetEmitterComponent(*m_Particle);
 	emitter->emit = true;
+}
+
+void Player::OnCollisionEnter(GameObject& other)
+{
+	if (m_IsDown)
+	{
+		return;
+	}
+
+	if (other.GetTag() == "EnemyAttack")
+	{
+		if (auto bullet = other.GetMarionnette<EnemyBullet>())
+		{
+			ApplyDamage(bullet->GetDamage());
+		}
+		else if (auto missile = other.GetMarionnette<EnemyMissile>())
+		{
+			ApplyDamage(missile->GetDamage());
+		}
+		else
+		{
+			ApplyDamage(1);
+		}
+	}
+	else if (other.GetTag() == "Enemy")
+	{
+		if (auto enemy = other.GetMarionnette<Enemy>())
+		{
+			ApplyDamage(enemy->GetRamDamage());
+		}
+		else
+		{
+			ApplyDamage(1);
+		}
+	}
 }
 
 void Player::Dodge()

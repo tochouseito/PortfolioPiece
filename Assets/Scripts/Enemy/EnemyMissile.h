@@ -14,6 +14,7 @@ public:
 	void OnCollisionEnter(GameObject& other) override;
 
 	void SetActive(bool isActive) { m_IsActive = isActive; }
+	int GetDamage() const { return m_Damage; }
 private:
 	void Homing();
 	void Remove();
@@ -27,4 +28,5 @@ private:
 	float m_LifeTime = 60.0f * 6.0f;
 	float m_Speed = 140.0f;
 	float m_HomingStrength = 0.08f;
+	int m_Damage = 1;
 };

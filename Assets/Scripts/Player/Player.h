@@ -15,6 +15,7 @@ public:
     void Start() override;
 	// 毎フレーム処理
     void Update() override;
+	void OnCollisionEnter(GameObject& other) override;
 
 	// 回避行動フラグGet
 	bool IsDodging() const { return isDodging; }
@@ -31,6 +32,11 @@ public:
 private:
     void UpdateNormal();
     void UpdateDodgeState();
+	void UpdateDownState();
+	void ApplyDamage(int damage);
+	void BeginDown();
+	void Respawn();
+	void UpdateBlink(float dt);
     void Move();
     void Boost();
     void SlowDown();
@@ -45,6 +51,7 @@ private:
     MainCamera* m_Camera = nullptr;
     Generator* m_Generator = nullptr;
     GameObject* m_Particle = nullptr;
+	Scale m_DefaultScale{};
 
     std::unordered_map<std::wstring, GameObject*> m_LockOnMap;
 
@@ -57,7 +64,19 @@ private:
     float   m_AngularAcceleration = 0.1f;
 
     // 生存フラグ
-	bool m_IsAlive = true;
+    bool m_IsAlive = true;
+	bool m_IsDown = false;
+	bool m_IsInvincible = false;
+	float m_DownTimer = 0.0f;
+	float m_InvincibleTimer = 0.0f;
+	float m_BlinkTimer = 0.0f;
+	bool m_BlinkVisible = true;
+	int m_MaxHp = 3;
+	int m_CurrentHp = 3;
+	float m_RespawnDelay = 2.0f;
+	float m_InvincibleDuration = 2.0f;
+	float m_BlinkInterval = 0.12f;
+	float m_DownFallSpeed = 80.0f;
 
     // 減衰・制限
     float   damping = 0.9f;

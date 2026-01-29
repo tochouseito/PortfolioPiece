@@ -18,6 +18,7 @@ public:
     void Start() override;
 	// 毎フレーム処理
     void Update() override;
+	void SetFollowEnabled(bool enabled) { m_FollowEnabled = enabled; }
 private:
 	// ラグ追従
 	void LagFollow();
@@ -27,6 +28,7 @@ private:
 	static float Clamp01(float x) { return std::max(0.0f, std::min(1.0f, x)); }
 
 	Player* m_Player = nullptr; // プレイヤーオブジェクトへのポインタ
+	bool m_FollowEnabled = true;
 
 	enum class Mode { Intro, BlendToFollow, Follow };
 	Mode mode_ = Mode::Intro;

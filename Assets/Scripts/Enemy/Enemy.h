@@ -23,6 +23,7 @@ public:
     void EnableLockOnTarget(LockOn* lockOn);
     void UnableLockOnTarget();
     void SetApproachTarget(const math::float3& target, float arriveRadius = 5.0f);
+    int GetRamDamage() const { return m_RamDamage; }
 
     void OnCollisionEnter(GameObject& other) override;
 
@@ -88,4 +89,5 @@ private:
     float m_RamPrepareTimer = 0.0f;
     float m_RamPrepareDelay = 0.4f;
     float m_RamSpeed = 220.0f;
+    int m_RamDamage = 1;
 };

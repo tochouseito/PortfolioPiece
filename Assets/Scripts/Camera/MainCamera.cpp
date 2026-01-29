@@ -17,6 +17,11 @@ void MainCamera::Update()
     // 毎フレーム処理
 	const float dt = DeltaTime();
 
+	if (!m_FollowEnabled)
+	{
+		return;
+	}
+
 	if (Input::TriggerKey(DIK_R))
 	{
 		mode_ = Mode::Intro;
