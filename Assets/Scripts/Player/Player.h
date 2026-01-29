@@ -29,18 +29,22 @@ public:
 		isClear = true;
     }
 private:
+    void UpdateNormal();
+    void UpdateDodgeState();
     void Move();
     void Boost();
     void SlowDown();
     void MoveLimit();
     void Attack();
     void Dodge();
+    void UpdateParticle();
     float SmoothLimitRange(const float& distance);
 
     // 参照
     Target* m_Target = nullptr;
     MainCamera* m_Camera = nullptr;
     Generator* m_Generator = nullptr;
+    GameObject* m_Particle = nullptr;
 
     std::unordered_map<std::wstring, GameObject*> m_LockOnMap;
 
@@ -68,6 +72,10 @@ private:
     float minSpeed = 0.0f;
 
     float rotateSpeed = 20.0f;
+    float rollMaxDeg = 20.0f;
+    float rollSmooth = 10.0f;
+    float rollReturn = 14.0f;
+    float minAltitude = 20.0f;
 
     // === ブースト関連 ===
     const float boostPower = 20.0f;  // 1フレームあたりの追加加速係数（前方へ）

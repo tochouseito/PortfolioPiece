@@ -111,6 +111,13 @@ void Enemy::EnableLockOnTarget(LockOn* lockOn)
     m_LockOn = lockOn;
 }
 
+void Enemy::SetApproachTarget(const math::float3& target, float arriveRadius)
+{
+    m_ApproachTarget = target;
+    m_ApproachArriveRadius = arriveRadius;
+    m_IsApproaching = true;
+}
+
 void Enemy::UnableLockOnTarget()
 {
     // 1) ロックオン対象でなければ何もしない
@@ -169,6 +176,51 @@ void Enemy::Move()
     // 1) dt
     const float dt = DeltaTime();
 
+    // 1.5) 生成直後のアプローチ移動
+    if (m_IsApproaching)
+    {
+        const math::float3 toTarget = m_ApproachTarget - transform->position;
+        const float distance = length3(toTarget);
+        if (distance <= m_ApproachArriveRadius)
+        {
+            m_IsApproaching = false;
+        }
+        else
+        {
+            const math::float3 dir = normalize3(toTarget);
+            m_Velocity = dir * m_ApproachSpeed;
+
+            Rigidbody3D rb = GetComponent<Rigidbody3D>();
+            if (rb)
+            {
+                rb->velocity = m_Velocity;
+            }
+
+            auto transformComp = GetComponent<Transform>();
+            if (transformComp)
+            {
+                const float yaw = std::atan2(dir.x, dir.z);
+                const float pitch = -std::atan2(dir.y, std::sqrt(dir.x * dir.x + dir.z * dir.z));
+                transformComp->degrees.y = rad_to_deg(yaw);
+                transformComp->degrees.x = rad_to_deg(pitch);
+                transformComp->degrees.z = -rad_to_deg(yaw) * 0.2f;
+            }
+            if (transform->position.y < m_MinAltitude)
+            {
+                transform->position.y = m_MinAltitude;
+                if (m_Velocity.y < 0.0f)
+                {
+                    m_Velocity.y = 0.0f;
+                    if (rb)
+                    {
+                        rb->velocity = m_Velocity;
+                    }
+                }
+            }
+            return;
+        }
+    }
+
     // 2) 3秒ごとにランダム目標方向を更新
     m_RandomTimer += dt;
     if (m_RandomTimer >= m_RandomIntervalSec)
@@ -216,6 +268,20 @@ void Enemy::Move()
         if (rb)
         {
             rb->velocity = m_Velocity;
+        }
+    }
+
+    if (transform->position.y < m_MinAltitude)
+    {
+        transform->position.y = m_MinAltitude;
+        if (m_Velocity.y < 0.0f)
+        {
+            m_Velocity.y = 0.0f;
+            Rigidbody3D rb = GetComponent<Rigidbody3D>();
+            if (rb)
+            {
+                rb->velocity = m_Velocity;
+            }
         }
     }
 

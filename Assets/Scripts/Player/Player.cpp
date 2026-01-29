@@ -11,8 +11,11 @@ void Player::Start()
 	m_Camera = GetMarionnette<MainCamera>(L"MainCamera");
 	m_Generator = GetMarionnette<Generator>(L"Generator");
 
-	GameObject* particleObj = FindGameObjectByName(L"MainParticle");
-	particleObj->transform->parent = this->gameObject.transform;
+	m_Particle = FindGameObjectByName(L"MainParticle");
+	if (m_Particle)
+	{
+		m_Particle->transform->parent = this->gameObject.transform;
+	}
 
 	Camera camera = m_Camera->GetComponent<Camera>();
 	m_DefaultFov = 45.0f;
@@ -36,18 +39,15 @@ void Player::Update()
 	// 回避中は回避処理のみ行う
 	if (isDodging)
 	{
-		Dodge(); // 継続処理（終了判定込み）
-		// ブーストのクールダウンだけは進める
-		if (boostCooldownTimer > 0.0f) boostCooldownTimer -= DeltaTime();
-		// FOVは回避で弄らない。戻す
-		if (m_Camera)
-		{
-			Camera cam = m_Camera->GetComponent<Camera>();
-			cam->fovAngleY = math::Lerp(cam->fovAngleY, m_DefaultFov, 8.0f * DeltaTime());
-		}
+		UpdateDodgeState();
 		return;
 	}
 
+	UpdateNormal();
+}
+
+void Player::UpdateNormal()
+{
 	// ===== 通常状態 =====
 	// 入力処理（移動・回転）
 	Move();
@@ -77,24 +77,34 @@ void Player::Update()
 	// 攻撃処理
 	Attack();
 
-	GameObject* particleObj = FindGameObjectByName(L"MainParticle");
-	particleObj->transform->position = transform->position;
-	Emitter emitter = GetEmitterComponent(*particleObj);
-	emitter->emit = true;
+	UpdateParticle();
+}
+
+void Player::UpdateDodgeState()
+{
+	Dodge(); // 継続処理（終了判定込み）
+	// ブーストのクールダウンだけは進める
+	if (boostCooldownTimer > 0.0f) boostCooldownTimer -= DeltaTime();
+	// FOVは回避で弄らない。戻す
+	if (m_Camera)
+	{
+		Camera cam = m_Camera->GetComponent<Camera>();
+		cam->fovAngleY = math::Lerp(cam->fovAngleY, m_DefaultFov, 8.0f * DeltaTime());
+	}
+	UpdateParticle();
 }
 
 void Player::Move()
 {
 	// --- 平行移動 ---
+	const int inputX = (Input::PushKey(DIK_D) ? 1 : 0) + (Input::PushKey(DIK_A) ? -1 : 0);
 	if (Input::PushKey(DIK_A))
 	{ 
 		m_Velocity.x -= m_Acceleration;
-		transform->degrees.z += -1.0f * rotateSpeed;
 	}
 	if (Input::PushKey(DIK_D))
 	{
 		m_Velocity.x += m_Acceleration;
-		transform->degrees.z += 1.0f * rotateSpeed;
 	}
 	if (Input::PushKey(DIK_W))
 	{
@@ -122,6 +132,11 @@ void Player::Move()
 	// Rigidbody へ適用
 	Rigidbody3D rb = GetComponent<Rigidbody3D>();
 	rb->velocity = m_Velocity;
+
+	// ロール（横移動に合わせてなめらかに傾ける）
+	const float targetRoll = static_cast<float>(inputX) * rollMaxDeg;
+	const float rollSpeed = (inputX == 0) ? rollReturn : rollSmooth;
+	transform->degrees.z = math::Lerp(transform->degrees.z, targetRoll, rollSpeed * DeltaTime());
 
 	// --- 回転入力 ---
 	if (Input::PushKey(DIK_LEFTARROW)) 
@@ -222,6 +237,14 @@ void Player::MoveLimit()
 	// 移動制限
 	Vector3 pos = transform->position;
 
+	// 最低高度の制限
+	if (pos.y < minAltitude)
+	{
+		pos.y = minAltitude;
+		transform->position.y = minAltitude;
+		if (m_Velocity.y < 0.0f) m_Velocity.y = 0.0f;
+	}
+
 	// 壁に近づいている方向にだけ減衰
 	// X軸 減衰
 	if ((m_Velocity.x > 0.0f && pos.x > 0.0f) || (m_Velocity.x < 0.0f && pos.x < 0.0f))
@@ -272,6 +295,18 @@ void Player::Attack()
 			lockOn->SetIsAttacked(true); // 攻撃されたフラグを立てる
 		}
 	}
+}
+
+void Player::UpdateParticle()
+{
+	if (!m_Particle)
+	{
+		return;
+	}
+
+	m_Particle->transform->position = transform->position;
+	Emitter emitter = GetEmitterComponent(*m_Particle);
+	emitter->emit = true;
 }
 
 void Player::Dodge()

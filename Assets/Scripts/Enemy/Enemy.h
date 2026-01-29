@@ -22,6 +22,7 @@ public:
     bool IsLockOnTarget() const { return m_IsLockOnTarget; }
     void EnableLockOnTarget(LockOn* lockOn);
     void UnableLockOnTarget();
+    void SetApproachTarget(const math::float3& target, float arriveRadius = 5.0f);
 
     void OnCollisionEnter(GameObject& other) override;
 
@@ -57,4 +58,11 @@ private:
     math::float3 m_TargetDir = math::float3(0.0f, 0.0f, 1.0f);    // 次の目標方向（正規化前提）
 
     std::mt19937 m_Rng{}; // ★乱数
+
+    // 生成直後のアプローチ移動
+    bool m_IsApproaching = false;
+    math::float3 m_ApproachTarget = math::float3::Zero();
+    float m_ApproachArriveRadius = 5.0f;
+    float m_ApproachSpeed = 140.0f;
+    float m_MinAltitude = 20.0f;
 };
