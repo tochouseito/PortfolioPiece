@@ -1,6 +1,6 @@
 // Enemy.h
 #pragma once
-#include "Marionnette.h"
+#include <Marionnette.h>
 
 #include <random>   // ★追加：乱数
 

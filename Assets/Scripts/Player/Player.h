@@ -1,5 +1,5 @@
 #pragma once
-#include "Marionnette.h"
+#include <Marionnette.h>
 
 // 前方宣言
 class Target;

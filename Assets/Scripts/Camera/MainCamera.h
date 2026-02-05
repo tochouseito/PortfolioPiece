@@ -1,5 +1,5 @@
 #pragma once
-#include "Marionnette.h"
+#include <Marionnette.h>
 
 class Player;
 // メインカメラの追従とイントロ演出を制御するクラス

@@ -1,5 +1,5 @@
 #pragma once
-#include "Marionnette.h"
+#include <Marionnette.h>
 
 // 壁オブジェクトを表すクラス
 class Wall : public Marionnette

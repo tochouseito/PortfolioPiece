@@ -1,5 +1,5 @@
 #pragma once
-#include "Marionnette.h"
+#include <Marionnette.h>
 
 // カメラ系の共通挙動を持つ基底クラス
 class BaseCamera : public Marionnette

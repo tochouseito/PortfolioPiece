@@ -1,5 +1,5 @@
 #pragma once
-#include "Marionnette.h"
+#include <Marionnette.h>
 
 // ポーズ画面のタイトル戻りUIクラス
 class PoseReturnTitle : public Marionnette
