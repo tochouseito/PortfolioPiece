@@ -1,6 +1,7 @@
 #include "FadeSprite.h"
 using namespace theatriaSystem;
 
+// Start の処理
 void FadeSprite::Start()
 {
     // 初期化処理
@@ -8,6 +9,7 @@ void FadeSprite::Start()
 	elapsedTime = 0.0f;
 }
 
+// Update の処理
 void FadeSprite::Update()
 {
     // 毎フレーム処理
@@ -15,6 +17,7 @@ void FadeSprite::Update()
     FadeOut();
 }
 
+// StartFadeIn の処理
 void FadeSprite::StartFadeIn()
 {
 	// フェードインを開始フラグを立てる
@@ -23,12 +26,14 @@ void FadeSprite::StartFadeIn()
 	elapsedTime = 0.0f; // 経過時間をリセット
 	// スプライトの透明度を0に設定
 	auto mtl = GetComponent<Material>();
+	// if の処理
 	if (mtl)
 	{
 		mtl->color.a = 0.0f;
 	}
 }
 
+// StartFadeOut の処理
 void FadeSprite::StartFadeOut()
 {
 	// フェードアウトを開始フラグを立てる
@@ -37,22 +42,26 @@ void FadeSprite::StartFadeOut()
 	elapsedTime = 0.0f; // 経過時間をリセット
 	// スプライトの透明度を1に設定
 	auto mtl = GetComponent<Material>();
+	// if の処理
 	if (mtl)
 	{
 		mtl->color.a = 1.0f;
 	}
 }
 
+// FadeIn の処理
 void FadeSprite::FadeIn()
 {
 	if (!fadingIn) return;
 	elapsedTime += DeltaTime();
 	auto mtl = GetComponent<Material>();
+	// if の処理
 	if (mtl)
 	{
 		float alpha = math::Lerp(0.0f, 1.0f, elapsedTime / duration);
 		mtl->color.a = alpha;
 	}
+	// if の処理
 	if (elapsedTime >= duration)
 	{
 		// フェードイン完了
@@ -61,16 +70,19 @@ void FadeSprite::FadeIn()
 	}
 }
 
+// FadeOut の処理
 void FadeSprite::FadeOut()
 {
 	if (!fadingOut) return;
 	elapsedTime += DeltaTime();
 	auto mtl = GetComponent<Material>();
+	// if の処理
 	if (mtl)
 	{
 		float alpha = math::Lerp(1.0f, 0.0f, elapsedTime / duration);
 		mtl->color.a = alpha;
 	}
+	// if の処理
 	if (elapsedTime >= duration)
 	{
 		// フェードアウト完了

@@ -4,6 +4,7 @@ using namespace theatriaSystem;
 #include "Enemy/Enemy.h"
 #include "Generator/Generator.h"
 
+// Start の処理
 void PlayerMissile::Start()
 {
     // 初期化処理
@@ -11,6 +12,7 @@ void PlayerMissile::Start()
 	m_Generator = GetMarionnette<Generator>(L"Generator");
 	// タグ設定
 	gameObject.SetTag("PlayerAttack");
+	// if の処理
 	if (!m_IsActive) { return; }
     m_Direction.Normalize();
     m_Velocity.Initialize();
@@ -19,6 +21,7 @@ void PlayerMissile::Start()
 	m_LifeTime = 60.0f * 6.0f; // ライフタイムを設定
 }
 
+// Update の処理
 void PlayerMissile::Update()
 {
     // 毎フレーム処理
@@ -48,6 +51,7 @@ void PlayerMissile::OnCollisionEnter(GameObject& other)
     }
 }
 
+// Homing の処理
 void PlayerMissile::Homing()
 {
     Rigidbody3D rb = GetComponent<Rigidbody3D>();
@@ -79,6 +83,7 @@ void PlayerMissile::Homing()
 	rb->quaternion = Quaternion::Slerp(rb->quaternion, targetRot, 1.0f);
 }
 
+// Remove の処理
 void PlayerMissile::Remove()
 {
 	// ミサイルを非アクティブにする

@@ -5,6 +5,7 @@ using namespace theatriaSystem;
 #include "Camera/MainCamera.h"
 #include "Externals/nlohmann/json.hpp"
 
+// Start の処理
 void EnemySpawner::Start()
 {
     // 初期化処理
@@ -14,6 +15,7 @@ void EnemySpawner::Start()
 
 	// EnemySpawnPoint読み込み
 	m_SpawnPoints = LoadEnemySpawnPoints("EnemySpawnPoint.json");
+	// if の処理
 	if (m_SpawnPoints.empty())
     {
         m_SpawnPoints = LoadEnemySpawnPoints("Assets/EnemySpawnPoint.json");
@@ -31,6 +33,7 @@ void EnemySpawner::Start()
 	}
 }
 
+// Update の処理
 void EnemySpawner::Update()
 {
     // 毎フレーム処理
@@ -39,11 +42,13 @@ void EnemySpawner::Update()
 		return;
 	}
 
+	// if の処理
 	if (m_CurrentPhase >= kPhaseCount)
 	{
 		return;
 	}
 
+	// if の処理
 	if (!m_PhaseActive)
 	{
 		BeginPhase();
@@ -52,15 +57,18 @@ void EnemySpawner::Update()
 	const float dt = DeltaTime();
 	m_PhaseTimer += dt;
 
+	// if の処理
 	if (m_PhaseTimer >= m_PhaseTimeLimit)
 	{
 		AdvancePhase();
 		return;
 	}
 
+	// if の処理
 	if (m_AlivePerPhase[m_CurrentPhase] <= 0)
 	{
 		m_ClearWaitTimer += dt;
+		// if の処理
 		if (m_ClearWaitTimer >= m_ClearWaitDuration)
 		{
 			AdvancePhase();
@@ -72,15 +80,19 @@ void EnemySpawner::Update()
 	}
 }
 
+// RemoveEnemy の処理
 void EnemySpawner::RemoveEnemy(const std::wstring& name)
 {
 	m_EnemyMap.erase(name);
 	auto it = m_EnemyPhaseMap.find(name);
+	// if の処理
 	if (it != m_EnemyPhaseMap.end())
 	{
 		const int phaseIndex = it->second;
+		// if の処理
 		if (phaseIndex >= 0 && phaseIndex < static_cast<int>(m_AlivePerPhase.size()))
 		{
+			// if の処理
 			if (m_AlivePerPhase[phaseIndex] > 0)
 			{
 				m_AlivePerPhase[phaseIndex] -= 1;
@@ -90,10 +102,12 @@ void EnemySpawner::RemoveEnemy(const std::wstring& name)
 	}
 }
 
+// SpawnEnemy の処理
 void EnemySpawner::SpawnEnemy()
 {
     // プレイヤーの位置を基準に左右にスポーン
     Vector3 basePos = m_Player->GetPosition();
+	// for の処理
 	for (auto& point : m_SpawnPoints)
     {
         Vector3 spawnPos = basePos;
@@ -106,6 +120,7 @@ void EnemySpawner::SpawnEnemy()
     }
 }
 
+// HorizontalSpawn の処理
 void EnemySpawner::HorizontalSpawn()
 {
 	// プレイヤーの位置を基準に左右にスポーン
@@ -125,8 +140,10 @@ void EnemySpawner::HorizontalSpawn()
 	}
 }
 
+// BeginPhase の処理
 void EnemySpawner::BeginPhase()
 {
+	// if の処理
 	if (m_CurrentPhase >= kPhaseCount)
 	{
 		return;
@@ -140,6 +157,7 @@ void EnemySpawner::BeginPhase()
 	SpawnPhaseEnemies(count);
 }
 
+// AdvancePhase の処理
 void EnemySpawner::AdvancePhase()
 {
 	m_PhaseActive = false;
@@ -148,6 +166,7 @@ void EnemySpawner::AdvancePhase()
 	m_CurrentPhase += 1;
 }
 
+// SpawnPhaseEnemies の処理
 void EnemySpawner::SpawnPhaseEnemies(int count)
 {
 	std::uniform_real_distribution<float> xDist(-m_ApproachBoundsX, m_ApproachBoundsX);
@@ -171,6 +190,7 @@ void EnemySpawner::SpawnPhaseEnemies(int count)
 	}
 }
 
+// MakeOffscreenSpawnPosition の処理
 float3 EnemySpawner::MakeOffscreenSpawnPosition()
 {
 	float3 basePos = m_Player->GetPosition();
@@ -183,16 +203,19 @@ float3 EnemySpawner::MakeOffscreenSpawnPosition()
 
 	float3 spawnPos = basePos;
 	const int edge = edgeDist(m_Rng);
+	// if の処理
 	if (edge == 0)
 	{
 		spawnPos.x += -m_SpawnBoundsX - m_SpawnOffscreenMargin;
 		spawnPos.y += yDist(m_Rng);
 	}
+	// if の処理
 	else if (edge == 1)
 	{
 		spawnPos.x += m_SpawnBoundsX + m_SpawnOffscreenMargin;
 		spawnPos.y += yDist(m_Rng);
 	}
+	// if の処理
 	else if (edge == 2)
 	{
 		spawnPos.y += m_SpawnBoundsY + m_SpawnOffscreenMargin;
@@ -204,6 +227,7 @@ float3 EnemySpawner::MakeOffscreenSpawnPosition()
 		spawnPos.x += xDist(m_Rng);
 	}
 
+	// if の処理
 	if (!IsOffscreen(spawnPos))
 	{
 		// 画面内に入る場合は少し前方へ押し出す
@@ -213,14 +237,17 @@ float3 EnemySpawner::MakeOffscreenSpawnPosition()
 	return spawnPos;
 }
 
+// IsOffscreen の処理
 bool EnemySpawner::IsOffscreen(const float3& pos) const
 {
+	// if の処理
 	if (!m_MainCamera)
 	{
 		return true;
 	}
 
 	Camera camera = m_MainCamera->GetComponent<Camera>();
+	// if の処理
 	if (!camera)
 	{
 		return true;
@@ -239,12 +266,14 @@ bool EnemySpawner::IsOffscreen(const float3& pos) const
 	return (screenPos.x < 0.0f || screenPos.x > width || screenPos.y < 0.0f || screenPos.y > height);
 }
 
+// LoadEnemySpawnPoints の処理
 std::vector<float3> EnemySpawner::LoadEnemySpawnPoints(const std::filesystem::path& jsonPath)
 {
     using nlohmann::json;
 
     // ファイルオープン
     std::ifstream ifs(jsonPath);
+    // if の処理
     if (!ifs)
     {
         // throw std::runtime_error("Failed to open spawn point file: " + jsonPath.string());
@@ -257,6 +286,7 @@ std::vector<float3> EnemySpawner::LoadEnemySpawnPoints(const std::filesystem::pa
     {
         ifs >> j;
     }
+    // catch の処理
     catch (const std::exception& e)
     {
         throw std::runtime_error(
@@ -283,6 +313,7 @@ std::vector<float3> EnemySpawner::LoadEnemySpawnPoints(const std::filesystem::pa
     std::vector<float3> result;
     result.reserve(spawnArray.size());
 
+    // for の処理
     for (const auto& sp : spawnArray)
     {
         // position: [x, y, z]

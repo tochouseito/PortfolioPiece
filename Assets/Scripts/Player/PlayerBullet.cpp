@@ -3,6 +3,7 @@ using namespace theatriaSystem;
 #include "Player.h"
 #include "Generator/Generator.h"
 
+// Start の処理
 void PlayerBullet::Start()
 {
     // 初期化処理
@@ -10,6 +11,7 @@ void PlayerBullet::Start()
 	m_Generator = GetMarionnette<Generator>(L"Generator");
 	// タグ設定
 	gameObject.SetTag("PlayerAttack");
+    // if の処理
     if (!m_IsActive) { return; }
     m_Direction = math::RotateVector(math::float3(0.0f, 0.0f, 1.0f), m_Player->transform->quaternion);
     m_Direction.Normalize();
@@ -19,12 +21,14 @@ void PlayerBullet::Start()
     // m_Speed = m_Player->GetSpeed() * m_Speed;
 }
 
+// Update の処理
 void PlayerBullet::Update()
 {
     if (!m_IsActive) return;
 
     // テスト
 	m_Velocity = (m_Direction * m_Speed) * DeltaTime();
+    // if の処理
     if (m_LifeTime <= 0.0f)
     {
         // ライフタイムが0以下なら非アクティブにする

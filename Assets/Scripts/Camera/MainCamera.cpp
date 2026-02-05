@@ -2,6 +2,7 @@
 using namespace theatriaSystem;
 #include "Player/Player.h"
 
+// Start の処理
 void MainCamera::Start()
 {
     // 初期化処理
@@ -12,16 +13,19 @@ void MainCamera::Start()
 
 }
 
+// Update の処理
 void MainCamera::Update()
 {
     // 毎フレーム処理
 	const float dt = DeltaTime();
 
+	// if の処理
 	if (!m_FollowEnabled)
 	{
 		return;
 	}
 
+	// if の処理
 	if (Input::TriggerKey(DIK_R))
 	{
 		mode_ = Mode::Intro;
@@ -29,6 +33,7 @@ void MainCamera::Update()
 		blendTime_ = 0.0f;
 	}
 
+    // switch の処理
     switch (mode_)
     {
     case Mode::Intro:
@@ -55,6 +60,7 @@ void MainCamera::Update()
         transform->position = math::float3::Lerp(endIntroPos_, followDesiredPos, t);
         transform->quaternion = Quaternion::Slerp(endIntroRot_, followDesiredRot, t);
 
+        // if の処理
         if (t >= 1.0f)
         {
             mode_ = Mode::Follow;
@@ -68,6 +74,7 @@ void MainCamera::Update()
     }
 }
 
+// LagFollow の処理
 void MainCamera::LagFollow()
 {
 	// プレイヤーの位置からオフセットをかけたターゲット位置を計算
@@ -84,16 +91,19 @@ void MainCamera::LagFollow()
 	transform->quaternion = Quaternion::Slerp(transform->quaternion, desiredRot, rotateSpeed * DeltaTime());
 }
 
+// UpdateIntroArc の処理
 void MainCamera::UpdateIntroArc(float dt)
 {
 	introTime_ += dt;
 
 	const float shotDuration = introDuration_ / static_cast<float>(kIntroShotCount);
 	int shotIndex = static_cast<int>(introTime_ / shotDuration);
+	// if の処理
 	if (shotIndex < 0)
 	{
 		shotIndex = 0;
 	}
+	// if の処理
 	else if (shotIndex >= kIntroShotCount)
 	{
 		shotIndex = kIntroShotCount - 1;
@@ -118,6 +128,7 @@ void MainCamera::UpdateIntroArc(float dt)
 	transform->position = worldPos;
 	transform->quaternion = math::MakeLookRotation(forward, up);
 
+	// if の処理
 	if (introTime_ >= introDuration_)
 	{
 		endIntroPos_ = transform->position;

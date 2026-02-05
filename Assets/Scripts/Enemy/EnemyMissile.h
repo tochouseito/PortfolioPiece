@@ -14,7 +14,9 @@ public:
 
 	void OnCollisionEnter(GameObject& other) override;
 
+	// SetActive の処理
 	void SetActive(bool isActive) { m_IsActive = isActive; }
+	// GetDamage の処理
 	int GetDamage() const { return m_Damage; }
 private:
 	void Homing();
