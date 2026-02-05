@@ -1,5 +1,5 @@
 #pragma once
-#include "Marionnette.h"
+#include <Marionnette.h>
 
 // 敵弾の移動と衝突処理を行うクラス
 class EnemyBullet : public Marionnette

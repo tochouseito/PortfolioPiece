@@ -1,5 +1,5 @@
-﻿#pragma once
-#include "Marionnette.h"
+#pragma once
+#include <Marionnette.h>
 
 // ポーズ画面の背景UIクラス
 class PoseBackend : public Marionnette

@@ -1,5 +1,5 @@
 #pragma once
-#include "Marionnette.h"
+#include <Marionnette.h>
 
 // 地面オブジェクトを表すクラス
 class Ground : public Marionnette

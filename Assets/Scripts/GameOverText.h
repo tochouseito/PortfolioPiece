@@ -1,5 +1,5 @@
 #pragma once
-#include "Marionnette.h"
+#include <Marionnette.h>
 
 // ゲームオーバーUIのフェード制御クラス
 class GameOverText : public Marionnette
