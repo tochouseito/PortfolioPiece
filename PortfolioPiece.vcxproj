@@ -19,13 +19,13 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v143</PlatformToolset>
+    <PlatformToolset>v145</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v143</PlatformToolset>
+    <PlatformToolset>v145</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
@@ -41,7 +41,7 @@
       <Optimization>Disabled</Optimization>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <PreprocessorDefinitions>_DEBUG;EXPORT_SCRIPT_API;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)Assets/Scripts;..\..\PhysicsEngine\include;..\..\Cho\GameCore\ScriptAPI;..\..\Cho\GameCore\Marionnette;..\..\ChoMath\include;..\..\ChoMath;..\..\Cho;;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)Assets/Scripts;C:\Users\sinse\source\repos\TheatriaEngine\generated\outputs\Debug\PhysicsEngine\include;C:\Users\sinse\source\repos\TheatriaEngine\generated\outputs\Debug\Cho\GameCore\ScriptAPI;C:\Users\sinse\source\repos\TheatriaEngine\generated\outputs\Debug\Cho\GameCore\Marionnette;C:\Users\sinse\source\repos\TheatriaEngine\generated\outputs\Debug\ChoMath\include;C:\Users\sinse\source\repos\TheatriaEngine\generated\outputs\Debug\ChoMath;C:\Users\sinse\source\repos\TheatriaEngine\generated\outputs\Debug\Cho;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
       <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
@@ -51,7 +51,7 @@
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>ChoMath.lib;TheatriaEngine.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(ProjectDir)..\..\..\generated\outputs\$(Configuration)\;$(ProjectDir)..\..\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\sinse\source\repos\TheatriaEngine\generated\outputs\$(Configuration);$(ProjectDir);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -60,7 +60,7 @@
       <Optimization>Disabled</Optimization>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <PreprocessorDefinitions>NDEBUG;EXPORT_SCRIPT_API;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)Assets/Scripts;..\..\PhysicsEngine\include;..\..\Cho\GameCore\ScriptAPI;..\..\Cho\GameCore\Marionnette;..\..\ChoMath\include;..\..\ChoMath;..\..\Cho;;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)Assets/Scripts;C:\Users\sinse\source\repos\TheatriaEngine\generated\outputs\Debug\PhysicsEngine\include;C:\Users\sinse\source\repos\TheatriaEngine\generated\outputs\Debug\Cho\GameCore\ScriptAPI;C:\Users\sinse\source\repos\TheatriaEngine\generated\outputs\Debug\Cho\GameCore\Marionnette;C:\Users\sinse\source\repos\TheatriaEngine\generated\outputs\Debug\ChoMath\include;C:\Users\sinse\source\repos\TheatriaEngine\generated\outputs\Debug\ChoMath;C:\Users\sinse\source\repos\TheatriaEngine\generated\outputs\Debug\Cho;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
       <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
@@ -72,7 +72,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>ChoMath.lib;TheatriaEngine.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(ProjectDir)..\..\..\generated\outputs\$(Configuration)\;$(ProjectDir)..\..\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\sinse\source\repos\TheatriaEngine\generated\outputs\$(Configuration);$(ProjectDir);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -93,6 +93,14 @@
     <ClCompile Include="Assets\Scripts\UI\Reticle.cpp" />
     <ClCompile Include="Assets\Scripts\UI\Target.cpp" />
     <ClCompile Include="Assets\Scripts\Player\TitlePlayerAnimation.cpp" />
+    <ClCompile Include="Assets\Scripts\FadeSprite.cpp" />
+    <ClCompile Include="Assets\Scripts\TitleManager.cpp" />
+    <ClCompile Include="Assets\Scripts\GameManager.cpp" />
+    <ClCompile Include="Assets\Scripts\GameOverText.cpp" />
+    <ClCompile Include="Assets\Scripts\UI\PoseBackend.cpp" />
+    <ClCompile Include="Assets\Scripts\UI\PoseClose.cpp" />
+    <ClCompile Include="Assets\Scripts\UI\PoseReturnTitle.cpp" />
+    <ClCompile Include="Assets\Scripts\UI\uiState.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Assets\Scripts\Camera\BaseCamera.h" />
@@ -112,6 +120,14 @@
     <ClInclude Include="Assets\Scripts\UI\Reticle.h" />
     <ClInclude Include="Assets\Scripts\UI\Target.h" />
     <ClInclude Include="Assets\Scripts\Player\TitlePlayerAnimation.h" />
+    <ClInclude Include="Assets\Scripts\FadeSprite.h" />
+    <ClInclude Include="Assets\Scripts\TitleManager.h" />
+    <ClInclude Include="Assets\Scripts\GameManager.h" />
+    <ClInclude Include="Assets\Scripts\GameOverText.h" />
+    <ClInclude Include="Assets\Scripts\UI\PoseBackend.h" />
+    <ClInclude Include="Assets\Scripts\UI\PoseClose.h" />
+    <ClInclude Include="Assets\Scripts\UI\PoseReturnTitle.h" />
+    <ClInclude Include="Assets\Scripts\UI\uiState.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
 </Project>

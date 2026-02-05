@@ -54,13 +54,21 @@
                     "scriptName": "Player"
                 },
                 "Rigidbody3D": {
+                    "active": true,
+                    "bodyType": 1,
+                    "fixedPositionX": false,
+                    "fixedPositionY": false,
+                    "fixedPositionZ": false,
+                    "fixedRotationX": false,
+                    "fixedRotationY": false,
+                    "fixedRotationZ": false,
                     "friction": 0.30000001192092896,
+                    "gravityScale": 1.0,
                     "halfsize": [
                         0.5,
                         0.5,
                         0.5
                     ],
-                    "isKinematic": false,
                     "isSensor": true,
                     "mass": 1.0,
                     "quaternion": [
@@ -307,26 +315,34 @@
                     "Color": [
                         0.7843137383460999,
                         0.7843137383460999,
-                        0.7843137383460999,
+                        0.0,
                         1.0
                     ],
                     "enableLighting": true,
                     "enableTexture": true,
                     "shininess": 50.0,
-                    "textureName": "sun",
+                    "textureName": "circle",
                     "uvFlipY": false
                 },
                 "Script": {
                     "scriptName": "PlayerBullet"
                 },
                 "Rigidbody3D": {
+                    "active": true,
+                    "bodyType": 1,
+                    "fixedPositionX": false,
+                    "fixedPositionY": false,
+                    "fixedPositionZ": false,
+                    "fixedRotationX": false,
+                    "fixedRotationY": false,
+                    "fixedRotationZ": false,
                     "friction": 0.30000001192092896,
+                    "gravityScale": 1.0,
                     "halfsize": [
                         0.5,
                         0.5,
                         0.5
                     ],
-                    "isKinematic": false,
                     "isSensor": false,
                     "mass": 1.0,
                     "quaternion": [
@@ -369,7 +385,7 @@
                     "translation": [
                         0.0,
                         0.0,
-                        50.0
+                        100.0
                     ]
                 },
                 "MeshFilter": {
@@ -449,13 +465,21 @@
                     "scriptName": "Enemy"
                 },
                 "Rigidbody3D": {
+                    "active": true,
+                    "bodyType": 1,
+                    "fixedPositionX": false,
+                    "fixedPositionY": false,
+                    "fixedPositionZ": false,
+                    "fixedRotationX": false,
+                    "fixedRotationY": false,
+                    "fixedRotationZ": false,
                     "friction": 0.30000001192092896,
+                    "gravityScale": 1.0,
                     "halfsize": [
                         2.0,
                         2.0,
                         2.0
                     ],
-                    "isKinematic": false,
                     "isSensor": true,
                     "mass": 1.0,
                     "quaternion": [
@@ -618,13 +642,21 @@
                     "scriptName": "PlayerMissile"
                 },
                 "Rigidbody3D": {
+                    "active": true,
+                    "bodyType": 1,
+                    "fixedPositionX": false,
+                    "fixedPositionY": false,
+                    "fixedPositionZ": false,
+                    "fixedRotationX": false,
+                    "fixedRotationY": false,
+                    "fixedRotationZ": false,
                     "friction": 0.30000001192092896,
+                    "gravityScale": 1.0,
                     "halfsize": [
                         0.5,
                         0.5,
                         0.5
                     ],
-                    "isKinematic": false,
                     "isSensor": true,
                     "mass": 1.0,
                     "quaternion": [
@@ -671,8 +703,8 @@
                     ]
                 },
                 "MeshFilter": {
-                    "modelID": 9,
-                    "modelName": "missile"
+                    "modelID": 0,
+                    "modelName": "Cube"
                 },
                 "MeshRenderer": {
                     "visible": true
@@ -687,20 +719,28 @@
                     "enableLighting": true,
                     "enableTexture": true,
                     "shininess": 50.0,
-                    "textureName": "Atlas_00002",
+                    "textureName": "sun",
                     "uvFlipY": false
                 },
                 "Script": {
                     "scriptName": "EnemyBullet"
                 },
                 "Rigidbody3D": {
+                    "active": true,
+                    "bodyType": 1,
+                    "fixedPositionX": false,
+                    "fixedPositionY": false,
+                    "fixedPositionZ": false,
+                    "fixedRotationX": false,
+                    "fixedRotationY": false,
+                    "fixedRotationZ": false,
                     "friction": 0.30000001192092896,
+                    "gravityScale": 1.0,
                     "halfsize": [
                         0.5,
                         0.5,
                         0.5
                     ],
-                    "isKinematic": false,
                     "isSensor": true,
                     "mass": 1.0,
                     "quaternion": [
@@ -756,8 +796,8 @@
                 "Material": {
                     "Color": [
                         0.7843137383460999,
-                        0.7843137383460999,
-                        0.7843137383460999,
+                        0.0,
+                        0.0,
                         1.0
                     ],
                     "enableLighting": true,
@@ -770,13 +810,21 @@
                     "scriptName": "EnemyMissile"
                 },
                 "Rigidbody3D": {
+                    "active": true,
+                    "bodyType": 1,
+                    "fixedPositionX": false,
+                    "fixedPositionY": false,
+                    "fixedPositionZ": false,
+                    "fixedRotationX": false,
+                    "fixedRotationY": false,
+                    "fixedRotationZ": false,
                     "friction": 0.30000001192092896,
+                    "gravityScale": 1.0,
                     "halfsize": [
                         0.5,
                         0.5,
                         0.5
                     ],
-                    "isKinematic": false,
                     "isSensor": true,
                     "mass": 1.0,
                     "quaternion": [
@@ -884,6 +932,742 @@
                 },
                 "Script": {
                     "scriptName": "LockOn"
+                }
+            }
+        },
+        {
+            "name": "FadeSprite",
+            "type": "UI",
+            "components": {
+                "Transform": {
+                    "degrees": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "isBillboard": false,
+                    "rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ],
+                    "scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "translation": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ]
+                },
+                "Material": {
+                    "Color": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "enableLighting": true,
+                    "enableTexture": false,
+                    "shininess": 50.0,
+                    "textureName": "",
+                    "uvFlipY": false
+                },
+                "Script": {
+                    "fields": {
+                        "duration": {
+                            "minmax": [
+                                0,
+                                100
+                            ],
+                            "name": "duration",
+                            "type": "float",
+                            "value": 1.0
+                        }
+                    },
+                    "scriptName": "FadeSprite"
+                },
+                "UISprite": {
+                    "anchorPoint": [
+                        0.0,
+                        0.0
+                    ],
+                    "position": [
+                        0.0,
+                        0.0
+                    ],
+                    "rotation": 0.0,
+                    "scale": [
+                        1.0,
+                        1.0
+                    ],
+                    "size": [
+                        1920.0,
+                        1080.0
+                    ],
+                    "textureLeftTop": [
+                        0.0,
+                        0.0
+                    ],
+                    "textureSize": [
+                        0.0,
+                        0.0
+                    ]
+                }
+            }
+        },
+        {
+            "name": "GameManager",
+            "type": "MeshObject",
+            "components": {
+                "Transform": {
+                    "degrees": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "isBillboard": false,
+                    "rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ],
+                    "scale": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "translation": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ]
+                },
+                "MeshFilter": {
+                    "modelID": 0,
+                    "modelName": "Cube"
+                },
+                "MeshRenderer": {
+                    "visible": true
+                },
+                "Script": {
+                    "scriptName": "GameManager"
+                }
+            }
+        },
+        {
+            "name": "GameOverText",
+            "type": "UI",
+            "components": {
+                "Transform": {
+                    "degrees": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "isBillboard": false,
+                    "rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ],
+                    "scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "translation": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ]
+                },
+                "Material": {
+                    "Color": [
+                        0.7843137383460999,
+                        0.7843137383460999,
+                        0.7843137383460999,
+                        0.0
+                    ],
+                    "enableLighting": true,
+                    "enableTexture": true,
+                    "shininess": 50.0,
+                    "textureName": "GameClear",
+                    "uvFlipY": false
+                },
+                "Script": {
+                    "scriptName": "GameOverText"
+                },
+                "UISprite": {
+                    "anchorPoint": [
+                        0.0,
+                        0.0
+                    ],
+                    "position": [
+                        580.0,
+                        370.0
+                    ],
+                    "rotation": 0.0,
+                    "scale": [
+                        3.0,
+                        3.0
+                    ],
+                    "size": [
+                        256.0,
+                        64.0
+                    ],
+                    "textureLeftTop": [
+                        0.0,
+                        0.0
+                    ],
+                    "textureSize": [
+                        0.0,
+                        0.0
+                    ]
+                }
+            }
+        },
+        {
+            "name": "MainParticle",
+            "type": "ParticleSystem",
+            "components": {
+                "Transform": {
+                    "degrees": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "isBillboard": false,
+                    "rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ],
+                    "scale": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "translation": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ]
+                },
+                "MeshFilter": {
+                    "modelID": 0,
+                    "modelName": "Cube"
+                },
+                "MeshRenderer": {
+                    "visible": true
+                },
+                "Material": {
+                    "Color": [
+                        0.949367105960846,
+                        0.42684251070022583,
+                        0.03204617276787758,
+                        1.0
+                    ],
+                    "enableLighting": true,
+                    "enableTexture": false,
+                    "shininess": 50.0,
+                    "textureName": "",
+                    "uvFlipY": false
+                },
+                "Particle": {
+                    "count": 1024
+                },
+                "Emitter": {
+                    "emitCount": 10,
+                    "frequency": 0.0,
+                    "frequencyTime": 8772.865234375,
+                    "isBillboard": false,
+                    "isFadeOut": true,
+                    "lifeTime": [
+                        20.0,
+                        0.0
+                    ],
+                    "position": {
+                        "acceleration": [
+                            {
+                                "x": [
+                                    0.0,
+                                    0.0
+                                ]
+                            },
+                            {
+                                "y": [
+                                    0.0,
+                                    0.0
+                                ]
+                            },
+                            {
+                                "z": [
+                                    0.0,
+                                    0.0
+                                ]
+                            }
+                        ],
+                        "value": [
+                            {
+                                "x": [
+                                    0.0,
+                                    0.0
+                                ]
+                            },
+                            {
+                                "y": [
+                                    0.0,
+                                    0.0
+                                ]
+                            },
+                            {
+                                "z": [
+                                    0.0,
+                                    0.0
+                                ]
+                            }
+                        ],
+                        "velocity": [
+                            {
+                                "x": [
+                                    0.0,
+                                    4.0
+                                ]
+                            },
+                            {
+                                "y": [
+                                    0.0,
+                                    4.0
+                                ]
+                            },
+                            {
+                                "z": [
+                                    6.0,
+                                    3.0
+                                ]
+                            }
+                        ]
+                    },
+                    "rotation": {
+                        "acceleration": [
+                            {
+                                "x": [
+                                    0.0,
+                                    0.0
+                                ]
+                            },
+                            {
+                                "y": [
+                                    0.0,
+                                    0.0
+                                ]
+                            },
+                            {
+                                "z": [
+                                    0.0,
+                                    0.0
+                                ]
+                            }
+                        ],
+                        "value": [
+                            {
+                                "x": [
+                                    0.0,
+                                    0.0
+                                ]
+                            },
+                            {
+                                "y": [
+                                    0.0,
+                                    0.0
+                                ]
+                            },
+                            {
+                                "z": [
+                                    0.0,
+                                    0.0
+                                ]
+                            }
+                        ],
+                        "velocity": [
+                            {
+                                "x": [
+                                    0.0,
+                                    0.0
+                                ]
+                            },
+                            {
+                                "y": [
+                                    0.0,
+                                    0.0
+                                ]
+                            },
+                            {
+                                "z": [
+                                    0.0,
+                                    0.0
+                                ]
+                            }
+                        ]
+                    },
+                    "scale": {
+                        "acceleration": [
+                            {
+                                "x": [
+                                    0.0,
+                                    0.0
+                                ]
+                            },
+                            {
+                                "y": [
+                                    0.0,
+                                    0.0
+                                ]
+                            },
+                            {
+                                "z": [
+                                    0.0,
+                                    0.0
+                                ]
+                            }
+                        ],
+                        "value": [
+                            {
+                                "x": [
+                                    1.0,
+                                    0.0
+                                ]
+                            },
+                            {
+                                "y": [
+                                    1.0,
+                                    0.0
+                                ]
+                            },
+                            {
+                                "z": [
+                                    1.0,
+                                    0.0
+                                ]
+                            }
+                        ],
+                        "velocity": [
+                            {
+                                "x": [
+                                    0.0,
+                                    0.0
+                                ]
+                            },
+                            {
+                                "y": [
+                                    0.0,
+                                    0.0
+                                ]
+                            },
+                            {
+                                "z": [
+                                    0.0,
+                                    0.0
+                                ]
+                            }
+                        ]
+                    }
+                }
+            }
+        },
+        {
+            "name": "NewUI",
+            "type": "UI",
+            "components": {
+                "Transform": {
+                    "degrees": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "isBillboard": false,
+                    "rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ],
+                    "scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "translation": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ]
+                },
+                "Material": {
+                    "Color": [
+                        0.7843137383460999,
+                        0.7843137383460999,
+                        0.7843137383460999,
+                        1.0
+                    ],
+                    "enableLighting": true,
+                    "enableTexture": true,
+                    "shininess": 50.0,
+                    "textureName": "guide",
+                    "uvFlipY": false
+                },
+                "UISprite": {
+                    "anchorPoint": [
+                        0.0,
+                        0.0
+                    ],
+                    "position": [
+                        0.0,
+                        0.0
+                    ],
+                    "rotation": 0.0,
+                    "scale": [
+                        1.0,
+                        1.0
+                    ],
+                    "size": [
+                        400.0,
+                        200.0
+                    ],
+                    "textureLeftTop": [
+                        0.0,
+                        0.0
+                    ],
+                    "textureSize": [
+                        0.0,
+                        0.0
+                    ]
+                }
+            }
+        },
+        {
+            "name": "PoseBackend",
+            "type": "UI",
+            "components": {
+                "Transform": {
+                    "degrees": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "isBillboard": false,
+                    "rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ],
+                    "scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "translation": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ]
+                },
+                "Material": {
+                    "Color": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "enableLighting": true,
+                    "enableTexture": true,
+                    "shininess": 50.0,
+                    "textureName": "",
+                    "uvFlipY": false
+                },
+                "Script": {
+                    "scriptName": "PoseBackend"
+                },
+                "UISprite": {
+                    "anchorPoint": [
+                        0.0,
+                        0.0
+                    ],
+                    "position": [
+                        610.0,
+                        238.0
+                    ],
+                    "rotation": 0.0,
+                    "scale": [
+                        1.0,
+                        1.0
+                    ],
+                    "size": [
+                        700.0,
+                        500.0
+                    ],
+                    "textureLeftTop": [
+                        0.0,
+                        0.0
+                    ],
+                    "textureSize": [
+                        0.0,
+                        0.0
+                    ]
+                }
+            }
+        },
+        {
+            "name": "PoseReturnTitle",
+            "type": "UI",
+            "components": {
+                "Transform": {
+                    "degrees": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "isBillboard": false,
+                    "rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ],
+                    "scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "translation": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ]
+                },
+                "Material": {
+                    "Color": [
+                        0.7843137383460999,
+                        0.7843137383460999,
+                        0.7843137383460999,
+                        0.0
+                    ],
+                    "enableLighting": true,
+                    "enableTexture": true,
+                    "shininess": 50.0,
+                    "textureName": "pose_ui1",
+                    "uvFlipY": false
+                },
+                "Script": {
+                    "scriptName": "PoseReturnTitle"
+                },
+                "UISprite": {
+                    "anchorPoint": [
+                        0.0,
+                        0.0
+                    ],
+                    "position": [
+                        600.0,
+                        289.0
+                    ],
+                    "rotation": 0.0,
+                    "scale": [
+                        1.0,
+                        1.0
+                    ],
+                    "size": [
+                        700.0,
+                        400.0
+                    ],
+                    "textureLeftTop": [
+                        0.0,
+                        0.0
+                    ],
+                    "textureSize": [
+                        0.0,
+                        0.0
+                    ]
+                }
+            }
+        },
+        {
+            "name": "PoseClose",
+            "type": "UI",
+            "components": {
+                "Transform": {
+                    "degrees": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "isBillboard": false,
+                    "rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ],
+                    "scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "translation": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ]
+                },
+                "Material": {
+                    "Color": [
+                        0.7843137383460999,
+                        0.7843137383460999,
+                        0.7843137383460999,
+                        0.0
+                    ],
+                    "enableLighting": true,
+                    "enableTexture": true,
+                    "shininess": 50.0,
+                    "textureName": "pose_ui2",
+                    "uvFlipY": false
+                },
+                "Script": {
+                    "scriptName": "PoseClose"
+                },
+                "UISprite": {
+                    "anchorPoint": [
+                        0.0,
+                        0.0
+                    ],
+                    "position": [
+                        615.0,
+                        389.0
+                    ],
+                    "rotation": 0.0,
+                    "scale": [
+                        1.0,
+                        1.0
+                    ],
+                    "size": [
+                        700.0,
+                        400.0
+                    ],
+                    "textureLeftTop": [
+                        0.0,
+                        0.0
+                    ],
+                    "textureSize": [
+                        0.0,
+                        0.0
+                    ]
                 }
             }
         }

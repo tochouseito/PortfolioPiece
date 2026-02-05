@@ -1,0 +1,158 @@
+{
+    "fileType": "SceneFile",
+    "sceneName": "Clear",
+    "objects": [
+        {
+            "name": "NewUI",
+            "type": "UI",
+            "components": {
+                "Transform": {
+                    "degrees": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "isBillboard": false,
+                    "rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ],
+                    "scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "translation": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ]
+                },
+                "Material": {
+                    "Color": [
+                        0.7843137383460999,
+                        0.7843137383460999,
+                        0.7843137383460999,
+                        1.0
+                    ],
+                    "enableLighting": true,
+                    "enableTexture": false,
+                    "shininess": 50.0,
+                    "textureName": "",
+                    "uvFlipY": false
+                },
+                "UISprite": {
+                    "anchorPoint": [
+                        0.0,
+                        0.0
+                    ],
+                    "position": [
+                        703.0,
+                        270.0
+                    ],
+                    "rotation": 0.0,
+                    "scale": [
+                        1.0,
+                        1.0
+                    ],
+                    "size": [
+                        512.0,
+                        64.0
+                    ],
+                    "textureLeftTop": [
+                        0.0,
+                        0.0
+                    ],
+                    "textureSize": [
+                        0.0,
+                        0.0
+                    ]
+                }
+            }
+        },
+        {
+            "name": "MainCamera",
+            "type": "Camera",
+            "components": {
+                "Transform": {
+                    "degrees": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "isBillboard": false,
+                    "rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ],
+                    "scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "translation": [
+                        0.0,
+                        0.0,
+                        -20.0
+                    ]
+                },
+                "Camera": {
+                    "aspectRatio": 1.7777777910232544,
+                    "farZ": 1000.0,
+                    "fovAngleY": 0.7853981852531433,
+                    "nearZ": 0.10000000149011612
+                }
+            }
+        },
+        {
+            "name": "DirectionalLight",
+            "type": "Light",
+            "components": {
+                "Transform": {
+                    "degrees": [
+                        45.0,
+                        45.0,
+                        0.0
+                    ],
+                    "isBillboard": false,
+                    "rotation": [
+                        0.3535534143447876,
+                        0.3535534143447876,
+                        0.14644663035869598,
+                        0.8535533547401428
+                    ],
+                    "scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "translation": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ]
+                },
+                "Light": {
+                    "active": true,
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "decay": 1.0,
+                    "intensity": 1.0,
+                    "range": 10.0,
+                    "spotAngle": 45.0,
+                    "spotFalloffStart": 0.0,
+                    "type": 0
+                }
+            }
+        }
+    ],
+    "mainCamera": "MainCamera"
+}

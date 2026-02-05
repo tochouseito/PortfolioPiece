@@ -4,264 +4,341 @@ using namespace theatriaSystem;
 #include "UI/LockOn.h"
 #include "Camera/MainCamera.h"
 #include "Generator/Generator.h"
+#include "Enemy/EnemyBullet.h"
+#include "Enemy/EnemyMissile.h"
+#include "Enemy/Enemy.h"
 
 void Player::Start()
 {
-	// 初期化処理
-	// ターゲットを取得
 	m_Target = GetMarionnette<Target>(L"Target");
 	m_Camera = GetMarionnette<MainCamera>(L"MainCamera");
 	m_Generator = GetMarionnette<Generator>(L"Generator");
+	gameObject.SetTag("Player");
+
+	m_Particle = FindGameObjectByName(L"MainParticle");
+	if (m_Particle)
+	{
+		m_Particle->transform->parent = this->gameObject.transform;
+	}
+
+	m_DefaultScale = transform->scale;
+	m_CurrentHp = m_MaxHp;
+
 	Camera camera = m_Camera->GetComponent<Camera>();
-	camera->fovAngleY = 45.0f; // FOVを設定
+	m_DefaultFov = 45.0f;
+	camera->fovAngleY = m_DefaultFov;
+
 	m_Velocity.Initialize();
 	baseQuaternion.Initialize();
+
+	// REGISTER_FIELD(speed);
+	// 必要に応じて UI デバッグ用に以下も公開可
+	// REGISTER_FIELD(boostDuration);
+	// REGISTER_FIELD(boostCooldown);
+	// REGISTER_FIELD(boostFov);
+	// REGISTER_FIELD(dodgeDuration);
+	// REGISTER_FIELD(dodgeMoveSpeed);
+	// REGISTER_FIELD(dodgeRotateSpeed);
 }
 
 void Player::Update()
 {
-	// 毎フレーム処理
-	if (!isDodging)
+	if (m_IsDown)
 	{
-		// 入力処理
-		Move();
-		// ブースト
-		//Boost();
-		// 速度減衰
-		//SlowDown();
-		// 攻撃処理
-		Attack();
+		UpdateDownState();
+		return;
 	}
-	// 回避処理
-	//Dodge();
-	// 位置更新
-	//gameObject.transform.position() += velocity;
-	// FOV更新
-	//m_Camera->camera.fovAngleY() = m_DefaultFov + speed * 0.5f;
+
+	if (m_IsInvincible)
+	{
+		UpdateBlink(DeltaTime());
+	}
+
+	// 回避中は回避処理のみ行う
+	if (isDodging)
+	{
+		UpdateDodgeState();
+		return;
+	}
+
+	UpdateNormal();
 }
 
-void Player::OnCollisionEnter(GameObject& other)
+void Player::UpdateNormal()
 {
-	// test
-	other;
-	int i = 0;
-	i++;
+	// ===== 通常状態 =====
+	// 入力処理（移動・回転）
+	Move();
+
+	// 回避開始（Q:左 / E:右）
+	if (Input::TriggerKey(DIK_Q))
+	{
+		isDodging = true;
+		dodgeDirection = -1;
+		dodgeTimer = dodgeDuration;
+		// 直ちに1フレーム目の挙動へ
+		Dodge();
+		return;
+	}
+	if (Input::TriggerKey(DIK_E))
+	{
+		isDodging = true;
+		dodgeDirection = +1;
+		dodgeTimer = dodgeDuration;
+		Dodge();
+		return;
+	}
+
+	// ブースト（開始・継続）
+	Boost();
+
+	// 攻撃処理
+	Attack();
+
+	UpdateParticle();
 }
 
-void Player::OnCollisionStay(GameObject& other)
+void Player::UpdateDodgeState()
 {
-	// test
-	other;
-	int i = 0;
-	i++;
+	Dodge(); // 継続処理（終了判定込み）
+	// ブーストのクールダウンだけは進める
+	if (boostCooldownTimer > 0.0f) boostCooldownTimer -= DeltaTime();
+	// FOVは回避で弄らない。戻す
+	if (m_Camera)
+	{
+		Camera cam = m_Camera->GetComponent<Camera>();
+		cam->fovAngleY = math::Lerp(cam->fovAngleY, m_DefaultFov, 8.0f * DeltaTime());
+	}
+	UpdateParticle();
 }
 
-void Player::OnCollisionExit(GameObject& other)
+void Player::UpdateDownState()
 {
-	// test
-	other;
-	int i = 0;
-	i++;
+	const float dt = DeltaTime();
+
+	m_DownTimer += dt;
+	Rigidbody3D rb = GetComponent<Rigidbody3D>();
+	if (rb)
+	{
+		m_Velocity = math::float3(0.0f, -m_DownFallSpeed, 0.0f);
+		rb->velocity = m_Velocity;
+	}
+
+	if (m_DownTimer >= m_RespawnDelay)
+	{
+		Respawn();
+	}
+}
+
+void Player::ApplyDamage(int damage)
+{
+	if (m_IsInvincible || m_IsDown)
+	{
+		return;
+	}
+
+	m_CurrentHp -= damage;
+	if (m_CurrentHp <= 0)
+	{
+		BeginDown();
+		return;
+	}
+
+	m_IsInvincible = true;
+	m_InvincibleTimer = m_InvincibleDuration;
+	m_BlinkTimer = 0.0f;
+	m_BlinkVisible = true;
+	transform->scale = m_DefaultScale;
+}
+
+void Player::BeginDown()
+{
+	m_IsDown = true;
+	m_IsInvincible = false;
+	m_InvincibleTimer = 0.0f;
+	m_BlinkTimer = 0.0f;
+	m_BlinkVisible = true;
+	transform->scale = m_DefaultScale;
+	m_DownTimer = 0.0f;
+	isDodging = false;
+	isBoosting = false;
+
+	if (m_Camera)
+	{
+		m_Camera->SetFollowEnabled(false);
+	}
+}
+
+void Player::Respawn()
+{
+	m_IsDown = false;
+	m_CurrentHp = m_MaxHp;
+	m_IsInvincible = true;
+	m_InvincibleTimer = m_InvincibleDuration;
+	m_BlinkTimer = 0.0f;
+	m_BlinkVisible = true;
+	transform->scale = m_DefaultScale;
+
+	m_Velocity = math::float3::Zero();
+	transform->position.y = minAltitude;
+
+	Rigidbody3D rb = GetComponent<Rigidbody3D>();
+	if (rb)
+	{
+		rb->velocity = m_Velocity;
+	}
+
+	if (m_Camera)
+	{
+		m_Camera->SetFollowEnabled(true);
+	}
+}
+
+void Player::UpdateBlink(float dt)
+{
+	if (!m_IsInvincible)
+	{
+		return;
+	}
+
+	m_InvincibleTimer -= dt;
+	m_BlinkTimer += dt;
+	if (m_BlinkTimer >= m_BlinkInterval)
+	{
+		m_BlinkTimer = 0.0f;
+		m_BlinkVisible = !m_BlinkVisible;
+		transform->scale = m_BlinkVisible ? m_DefaultScale : Scale(0.0f, 0.0f, 0.0f);
+	}
+
+	if (m_InvincibleTimer <= 0.0f)
+	{
+		m_IsInvincible = false;
+		m_BlinkVisible = true;
+		transform->scale = m_DefaultScale;
+	}
 }
 
 void Player::Move()
 {
-	// 移動処理
+	// --- 平行移動 ---
+	const int inputX = (Input::PushKey(DIK_D) ? 1 : 0) + (Input::PushKey(DIK_A) ? -1 : 0);
+	const int inputY = (Input::PushKey(DIK_W) ? 1 : 0) + (Input::PushKey(DIK_S) ? -1 : 0);
 
-	// 左右移動
-	if(Input::PushKey(DIK_A))
+	if (isClear)
 	{
-		m_Velocity.x -= m_Acceleration;
-	}
-	if(Input::PushKey(DIK_D))
-	{
-		m_Velocity.x += m_Acceleration;
-	}
-	// 上下移動
-	if(Input::PushKey(DIK_W))
-	{
-		m_Velocity.y += m_Acceleration;
-	}
-	if(Input::PushKey(DIK_S))
-	{
-		m_Velocity.y -= m_Acceleration;
+		speed = 400.0f;
 	}
 
-	// 移動制限
-	// MoveLimit();
-
-	// 前方移動
+	// 前方巡航速度（常にZ+方向へ）
 	m_Velocity.z = speed;
 
-	// 適用
+	// 入力に追従した速度へ補間（キビキビ）
+	float targetVX = static_cast<float>(inputX) * moveMaxX;
+	float targetVY = static_cast<float>(inputY) * moveMaxY;
+	if (isClear)
+	{
+		targetVX = 0.0f;
+		targetVY = 200.0f;
+	}
+	const float accelX = (inputX == 0) ? moveDecel : moveAccel;
+	const float accelY = (inputY == 0) ? moveDecel : moveAccel;
+	const float tX = math::Clamp(accelX * DeltaTime(), 0.0f, 1.0f);
+	const float tY = math::Clamp(accelY * DeltaTime(), 0.0f, 1.0f);
+	m_Velocity.x = math::Lerp(m_Velocity.x, targetVX, tX);
+	m_Velocity.y = math::Lerp(m_Velocity.y, targetVY, tY);
+
+	// 移動制限
+	MoveLimit();
+
+	// Rigidbody へ適用
 	Rigidbody3D rb = GetComponent<Rigidbody3D>();
 	rb->velocity = m_Velocity;
 
-	// 回転
+	// ロール（横移動に合わせてなめらかに傾ける）
+	const float targetRoll = static_cast<float>(inputX) * rollMaxDeg;
+	const float rollSpeed = (inputX == 0) ? rollReturn : rollSmooth;
+	transform->degrees.z = math::Lerp(transform->degrees.z, targetRoll, rollSpeed * DeltaTime());
 
-	if (Input::PushKey(DIK_LEFTARROW))
+	// ピッチ（縦移動に合わせてなめらかに傾ける）
+	const float targetPitch = static_cast<float>(-inputY) * pitchMaxDeg;
+	const float pitchSpeed = (inputY == 0) ? pitchReturn : pitchSmooth;
+	transform->degrees.x = math::Lerp(transform->degrees.x, targetPitch, pitchSpeed * DeltaTime());
+
+	// --- 回転入力 ---
+	if (Input::PushKey(DIK_LEFTARROW)) 
 	{
-		m_AngularVelocity.y += m_AngularAcceleration;
+		//m_AngularVelocity.y -= m_AngularAcceleration;
+		transform->degrees.y += -1.0f * rotateSpeed;
 	}
-
 	if (Input::PushKey(DIK_RIGHTARROW))
 	{
-		m_AngularVelocity.y -= m_AngularAcceleration;
+		//m_AngularVelocity.y += m_AngularAcceleration;
+		transform->degrees.y += 1.0f * rotateSpeed;
 	}
-
 	if (Input::PushKey(DIK_UPARROW))
 	{
-		m_AngularVelocity.x += m_AngularAcceleration;
+		//m_AngularVelocity.x -= m_AngularAcceleration;
+		transform->degrees.x += -1.0f * rotateSpeed;
 	}
-
 	if (Input::PushKey(DIK_DOWNARROW))
 	{
-		m_AngularVelocity.x -= m_AngularAcceleration;
+		//m_AngularVelocity.x += m_AngularAcceleration;
+		transform->degrees.x += 1.0f * rotateSpeed;
 	}
 
-	// 適用
 	rb->angularVelocity = m_AngularVelocity;
-
-	// 回転
-	// Z軸回転
-	//if (Input::PushKey(DIK_A))
-	//{
-	//	transform->degrees.z += rotateSpeed * DeltaTime();
-	//}
-	//if (Input::PushKey(DIK_D))
-	//{
-	//	transform->degrees.z -= rotateSpeed * DeltaTime();
-	//}
-	////// 左右回転
-	////if (gameObject.input.PushKey(DIK_LEFT))
-	////{
-	////	gameObject.transform.rotation().y -= rotateSpeed * DeltaTime();
-	////}
-	////if (gameObject.input.PushKey(DIK_RIGHT))
-	////{
-	////	gameObject.transform.rotation().y += rotateSpeed * DeltaTime();
-	////}
-	////// 上下回転
-	////if (gameObject.input.PushKey(DIK_UP))
-	////{
-	////	gameObject.transform.rotation().x -= rotateSpeed * DeltaTime();
-	////}
-	////if (gameObject.input.PushKey(DIK_DOWN))
-	////{
-	////	gameObject.transform.rotation().x += rotateSpeed * DeltaTime();
-	////}
-	//// 左右移動
-	//Vector3 pos = transform->position;
-	//// 移動減衰処理
-	//std::function<float(const float&)> smoothLimitRangeFunc = [this](const float& distance) {
-	//	float limitFactor = chomath::Clamp(distance / smoothLimitRange, 0.0f, 1.0f);
-	//	return speed * DeltaTime() * limitFactor;
-	//	};
-	//// 目標傾き角度
-	//float roll = 0.0f;// Z軸(ロール)の傾き角度
-	//float yaw = 0.0f; // Y軸(ヨー)の傾き角度
-	//float pitch = 0.0f;// X軸(ピッチ)の傾き角度
-	//if (Input::PushKey(DIK_UP))
-	//{
-	//	pos.y += smoothLimitRangeFunc(m_MoveLimit.y - pos.y);
-	//	pitch = -30.0f; // 上に傾く
-	//}
-	//else if (Input::PushKey(DIK_DOWN))
-	//{
-	//	pos.y -= smoothLimitRangeFunc(pos.y + m_MoveLimit.y);
-	//	pitch = 30.0f; // 下に傾く
-	//}
-	//if (Input::PushKey(DIK_LEFT))
-	//{
-	//	pos.x -= smoothLimitRangeFunc(pos.x + m_MoveLimit.x);
-	//	roll = 50.0f; // 左に傾く
-	//	pitch = -10.0f; // 左斜め前に向ける
-	//}
-	//else if (Input::PushKey(DIK_RIGHT))
-	//{
-	//	pos.x += smoothLimitRangeFunc(m_MoveLimit.x - pos.x);
-	//	roll = -50.0f; // 右に傾く
-	//	pitch = -10.0f;   // 右斜め前に向ける（同じく下げる）
-	//}
-	//if (Input::PushKey(DIK_UP) &&
-	//	Input::PushKey(DIK_LEFT) &&
-	//	Input::PushKey(DIK_DOWN) &&
-	//	Input::PushKey(DIK_RIGHT))
-	//{
-	//	pitch = 0.0f; // 上下左右同時押しで傾きをリセット
-	//	roll = 0.0f; // ロールもリセット
-	//	yaw = 0.0f; // ヨーもリセット
-	//}
-	//if(!roll && !pitch)
-	//{
-	//	transform->quaternion = Quaternion::Slerp(transform->quaternion, baseQuaternion, rotateSpeed * DeltaTime());
-	//}
-	//// 上下左右の範囲制限を適用
-	//pos.x = chomath::Clamp(pos.x, -m_MoveLimit.x, m_MoveLimit.x);
-	//pos.y = chomath::Clamp(pos.y, -m_MoveLimit.y, m_MoveLimit.y);
-	//// 傾きを徐々に追従
-	//transform->degrees.z = chomath::Lerp(transform->degrees.z, roll, rotateSpeed * DeltaTime());
-	//transform->degrees.y = chomath::Lerp(transform->degrees.y, yaw, rotateSpeed * DeltaTime());
-	//transform->degrees.x = chomath::Lerp(transform->degrees.x, pitch, rotateSpeed * DeltaTime());
-	//// 適用
-	//transform->position = pos;
-	//
-	//// 速度上昇
-	//if (Input::PushKey(DIK_W))
-	//{
-	//	// 前進
-	//	if (speed < maxSpeed)
-	//	{
-	//		speed++;
-	//	}
-	//	else
-	//	{
-	//		speed = maxSpeed;
-	//	}
-	//}
-	//// 速度減少
-	//if (Input::PushKey(DIK_S))
-	//{
-	//	// 後退
-	//	if (speed > minSpeed)
-	//	{
-	//		speed--;
-	//	}
-	//	else
-	//	{
-	//		speed = minSpeed;
-	//	}
-	//}
-
-	//Vector3 forward = chomath::RotateVector(Vector3(0.0f, 0.0f, 1.0f), transform->quaternion);
-	//velocity += Vector3::Normalize(forward) * (fowardSpeed * DeltaTime());
-	////Rigidbody3D rb = GetComponent<Rigidbody3D>();
-	////rb->velocity = velocity;
 }
 
 void Player::Boost()
 {
-	if (Input::PushKey(DIK_SPACE))
+	// クールダウン進行
+	if (boostCooldownTimer > 0.0f)
+		boostCooldownTimer -= DeltaTime();
+
+	// 回避中は不可（呼ばれない設計だが安全のため）
+	if (isDodging) return;
+
+	// 起動
+	if (!isBoosting && boostCooldownTimer <= 0.0f && Input::TriggerKey(DIK_SPACE))
 	{
-		// ブースト中
-		// forwardを取得
-		Vector3 forward = chomath::RotateVector(Vector3(0.0f, 0.0f, 1.0f), transform->quaternion);
-		// forwardにブーストをかける
-		Vector3 boost = forward * boostPower * DeltaTime();
+		isBoosting = true;
+		boostTimer = boostDuration;
+		boostCooldownTimer = boostCooldown; // 次開始までの待機
 	}
+
+	// 継続中の効果
+	Camera cam = m_Camera->GetComponent<Camera>();
+
+	if (isBoosting)
+	{
+		// 前方方向へ強い加速
+		const Vector3 forward = math::RotateVector(Vector3(0.0f, 0.0f, 1.0f), transform->quaternion);
+		// 「瞬間的インパルス」寄り：DeltaTimeを掛けてフレーム依存性を抑える
+		m_Velocity += forward * (boostPower * DeltaTime());
+
+		// FOVをワイド化へ補間
+		if (cam) cam->fovAngleY = math::Lerp(cam->fovAngleY, boostFov, 10.0f * DeltaTime());
+
+		// タイマ消化
+		boostTimer -= DeltaTime();
+		if (boostTimer <= 0.0f)
+		{
+			isBoosting = false;
+		}
+	}
+	else
+	{
+		// 非ブースト時はFOVを通常へ戻す
+		if (cam) cam->fovAngleY = math::Lerp(cam->fovAngleY, m_DefaultFov, 8.0f * DeltaTime());
+	}
+
+	// 速度の最終適用（Moveで適用済みだがブースト加算後にも反映したい場合は再適用）
+	Rigidbody3D rb = GetComponent<Rigidbody3D>();
+	rb->velocity = m_Velocity;
 }
 
 void Player::SlowDown()
 {
-	//// 非入力時速度減衰
-	//if (!gameObject.input.PushKey(DIK_A) && !gameObject.input.PushKey(DIK_D))
-	//{
-	//	velocity.x *= 0.9f;
-	//}
-	//if (!gameObject.input.PushKey(DIK_W) && !gameObject.input.PushKey(DIK_S))
-	//{
-	//	velocity.y *= 0.9f;
-	//}
 }
 
 
@@ -286,12 +363,20 @@ void Player::MoveLimit()
 	// 移動制限
 	Vector3 pos = transform->position;
 
+	// 最低高度の制限
+	if (pos.y < minAltitude)
+	{
+		pos.y = minAltitude;
+		transform->position.y = minAltitude;
+		if (m_Velocity.y < 0.0f) m_Velocity.y = 0.0f;
+	}
+
 	// 壁に近づいている方向にだけ減衰
 	// X軸 減衰
 	if ((m_Velocity.x > 0.0f && pos.x > 0.0f) || (m_Velocity.x < 0.0f && pos.x < 0.0f))
 	{
 		float distToLimitX = limitPos.x - std::abs(pos.x);
-		float t = chomath::Clamp(distToLimitX / smoothLimitRange, 0.0f, 1.0f);
+		float t = math::Clamp(distToLimitX / smoothLimitRange, 0.0f, 1.0f);
 		m_Velocity.x *= std::pow(t, curve);
 	}
 
@@ -299,7 +384,7 @@ void Player::MoveLimit()
 	if ((m_Velocity.y > 0.0f && pos.y > 0.0f) || (m_Velocity.y < 0.0f && pos.y < 0.0f))
 	{
 		float distToLimitY = limitPos.y - std::abs(pos.y);
-		float t = chomath::Clamp(distToLimitY / smoothLimitRange, 0.0f, 1.0f);
+		float t = math::Clamp(distToLimitY / smoothLimitRange, 0.0f, 1.0f);
 		m_Velocity.y *= std::pow(t, curve);
 	}
 
@@ -338,55 +423,98 @@ void Player::Attack()
 	}
 }
 
+void Player::UpdateParticle()
+{
+	if (!m_Particle)
+	{
+		return;
+	}
+
+	m_Particle->transform->position = transform->position;
+	Emitter emitter = GetEmitterComponent(*m_Particle);
+	emitter->emit = true;
+}
+
+void Player::OnCollisionEnter(GameObject& other)
+{
+	if (m_IsDown)
+	{
+		return;
+	}
+
+	if (other.GetTag() == "EnemyAttack")
+	{
+		if (auto bullet = other.GetMarionnette<EnemyBullet>())
+		{
+			ApplyDamage(bullet->GetDamage());
+		}
+		else if (auto missile = other.GetMarionnette<EnemyMissile>())
+		{
+			ApplyDamage(missile->GetDamage());
+		}
+		else
+		{
+			ApplyDamage(1);
+		}
+	}
+	else if (other.GetTag() == "Enemy")
+	{
+		if (auto enemy = other.GetMarionnette<Enemy>())
+		{
+			ApplyDamage(enemy->GetRamDamage());
+		}
+		else
+		{
+			ApplyDamage(1);
+		}
+	}
+}
+
 void Player::Dodge()
 {
+	// すでに isDodging=true で呼ばれる想定。開始は Update() 内の Trigger で行う
+
 	if (isDodging)
 	{
-		// 回避時間カウント
+		// 残り時間
 		dodgeTimer -= DeltaTime();
 		if (dodgeTimer <= 0.0f)
 		{
 			isDodging = false;
 			dodgeTimer = 0.0f;
 
-			// 回避終了：速度やロールをリセット
+			// 回避終了：速度やロールを軽く減衰・リセット
 			m_Velocity *= 0.5f;
-			transform->degrees.z = 0.0f; // 傾きを元に戻す（任意）
+			transform->degrees.z = 0.0f;
 			return;
 		}
 
-		// 回避方向に連続回転 + 移動
-		float rotateDir = (dodgeDirection == 1) ? 1.0f : -1.0f;
+		// ロール（Z回転）
+		const float rotateDir = (dodgeDirection == 1) ? 1.0f : -1.0f;
 		transform->degrees.z += rotateDir * dodgeRotateSpeed * DeltaTime();
 
-		Vector3 dodgeVec = (dodgeDirection == 1)
-			? Vector3(1.0f, 0.0f, 0.0f)  // 右
-			: Vector3(-1.0f, 0.0f, 0.0f); // 左
+		// ローカルX方向へスライド
+		const math::float3 dodgeLocal = (dodgeDirection == 1)
+			? math::float3(1.0f, 0.0f, 0.0f)  // 右
+			: math::float3(-1.0f, 0.0f, 0.0f); // 左
 
-		Vector3 dir = chomath::RotateVector(dodgeVec, transform->quaternion);
-		m_Velocity = Vector3::Normalize(dir) * dodgeMoveSpeed;
+		const math::float3 dodgeWorld = math::RotateVector(dodgeLocal, transform->quaternion);
+		m_Velocity = math::float3::Normalize(dodgeWorld) * dodgeMoveSpeed;
+
+		// 前進を残したい場合は以下を加算（任意）
+		// m_Velocity += chomath::RotateVector(Vector3(0,0,1), transform->quaternion) * (speed * 0.5f);
+
+		// 物理適用
+		Rigidbody3D rb = GetComponent<Rigidbody3D>();
+		rb->velocity = m_Velocity;
 		return;
 	}
-
-	// 回避入力検出（初回トリガー）
-	//if (gameObject.input.TriggerKey(DIK_E))
-	//{
-	//	isDodging = true;
-	//	dodgeTimer = dodgeDuration;
-	//	dodgeDirection = 1; // 右回避
-	//}
-	//else if (gameObject.input.TriggerKey(DIK_Q))
-	//{
-	//	isDodging = true;
-	//	dodgeTimer = dodgeDuration;
-	//	dodgeDirection = -1; // 左回避
-	//}
 }
 
 // 減衰処理
 float Player::SmoothLimitRange(const float& distance)
 {
-	float limitFactor = chomath::Clamp(distance / smoothLimitRange, 0.0f, 1.0f);
+	float limitFactor = math::Clamp(distance / smoothLimitRange, 0.0f, 1.0f);
 	return m_Acceleration * DeltaTime() * limitFactor;
 }
 

@@ -5,6 +5,7 @@
 class Player;
 class Generator;
 
+// プレイヤー弾の移動と衝突処理を行うクラス
 class PlayerBullet : public Marionnette
 {
 public:
@@ -26,7 +27,7 @@ private:
 
 	float m_LifeTime = 60.0f * 6.0f;
 	float m_Speed = 180.0f; // 弾の移動速度
-	Vector3 m_Velocity{}; // 弾の速度
-    Vector3 m_Direction{};// 進行方向
+	math::float3 m_Velocity{}; // 弾の速度
+    math::float3 m_Direction{};// 進行方向
 	bool m_IsActive = false; // アクティブ状態かどうか
 };

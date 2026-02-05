@@ -4,6 +4,7 @@
 // 前方宣言
 class Player;
 
+// 照準レティクルUIを表示するクラス
 class Reticle : public Marionnette
 {
 public:
@@ -18,5 +19,5 @@ private:
     Player* m_Player = nullptr;
 
     // パラメータ
-    Vector3 offset = Vector3(0.0f, 0.0f, 40.0f);
+    math::float3 offset = math::float3(0.0f, 0.0f, 40.0f);
 };

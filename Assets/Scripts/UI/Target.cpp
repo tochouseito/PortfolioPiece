@@ -33,7 +33,7 @@ void Target::EnemyLockOn()
 {
     // ロックオン処理
 	Camera camera = m_MainCamera->GetComponent<Camera>();
-	Vector2 screenPos = chomath::WorldToScreen(transform->matWorld.GetWorldPosition(), camera->viewMatrix, camera->projectionMatrix, static_cast<uint32_t>(ScreenWidth()), static_cast<uint32_t>(ScreenHeight()));
+    math::float2 screenPos = math::WorldToScreen(math::GetTranslation(transform->matWorld), camera->viewMatrix, camera->projectionMatrix, static_cast<uint32_t>(ScreenWidth()), static_cast<uint32_t>(ScreenHeight()));
 	// 敵のリストを取得
 	auto enemyMap = m_EnemySpawner->GetEnemyMap();
     // ロックオン
@@ -42,14 +42,14 @@ void Target::EnemyLockOn()
         Enemy* enemy = pair.second;
         if (!enemy->IsActive()) continue;// 非アクティブはスルー
         if (enemy->IsLockOnTarget()) continue;// ロックオンされている敵はスルー
-		if (enemy->transform->matWorld.GetWorldPosition().IsZero()) continue;// 座標がゼロベクトルはスルー
-		Vector2 enemyScreenPos = chomath::WorldToScreen(enemy->transform->matWorld.GetWorldPosition(), camera->viewMatrix, camera->projectionMatrix, static_cast<uint32_t>(ScreenWidth()), static_cast<uint32_t>(ScreenHeight()));
+		if (math::GetTranslation(enemy->transform->matWorld).IsZero()) continue;// 座標がゼロベクトルはスルー
+		Vector2 enemyScreenPos = math::WorldToScreen(math::GetTranslation(enemy->transform->matWorld), camera->viewMatrix, camera->projectionMatrix, static_cast<uint32_t>(ScreenWidth()), static_cast<uint32_t>(ScreenHeight()));
         float distance = (screenPos - enemyScreenPos).Length();
         if (distance < lockOnRadius)
         {
             // ロックオン成功
             // ロックオンレティクル生成
-			GameObject* dst = CloneGameObject(&m_LockOn->gameObject, Vector3());
+			GameObject* dst = CloneGameObject(&m_LockOn->gameObject, float3());
 			LockOn* lockOn = dst->GetMarionnette<LockOn>();
 			lockOn->SetTargetEnemy(enemy);
 			// リストに追加

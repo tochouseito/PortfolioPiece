@@ -13,6 +13,7 @@ class Wall;
 class Ground;
 class Enemy;
 
+// 弾・ミサイル・地形などの生成を管理するクラス
 class Generator : public Marionnette
 {
 public:
@@ -30,6 +31,14 @@ public:
 	void GeneratePlayerMissile(Enemy* target);
 	// プレイヤーミサイル削除
 	void RemovePlayerMissile(const std::wstring& name);
+	// 敵弾生成
+	void GenerateEnemyBullet(const math::float3& position, const math::float3& direction);
+	// 敵弾削除
+	void RemoveEnemyBullet(const std::wstring& name);
+	// 敵ミサイル生成
+	void GenerateEnemyMissile(const math::float3& position);
+	// 敵ミサイル削除
+	void RemoveEnemyMissile(const std::wstring& name);
 private:
 	// 地形生成
 	void GenerateTerrain();
@@ -42,7 +51,7 @@ private:
 	Wall* m_Wall = nullptr;
 	Ground* m_Ground = nullptr;
 	uint32_t m_TerrainCount = 0;
-	Vector3 m_TerrainOffset = Vector3(0.0f, -15.0f, 1000.0f); // 地形のオフセット
+	math::float3 m_TerrainOffset = math::float3(0.0f, -15.0f, 1000.0f); // 地形のオフセット
 	std::unordered_map<uint32_t, GameObject*> m_TerrainMap;
 	std::list<std::wstring> m_PlayerBullets;
 	std::list<std::wstring> m_PlayerMissiles;

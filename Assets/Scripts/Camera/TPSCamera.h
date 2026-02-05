@@ -1,6 +1,7 @@
 #pragma once
 #include "BaseCamera.h"
 
+// TPS視点のカメラクラス
 class TPSCamera : public BaseCamera
 {
 public:
