@@ -1,6 +1,7 @@
 #pragma once
 #include "Marionnette.h"
 
+// タイトル画面のプレイヤー演出アニメクラス
 class TitlePlayerAnimation : public Marionnette
 {
 public:

@@ -12,6 +12,7 @@
 class Enemy;
 class Player;
 
+// 敵のスポーンとフェーズ進行を管理するクラス
 class EnemySpawner : public Marionnette
 {
 public:

@@ -9,6 +9,7 @@ class EnemySpawner;
 class Target;
 class LockOn;
 
+// 敵機の行動・攻撃・被弾処理を管理するクラス
 class Enemy : public Marionnette
 {
 public:

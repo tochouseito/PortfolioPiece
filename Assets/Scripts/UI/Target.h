@@ -8,6 +8,7 @@ class MainCamera;
 class EnemySpawner;
 class LockOn;
 
+// 敵ロックオン対象の選定と管理を行うクラス
 class Target : public Marionnette
 {
 public:

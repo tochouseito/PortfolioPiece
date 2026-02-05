@@ -2,9 +2,11 @@
 #include "Marionnette.h"
 
 class Player;
+// メインカメラの追従とイントロ演出を制御するクラス
 class MainCamera : public Marionnette
 {
 public:
+	// カメラの位置・回転・FOVをまとめたリグ情報
 	struct Rig
 	{
 		math::float3 pos;

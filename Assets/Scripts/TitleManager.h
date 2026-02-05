@@ -3,6 +3,7 @@
 
 class FadeSprite;
 
+// タイトル画面の進行と遷移を管理するクラス
 class TitleManager : public Marionnette
 {
 public:

@@ -6,6 +6,7 @@ class Target;
 class MainCamera;
 class Generator;
 
+// プレイヤー機体の操作・状態管理を行うクラス
 class Player : public Marionnette
 {
 public:

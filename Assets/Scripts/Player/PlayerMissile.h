@@ -6,6 +6,7 @@ class Player;
 class Generator;
 class Enemy;
 
+// プレイヤーミサイルのホーミング挙動を行うクラス
 class PlayerMissile : public Marionnette
 {
 public:

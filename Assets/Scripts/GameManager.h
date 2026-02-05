@@ -5,6 +5,7 @@ class FadeSprite;
 class Player;
 class GameOverText;
 
+// ゲーム進行（開始/終了/クリア）を管理するクラス
 class GameManager : public Marionnette
 {
 public:

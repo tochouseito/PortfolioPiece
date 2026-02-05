@@ -13,6 +13,7 @@ class Wall;
 class Ground;
 class Enemy;
 
+// 弾・ミサイル・地形などの生成を管理するクラス
 class Generator : public Marionnette
 {
 public:

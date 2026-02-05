@@ -4,6 +4,7 @@
 // 前方宣言
 class Player;
 
+// 照準レティクルUIを表示するクラス
 class Reticle : public Marionnette
 {
 public:

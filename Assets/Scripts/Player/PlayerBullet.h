@@ -5,6 +5,7 @@
 class Player;
 class Generator;
 
+// プレイヤー弾の移動と衝突処理を行うクラス
 class PlayerBullet : public Marionnette
 {
 public:

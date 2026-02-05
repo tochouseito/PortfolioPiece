@@ -4,6 +4,7 @@
 // 前方宣言
 class Enemy;
 
+// ロックオンUIの対象管理クラス
 class LockOn : public Marionnette
 {
 public:

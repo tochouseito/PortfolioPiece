@@ -1,6 +1,7 @@
 #pragma once
 #include "Marionnette.h"
 
+// 画面フェード用スプライトを制御するクラス
 class FadeSprite : public Marionnette
 {
 public:

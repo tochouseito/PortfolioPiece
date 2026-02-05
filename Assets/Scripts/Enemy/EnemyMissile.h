@@ -1,6 +1,7 @@
 #pragma once
 #include "Marionnette.h"
 
+// 敵ミサイルのホーミング挙動を行うクラス
 class EnemyMissile : public Marionnette
 {
 public:
