@@ -19,13 +19,13 @@ void MainCamera::Update()
     // 毎フレーム処理
 	const float dt = DeltaTime();
 
-	// if の処理
+	// 追従が無効なら早期終了
 	if (!m_FollowEnabled)
 	{
 		return;
 	}
 
-	// if の処理
+	// 入力でイントロ演出をリセット
 	if (Input::TriggerKey(DIK_R))
 	{
 		mode_ = Mode::Intro;
@@ -33,7 +33,7 @@ void MainCamera::Update()
 		blendTime_ = 0.0f;
 	}
 
-    // switch の処理
+    // カメラモードに応じて更新
     switch (mode_)
     {
     case Mode::Intro:
@@ -42,9 +42,11 @@ void MainCamera::Update()
 
     case Mode::BlendToFollow:
     {
+        // イントロ終端から通常追従へブレンド
         blendTime_ += dt;
         float t = Clamp01(blendTime_ / blendDuration_);
 
+        // プレイヤー正面ベクトルからロール無しの回転を作成
         math::float3 playerForward = math::RotateVector(math::float3(0.0f, 0.0f, 1.0f), m_Player->transform->quaternion).Normalize();
         Quaternion noRollRot = math::MakeLookRotation(playerForward, math::float3(0.0f, 1.0f, 0.0f));
 
@@ -60,7 +62,7 @@ void MainCamera::Update()
         transform->position = math::float3::Lerp(endIntroPos_, followDesiredPos, t);
         transform->quaternion = Quaternion::Slerp(endIntroRot_, followDesiredRot, t);
 
-        // if の処理
+        // ブレンド完了で通常追従へ
         if (t >= 1.0f)
         {
             mode_ = Mode::Follow;
@@ -94,25 +96,27 @@ void MainCamera::LagFollow()
 // UpdateIntroArc の処理
 void MainCamera::UpdateIntroArc(float dt)
 {
+	// イントロ経過時間を更新
 	introTime_ += dt;
 
+	// どのショット区間かを算出
 	const float shotDuration = introDuration_ / static_cast<float>(kIntroShotCount);
 	int shotIndex = static_cast<int>(introTime_ / shotDuration);
-	// if の処理
 	if (shotIndex < 0)
 	{
 		shotIndex = 0;
 	}
-	// if の処理
 	else if (shotIndex >= kIntroShotCount)
 	{
 		shotIndex = kIntroShotCount - 1;
 	}
 
+	// ショット内の補間係数を計算
 	const float shotTime = introTime_ - (static_cast<float>(shotIndex) * shotDuration);
 	const float shotT = Clamp01(shotTime / shotDuration);
 	const float easedT = EaseInOut(shotT);
 
+	// プレイヤーの位置・回転を基準にカメラ位置を決定
 	const auto& ppos = m_Player->transform->position;
 	const auto& prot = m_Player->transform->quaternion;
 
@@ -125,10 +129,11 @@ void MainCamera::UpdateIntroArc(float dt)
 	math::float3 forward = (lookTarget - worldPos).Normalize();
 	math::float3 up = math::float3{ 0,1,0 };
 
+	// 計算結果をカメラへ反映
 	transform->position = worldPos;
 	transform->quaternion = math::MakeLookRotation(forward, up);
 
-	// if の処理
+	// イントロ終了でブレンドモードへ移行
 	if (introTime_ >= introDuration_)
 	{
 		endIntroPos_ = transform->position;

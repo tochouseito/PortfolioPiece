@@ -6,6 +6,7 @@ using namespace theatriaSystem;
 void TitleManager::Start()
 {
     // 初期化処理
+	// フェード用スプライト参照を取得
 	fadeSprite = GetMarionnette<FadeSprite>(L"FadeSprite");
 }
 
@@ -16,14 +17,14 @@ void TitleManager::Update()
 	// スペースキーが押されたらフェードしてシーン切り替え
 	if (!sceneChanged && Input::TriggerKey(DIK_SPACE))
 	{
+		// フェードイン開始
 		sceneChanged = true;
-		// if の処理
 		if(fadeSprite && !fadeSprite->IsFading())
 		{
 			fadeSprite->StartFadeIn();
 		}
 	}
-	// if の処理
+	// フェード完了後にメインシーンへ遷移
 	if(sceneChanged && fadeSprite && !fadeSprite->IsFading())
 	{
 		sceneManager.LoadScene(L"MainScene");

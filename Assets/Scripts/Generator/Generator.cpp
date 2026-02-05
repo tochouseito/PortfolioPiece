@@ -13,6 +13,7 @@ using namespace theatriaSystem;
 void Generator::Start()
 {
     // 初期化処理
+	// 参照取得
 	m_Player = GetMarionnette<Player>(L"Player");
 	m_PlayerBullet = GetMarionnette<PlayerBullet>(L"PlayerBullet");
 	m_PlayerMissile = GetMarionnette<PlayerMissile>(L"PlayerMissile");
@@ -26,12 +27,14 @@ void Generator::Start()
 void Generator::Update()
 {
     // 毎フレーム処理
+	// 地形の生成・破棄を管理
     GenerateTerrain();
 }
 
 // GeneratePlayerBullet の処理
 void Generator::GeneratePlayerBullet()
 {
+	// プレイヤー位置から弾を複製
 	Vector3 pos = m_Player->transform->position;
 	GameObject* dst = CloneGameObject(&m_PlayerBullet->gameObject, pos);
 	PlayerBullet* bullet = dst->GetMarionnette<PlayerBullet>();
@@ -68,12 +71,13 @@ void Generator::RemovePlayerMissile(const std::wstring& name)
 // GenerateEnemyBullet の処理
 void Generator::GenerateEnemyBullet(const math::float3& position, const math::float3& direction)
 {
-	// if の処理
+	// 敵弾の元が無い場合は生成しない
 	if (!m_EnemyBullet)
 	{
 		return;
 	}
 
+	// 指定位置・方向で敵弾を生成
 	GameObject* dst = CloneGameObject(&m_EnemyBullet->gameObject, position);
 	EnemyBullet* bullet = dst->GetMarionnette<EnemyBullet>();
 	bullet->SetActive(true);
@@ -90,12 +94,13 @@ void Generator::RemoveEnemyBullet(const std::wstring& name)
 // GenerateEnemyMissile の処理
 void Generator::GenerateEnemyMissile(const math::float3& position)
 {
-	// if の処理
+	// 敵ミサイルの元が無い場合は生成しない
 	if (!m_EnemyMissile)
 	{
 		return;
 	}
 
+	// 指定位置でミサイルを生成
 	GameObject* dst = CloneGameObject(&m_EnemyMissile->gameObject, position);
 	EnemyMissile* missile = dst->GetMarionnette<EnemyMissile>();
 	missile->SetActive(true);
@@ -124,11 +129,11 @@ void Generator::GenerateTerrain()
 	// 地形が生成されていない場合、必要な数だけ生成する
     for(uint32_t i = startIndex; i <= endIndex; ++i)
     {
-        // if の処理
         if(m_TerrainMap.contains(i))
         {
             continue; // 既に生成されている地形はスキップ
 		}
+		// 新しい地形を生成して登録
         float z = i * m_TerrainOffset.z;
         math::float3 position(m_TerrainOffset.x, m_TerrainOffset.y, z);
         GameObject* newGround = CloneGameObject(&m_Ground->gameObject, position);
@@ -142,7 +147,6 @@ void Generator::GenerateTerrain()
     {
         float terrainZ = it->second->transform->position.z;
 		float playerBackZ = playerZ - 500.0f; // プレイヤーの後方500.0fの位置
-        // if の処理
         if (terrainZ < playerBackZ)
         {
             DestroyGameObject(it->second);

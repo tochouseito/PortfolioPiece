@@ -11,18 +11,20 @@ using namespace theatriaSystem;
 // Start の処理
 void Player::Start()
 {
+	// 参照取得とタグ設定
 	m_Target = GetMarionnette<Target>(L"Target");
 	m_Camera = GetMarionnette<MainCamera>(L"MainCamera");
 	m_Generator = GetMarionnette<Generator>(L"Generator");
 	gameObject.SetTag("Player");
 
+	// パーティクルをプレイヤーに追従させる
 	m_Particle = FindGameObjectByName(L"MainParticle");
-	// if の処理
 	if (m_Particle)
 	{
 		m_Particle->transform->parent = this->gameObject.transform;
 	}
 
+	// 初期ステータスとカメラFOVを設定
 	m_DefaultScale = transform->scale;
 	m_CurrentHp = m_MaxHp;
 
@@ -30,6 +32,7 @@ void Player::Start()
 	m_DefaultFov = 45.0f;
 	camera->fovAngleY = m_DefaultFov;
 
+	// 速度・姿勢の初期化
 	m_Velocity.Initialize();
 	baseQuaternion.Initialize();
 
@@ -46,14 +49,14 @@ void Player::Start()
 // Update の処理
 void Player::Update()
 {
-	// if の処理
+	// ダウン中は専用処理
 	if (m_IsDown)
 	{
 		UpdateDownState();
 		return;
 	}
 
-	// if の処理
+	// 無敵中は点滅処理を進める
 	if (m_IsInvincible)
 	{
 		UpdateBlink(DeltaTime());
@@ -66,6 +69,7 @@ void Player::Update()
 		return;
 	}
 
+	// 通常状態の更新
 	UpdateNormal();
 }
 
@@ -86,7 +90,6 @@ void Player::UpdateNormal()
 		Dodge();
 		return;
 	}
-	// if の処理
 	if (Input::TriggerKey(DIK_E))
 	{
 		isDodging = true;
@@ -102,12 +105,14 @@ void Player::UpdateNormal()
 	// 攻撃処理
 	Attack();
 
+	// 付随エフェクト更新
 	UpdateParticle();
 }
 
 // UpdateDodgeState の処理
 void Player::UpdateDodgeState()
 {
+	// 回避挙動の継続と終了判定
 	Dodge(); // 継続処理（終了判定込み）
 	// ブーストのクールダウンだけは進める
 	if (boostCooldownTimer > 0.0f) boostCooldownTimer -= DeltaTime();
@@ -125,16 +130,16 @@ void Player::UpdateDownState()
 {
 	const float dt = DeltaTime();
 
+	// 落下を継続
 	m_DownTimer += dt;
 	Rigidbody3D rb = GetComponent<Rigidbody3D>();
-	// if の処理
 	if (rb)
 	{
 		m_Velocity = math::float3(0.0f, -m_DownFallSpeed, 0.0f);
 		rb->velocity = m_Velocity;
 	}
 
-	// if の処理
+	// リスポーン待ち時間を超えたら復帰
 	if (m_DownTimer >= m_RespawnDelay)
 	{
 		Respawn();
@@ -144,20 +149,21 @@ void Player::UpdateDownState()
 // ApplyDamage の処理
 void Player::ApplyDamage(int damage)
 {
-	// if の処理
+	// 無敵中・ダウン中はダメージ無効
 	if (m_IsInvincible || m_IsDown)
 	{
 		return;
 	}
 
+	// HP減算とダウン判定
 	m_CurrentHp -= damage;
-	// if の処理
 	if (m_CurrentHp <= 0)
 	{
 		BeginDown();
 		return;
 	}
 
+	// 被弾後は無敵時間に入る
 	m_IsInvincible = true;
 	m_InvincibleTimer = m_InvincibleDuration;
 	m_BlinkTimer = 0.0f;
@@ -168,6 +174,7 @@ void Player::ApplyDamage(int damage)
 // BeginDown の処理
 void Player::BeginDown()
 {
+	// ダウン状態へ遷移
 	m_IsDown = true;
 	m_IsInvincible = false;
 	m_InvincibleTimer = 0.0f;
@@ -178,7 +185,7 @@ void Player::BeginDown()
 	isDodging = false;
 	isBoosting = false;
 
-	// if の処理
+	// カメラ追従を停止
 	if (m_Camera)
 	{
 		m_Camera->SetFollowEnabled(false);
@@ -188,6 +195,7 @@ void Player::BeginDown()
 // Respawn の処理
 void Player::Respawn()
 {
+	// 状態とHPを初期化
 	m_IsDown = false;
 	m_CurrentHp = m_MaxHp;
 	m_IsInvincible = true;
@@ -199,14 +207,14 @@ void Player::Respawn()
 	m_Velocity = math::float3::Zero();
 	transform->position.y = minAltitude;
 
+	// 速度のリセット
 	Rigidbody3D rb = GetComponent<Rigidbody3D>();
-	// if の処理
 	if (rb)
 	{
 		rb->velocity = m_Velocity;
 	}
 
-	// if の処理
+	// カメラ追従を再開
 	if (m_Camera)
 	{
 		m_Camera->SetFollowEnabled(true);
@@ -216,15 +224,15 @@ void Player::Respawn()
 // UpdateBlink の処理
 void Player::UpdateBlink(float dt)
 {
-	// if の処理
+	// 無敵中のみ点滅を進める
 	if (!m_IsInvincible)
 	{
 		return;
 	}
 
+	// 無敵時間と点滅タイマー更新
 	m_InvincibleTimer -= dt;
 	m_BlinkTimer += dt;
-	// if の処理
 	if (m_BlinkTimer >= m_BlinkInterval)
 	{
 		m_BlinkTimer = 0.0f;
@@ -232,7 +240,6 @@ void Player::UpdateBlink(float dt)
 		transform->scale = m_BlinkVisible ? m_DefaultScale : Scale(0.0f, 0.0f, 0.0f);
 	}
 
-	// if の処理
 	if (m_InvincibleTimer <= 0.0f)
 	{
 		m_IsInvincible = false;
@@ -245,10 +252,11 @@ void Player::UpdateBlink(float dt)
 void Player::Move()
 {
 	// --- 平行移動 ---
+	// 入力をまとめて取得
 	const int inputX = (Input::PushKey(DIK_D) ? 1 : 0) + (Input::PushKey(DIK_A) ? -1 : 0);
 	const int inputY = (Input::PushKey(DIK_W) ? 1 : 0) + (Input::PushKey(DIK_S) ? -1 : 0);
 
-	// if の処理
+	// クリア状態では速度を上げる
 	if (isClear)
 	{
 		speed = 400.0f;
@@ -260,7 +268,7 @@ void Player::Move()
 	// 入力に追従した速度へ補間（キビキビ）
 	float targetVX = static_cast<float>(inputX) * moveMaxX;
 	float targetVY = static_cast<float>(inputY) * moveMaxY;
-	// if の処理
+	// クリア演出中は上昇させる
 	if (isClear)
 	{
 		targetVX = 0.0f;
@@ -291,24 +299,22 @@ void Player::Move()
 	transform->degrees.x = math::Lerp(transform->degrees.x, targetPitch, pitchSpeed * DeltaTime());
 
 	// --- 回転入力 ---
+	// 方向キーで機体の向きを調整
 	if (Input::PushKey(DIK_LEFTARROW)) 
 	{
 		//m_AngularVelocity.y -= m_AngularAcceleration;
 		transform->degrees.y += -1.0f * rotateSpeed;
 	}
-	// if の処理
 	if (Input::PushKey(DIK_RIGHTARROW))
 	{
 		//m_AngularVelocity.y += m_AngularAcceleration;
 		transform->degrees.y += 1.0f * rotateSpeed;
 	}
-	// if の処理
 	if (Input::PushKey(DIK_UPARROW))
 	{
 		//m_AngularVelocity.x -= m_AngularAcceleration;
 		transform->degrees.x += -1.0f * rotateSpeed;
 	}
-	// if の処理
 	if (Input::PushKey(DIK_DOWNARROW))
 	{
 		//m_AngularVelocity.x += m_AngularAcceleration;
@@ -339,7 +345,6 @@ void Player::Boost()
 	// 継続中の効果
 	Camera cam = m_Camera->GetComponent<Camera>();
 
-	// if の処理
 	if (isBoosting)
 	{
 		// 前方方向へ強い加速
@@ -352,7 +357,6 @@ void Player::Boost()
 
 		// タイマ消化
 		boostTimer -= DeltaTime();
-		// if の処理
 		if (boostTimer <= 0.0f)
 		{
 			isBoosting = false;
@@ -460,12 +464,13 @@ void Player::Attack()
 // UpdateParticle の処理
 void Player::UpdateParticle()
 {
-	// if の処理
+	// パーティクルが無い場合は処理しない
 	if (!m_Particle)
 	{
 		return;
 	}
 
+	// 位置追従とエミット更新
 	m_Particle->transform->position = transform->position;
 	Emitter emitter = GetEmitterComponent(*m_Particle);
 	emitter->emit = true;
@@ -474,21 +479,19 @@ void Player::UpdateParticle()
 // OnCollisionEnter の処理
 void Player::OnCollisionEnter(GameObject& other)
 {
-	// if の処理
+	// ダウン中は被弾判定をしない
 	if (m_IsDown)
 	{
 		return;
 	}
 
-	// if の処理
 	if (other.GetTag() == "EnemyAttack")
 	{
-		// if の処理
+		// 敵弾/ミサイルのダメージを反映
 		if (auto bullet = other.GetMarionnette<EnemyBullet>())
 		{
 			ApplyDamage(bullet->GetDamage());
 		}
-		// if の処理
 		else if (auto missile = other.GetMarionnette<EnemyMissile>())
 		{
 			ApplyDamage(missile->GetDamage());
@@ -498,10 +501,9 @@ void Player::OnCollisionEnter(GameObject& other)
 			ApplyDamage(1);
 		}
 	}
-	// if の処理
 	else if (other.GetTag() == "Enemy")
 	{
-		// if の処理
+		// 敵機接触時のダメージを反映
 		if (auto enemy = other.GetMarionnette<Enemy>())
 		{
 			ApplyDamage(enemy->GetRamDamage());
@@ -522,7 +524,6 @@ void Player::Dodge()
 	{
 		// 残り時間
 		dodgeTimer -= DeltaTime();
-		// if の処理
 		if (dodgeTimer <= 0.0f)
 		{
 			isDodging = false;
@@ -559,6 +560,7 @@ void Player::Dodge()
 // 減衰処理
 float Player::SmoothLimitRange(const float& distance)
 {
+	// 距離に応じた減衰係数を計算
 	float limitFactor = math::Clamp(distance / smoothLimitRange, 0.0f, 1.0f);
 	return m_Acceleration * DeltaTime() * limitFactor;
 }

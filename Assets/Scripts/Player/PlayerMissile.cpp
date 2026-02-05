@@ -8,12 +8,14 @@ using namespace theatriaSystem;
 void PlayerMissile::Start()
 {
     // 初期化処理
+	// 参照取得とタグ設定
 	m_Player = GetMarionnette<Player>(L"Player");
 	m_Generator = GetMarionnette<Generator>(L"Generator");
 	// タグ設定
 	gameObject.SetTag("PlayerAttack");
-	// if の処理
+	// 非アクティブなら初期化を省略
 	if (!m_IsActive) { return; }
+	// 方向・速度・姿勢を初期化
     m_Direction.Normalize();
     m_Velocity.Initialize();
     m_Angle = transform->degrees;
@@ -25,6 +27,7 @@ void PlayerMissile::Start()
 void PlayerMissile::Update()
 {
     // 毎フレーム処理
+	// 非アクティブなら処理しない
 	if (!m_IsActive) return;
 	// ライフタイムが0以下なら消滅
     if (m_LifeTime <= 0.0f)
@@ -34,7 +37,7 @@ void PlayerMissile::Update()
     }
 	// ホーミング処理
 	Homing();
-    // ライフタイム更新
+    // ライフタイム更新と物理反映
     m_LifeTime--;
     Rigidbody3D rb = GetComponent<Rigidbody3D>();
     rb->velocity = m_Velocity; // Rigidbody3Dの速度を更新
@@ -56,7 +59,7 @@ void PlayerMissile::Homing()
 {
     Rigidbody3D rb = GetComponent<Rigidbody3D>();
 
-    // 移動
+    // ターゲット方向を計算
 	Vector3 enemyPos = m_TargetEnemy->transform->position;
 	Vector3 toEnemy = enemyPos - transform->position;
 	toEnemy.Normalize();

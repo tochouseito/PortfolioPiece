@@ -10,6 +10,7 @@ using namespace theatriaSystem;
 void Target::Start()
 {
     // 初期化処理
+    // 参照取得と追従設定
     m_Player = GetMarionnette<Player>(L"Player");
 	m_MainCamera = GetMarionnette<MainCamera>(L"MainCamera");
 	m_EnemySpawner = GetMarionnette<EnemySpawner>(L"EnemySpawner");
@@ -22,6 +23,7 @@ void Target::Start()
 void Target::Update()
 {
     // 毎フレーム処理
+    // ロックオン候補の検索
     EnemyLockOn();
 }
 
@@ -35,6 +37,7 @@ void Target::RemoveLockOn(const std::wstring& name)
 void Target::EnemyLockOn()
 {
     // ロックオン処理
+	// 自身のスクリーン座標を取得
 	Camera camera = m_MainCamera->GetComponent<Camera>();
     math::float2 screenPos = math::WorldToScreen(math::GetTranslation(transform->matWorld), camera->viewMatrix, camera->projectionMatrix, static_cast<uint32_t>(ScreenWidth()), static_cast<uint32_t>(ScreenHeight()));
 	// 敵のリストを取得
@@ -43,12 +46,13 @@ void Target::EnemyLockOn()
     for (auto& pair : enemyMap)
     {
         Enemy* enemy = pair.second;
+		// 無効な敵は除外
         if (!enemy->IsActive()) continue;// 非アクティブはスルー
         if (enemy->IsLockOnTarget()) continue;// ロックオンされている敵はスルー
 		if (math::GetTranslation(enemy->transform->matWorld).IsZero()) continue;// 座標がゼロベクトルはスルー
+		// 敵のスクリーン座標と距離を計算
 		Vector2 enemyScreenPos = math::WorldToScreen(math::GetTranslation(enemy->transform->matWorld), camera->viewMatrix, camera->projectionMatrix, static_cast<uint32_t>(ScreenWidth()), static_cast<uint32_t>(ScreenHeight()));
         float distance = (screenPos - enemyScreenPos).Length();
-        // if の処理
         if (distance < lockOnRadius)
         {
             // ロックオン成功

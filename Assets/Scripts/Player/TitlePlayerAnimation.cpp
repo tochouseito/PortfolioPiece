@@ -20,7 +20,6 @@ void TitlePlayerAnimation::Update()
     // 毎フレーム処理
     // 位相を進める（角速度 = 2πf）
     m_Phase += kTwoPi * m_FrequencyHz * DeltaTime();
-    // if の処理
     if (m_Phase > kTwoPi)
     {
         m_Phase = std::fmod(m_Phase, kTwoPi); // オーバーフロー防止
