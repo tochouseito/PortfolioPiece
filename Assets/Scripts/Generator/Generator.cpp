@@ -9,6 +9,7 @@ using namespace theatriaSystem;
 #include "FieldObject/Wall.h"
 #include "Enemy/Enemy.h"
 
+// Start の処理
 void Generator::Start()
 {
     // 初期化処理
@@ -21,12 +22,14 @@ void Generator::Start()
 	m_Ground = GetMarionnette<Ground>(L"Ground");
 }
 
+// Update の処理
 void Generator::Update()
 {
     // 毎フレーム処理
     GenerateTerrain();
 }
 
+// GeneratePlayerBullet の処理
 void Generator::GeneratePlayerBullet()
 {
 	Vector3 pos = m_Player->transform->position;
@@ -37,11 +40,13 @@ void Generator::GeneratePlayerBullet()
 	m_PlayerBullets.push_back(dst->GetName());
 }
 
+// RemovePlayerBullet の処理
 void Generator::RemovePlayerBullet(const std::wstring& name)
 {
 	m_PlayerBullets.remove(name);
 }
 
+// GeneratePlayerMissile の処理
 void Generator::GeneratePlayerMissile(Enemy* target)
 {
 	// ミサイル生成
@@ -54,13 +59,16 @@ void Generator::GeneratePlayerMissile(Enemy* target)
 	m_PlayerMissiles.push_back(dst->GetName());
 }
 
+// RemovePlayerMissile の処理
 void Generator::RemovePlayerMissile(const std::wstring& name)
 {
 	m_PlayerMissiles.remove(name);
 }
 
+// GenerateEnemyBullet の処理
 void Generator::GenerateEnemyBullet(const math::float3& position, const math::float3& direction)
 {
+	// if の処理
 	if (!m_EnemyBullet)
 	{
 		return;
@@ -73,13 +81,16 @@ void Generator::GenerateEnemyBullet(const math::float3& position, const math::fl
 	m_EnemyBullets.push_back(dst->GetName());
 }
 
+// RemoveEnemyBullet の処理
 void Generator::RemoveEnemyBullet(const std::wstring& name)
 {
 	m_EnemyBullets.remove(name);
 }
 
+// GenerateEnemyMissile の処理
 void Generator::GenerateEnemyMissile(const math::float3& position)
 {
+	// if の処理
 	if (!m_EnemyMissile)
 	{
 		return;
@@ -91,11 +102,13 @@ void Generator::GenerateEnemyMissile(const math::float3& position)
 	m_EnemyMissiles.push_back(dst->GetName());
 }
 
+// RemoveEnemyMissile の処理
 void Generator::RemoveEnemyMissile(const std::wstring& name)
 {
 	m_EnemyMissiles.remove(name);
 }
 
+// GenerateTerrain の処理
 void Generator::GenerateTerrain()
 {
     // プレイヤーの位置Z
@@ -111,6 +124,7 @@ void Generator::GenerateTerrain()
 	// 地形が生成されていない場合、必要な数だけ生成する
     for(uint32_t i = startIndex; i <= endIndex; ++i)
     {
+        // if の処理
         if(m_TerrainMap.contains(i))
         {
             continue; // 既に生成されている地形はスキップ
@@ -128,6 +142,7 @@ void Generator::GenerateTerrain()
     {
         float terrainZ = it->second->transform->position.z;
 		float playerBackZ = playerZ - 500.0f; // プレイヤーの後方500.0fの位置
+        // if の処理
         if (terrainZ < playerBackZ)
         {
             DestroyGameObject(it->second);

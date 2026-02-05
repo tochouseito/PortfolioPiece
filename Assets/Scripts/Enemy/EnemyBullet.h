@@ -14,8 +14,11 @@ public:
 
 	void OnCollisionEnter(GameObject& other) override;
 
+	// SetActive の処理
 	void SetActive(bool isActive) { m_IsActive = isActive; }
+	// SetDirection の処理
 	void SetDirection(const math::float3& dir) { m_Direction = dir; }
+	// GetDamage の処理
 	int GetDamage() const { return m_Damage; }
 private:
 	class Generator* m_Generator = nullptr;

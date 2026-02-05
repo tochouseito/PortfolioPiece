@@ -6,6 +6,7 @@ namespace
     constexpr float kTwoPi = 6.283185307179586f;
 }
 
+// Start の処理
 void TitlePlayerAnimation::Start()
 {
     // 初期化処理
@@ -13,11 +14,13 @@ void TitlePlayerAnimation::Start()
 	m_Phase = 0.0f;
 }
 
+// Update の処理
 void TitlePlayerAnimation::Update()
 {
     // 毎フレーム処理
     // 位相を進める（角速度 = 2πf）
     m_Phase += kTwoPi * m_FrequencyHz * DeltaTime();
+    // if の処理
     if (m_Phase > kTwoPi)
     {
         m_Phase = std::fmod(m_Phase, kTwoPi); // オーバーフロー防止

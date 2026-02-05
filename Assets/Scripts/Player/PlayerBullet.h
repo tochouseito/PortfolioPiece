@@ -19,7 +19,9 @@ public:
 	// 衝突時の処理
 	void OnCollisionEnter(GameObject& other) override;
 
+	// SetActive の処理
 	void SetActive(bool isActive) { m_IsActive = isActive; } // アクティブ状態を設定
+	// IsActive の処理
 	bool IsActive() const { return m_IsActive; } // アクティブ状態を取得
 private:
 	Player* m_Player = nullptr; // プレイヤーオブジェクトへのポインタ

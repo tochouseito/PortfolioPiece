@@ -20,13 +20,17 @@ public:
     void Start() override;
 	// 毎フレーム処理
     void Update() override;
+	// SetFollowEnabled の処理
 	void SetFollowEnabled(bool enabled) { m_FollowEnabled = enabled; }
 private:
 	// ラグ追従
 	void LagFollow();
 	void UpdateIntroArc(float dt);
+	// EaseInOut の処理
 	static float EaseInOut(float x) { return x < 0.5f ? 2.0f * x * x : 1.0f - std::pow(-2.0f * x + 2.0f, 2.0f) / 2.0f; }
+	// EaseOut の処理
 	static float EaseOut(float x) { return 1.0f - std::pow(1.0f - x, 2.0f); }
+	// Clamp01 の処理
 	static float Clamp01(float x) { return std::max(0.0f, std::min(1.0f, x)); }
 
 	Player* m_Player = nullptr; // プレイヤーオブジェクトへのポインタ

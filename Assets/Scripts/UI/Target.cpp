@@ -6,6 +6,7 @@ using namespace theatriaSystem;
 #include "Enemy/Enemy.h"
 #include "LockOn.h"
 
+// Start の処理
 void Target::Start()
 {
     // 初期化処理
@@ -17,6 +18,7 @@ void Target::Start()
     transform->parent = m_Player->gameObject.GetHandle().entity;
 }
 
+// Update の処理
 void Target::Update()
 {
     // 毎フレーム処理
@@ -29,6 +31,7 @@ void Target::RemoveLockOn(const std::wstring& name)
 	m_LockOnMap.erase(name);
 }
 
+// EnemyLockOn の処理
 void Target::EnemyLockOn()
 {
     // ロックオン処理
@@ -45,6 +48,7 @@ void Target::EnemyLockOn()
 		if (math::GetTranslation(enemy->transform->matWorld).IsZero()) continue;// 座標がゼロベクトルはスルー
 		Vector2 enemyScreenPos = math::WorldToScreen(math::GetTranslation(enemy->transform->matWorld), camera->viewMatrix, camera->projectionMatrix, static_cast<uint32_t>(ScreenWidth()), static_cast<uint32_t>(ScreenHeight()));
         float distance = (screenPos - enemyScreenPos).Length();
+        // if の処理
         if (distance < lockOnRadius)
         {
             // ロックオン成功
