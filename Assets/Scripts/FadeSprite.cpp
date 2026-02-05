@@ -26,7 +26,6 @@ void FadeSprite::StartFadeIn()
 	elapsedTime = 0.0f; // 経過時間をリセット
 	// スプライトの透明度を0に設定
 	auto mtl = GetComponent<Material>();
-	// if の処理
 	if (mtl)
 	{
 		mtl->color.a = 0.0f;
@@ -42,7 +41,6 @@ void FadeSprite::StartFadeOut()
 	elapsedTime = 0.0f; // 経過時間をリセット
 	// スプライトの透明度を1に設定
 	auto mtl = GetComponent<Material>();
-	// if の処理
 	if (mtl)
 	{
 		mtl->color.a = 1.0f;
@@ -55,13 +53,11 @@ void FadeSprite::FadeIn()
 	if (!fadingIn) return;
 	elapsedTime += DeltaTime();
 	auto mtl = GetComponent<Material>();
-	// if の処理
 	if (mtl)
 	{
 		float alpha = math::Lerp(0.0f, 1.0f, elapsedTime / duration);
 		mtl->color.a = alpha;
 	}
-	// if の処理
 	if (elapsedTime >= duration)
 	{
 		// フェードイン完了
@@ -76,13 +72,11 @@ void FadeSprite::FadeOut()
 	if (!fadingOut) return;
 	elapsedTime += DeltaTime();
 	auto mtl = GetComponent<Material>();
-	// if の処理
 	if (mtl)
 	{
 		float alpha = math::Lerp(1.0f, 0.0f, elapsedTime / duration);
 		mtl->color.a = alpha;
 	}
-	// if の処理
 	if (elapsedTime >= duration)
 	{
 		// フェードアウト完了

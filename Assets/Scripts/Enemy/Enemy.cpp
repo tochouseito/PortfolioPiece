@@ -17,35 +17,34 @@ namespace
 {
     constexpr float kPi = 3.14159265358979323846f;
 
-    // clamp01 の処理
+    // 0.0f〜1.0f にクランプ
     float clamp01(float v) noexcept
     {
         return std::clamp(v, 0.0f, 1.0f);
     }
 
-    // deg_to_rad の処理
+    // 度をラジアンに変換
     float deg_to_rad(float deg) noexcept
     {
         return deg * (kPi / 180.0f);
     }
 
-    // rad_to_deg の処理
+    // ラジアンを度に変換
     float rad_to_deg(float rad) noexcept
     {
         return rad * (180.0f / kPi);
     }
 
-    // length3 の処理
+    // 3Dベクトルの長さを求める
     float length3(const math::float3& v) noexcept
     {
         return std::sqrt(v.x * v.x + v.y * v.y + v.z * v.z);
     }
 
-    // normalize3 の処理
+    // 3Dベクトルを正規化（ゼロ長は前方ベクトルを返す）
     math::float3 normalize3(const math::float3& v) noexcept
     {
         const float len = length3(v);
-        // if の処理
         if (len <= 1e-6f)
         {
             return math::float3(0.0f, 0.0f, 1.0f);
@@ -54,7 +53,7 @@ namespace
         return math::float3(v.x / len, v.y / len, v.z / len);
     }
 
-    // lerp3 の処理
+    // 3Dベクトルを線形補間
     math::float3 lerp3(const math::float3& a, const math::float3& b, float t) noexcept
     {
         return math::float3(
@@ -101,13 +100,11 @@ void Enemy::Start()
         std::uniform_int_distribution<int> patternDist(0, 2);
         m_AttackPattern = static_cast<AttackPattern>(patternDist(m_Rng));
 
-        // if の処理
         if (m_AttackPattern == AttackPattern::Burst)
         {
             std::uniform_real_distribution<float> offset(0.0f, m_BurstInterval);
             m_AttackTimer = offset(m_Rng);
         }
-        // if の処理
         else if (m_AttackPattern == AttackPattern::HomingMissile)
         {
             std::uniform_real_distribution<float> offset(0.0f, m_MissileInterval);
@@ -132,10 +129,10 @@ void Enemy::Update()
         return;
     }
 
-    // 3) 移動
+    // 3) 移動更新
     Move();
 
-    // 4) 攻撃
+    // 4) 攻撃更新
     UpdateAttack();
 }
 
@@ -187,16 +184,16 @@ void Enemy::OnCollisionEnter(GameObject& other)
     // 1) プレイヤー攻撃以外は無視
     if (other.GetTag() != "PlayerAttack")
     {
-        // if の処理
+        // プレイヤー本体に当たった場合は即死亡扱い
         if (other.GetTag() == "Player")
         {
-            // if の処理
+            // 既に死亡演出中なら何もしない
             if (m_IsDying)
             {
                 return;
             }
 
-            // if の処理
+            // スポーナー管理から除外
             if (m_EnemySpawner)
             {
                 m_EnemySpawner->RemoveEnemy(gameObject.GetName());
@@ -233,7 +230,7 @@ void Enemy::Move()
     // 1) dt
     const float dt = DeltaTime();
 
-    // if の処理
+    // 体当たり中はプレイヤーに一直線で追従
     if (m_IsRamming && m_Player)
     {
         const math::float3 toPlayer = m_Player->transform->position - transform->position;
@@ -241,14 +238,14 @@ void Enemy::Move()
         m_Velocity = dir * m_RamSpeed;
 
         Rigidbody3D rb = GetComponent<Rigidbody3D>();
-        // if の処理
+        // 物理速度へ反映
         if (rb)
         {
             rb->velocity = m_Velocity;
         }
 
         auto transformComp = GetComponent<Transform>();
-        // if の処理
+        // 見た目の向きを進行方向へ合わせる
         if (transformComp)
         {
             const float yaw = std::atan2(dir.x, dir.z);
@@ -258,15 +255,13 @@ void Enemy::Move()
             transformComp->degrees.z = -rad_to_deg(yaw) * 0.2f;
         }
 
-        // if の処理
+        // 高度下限を超えた場合は補正
         if (transform->position.y < m_MinAltitude)
         {
             transform->position.y = m_MinAltitude;
-            // if の処理
             if (m_Velocity.y < 0.0f)
             {
                 m_Velocity.y = 0.0f;
-                // if の処理
                 if (rb)
                 {
                     rb->velocity = m_Velocity;
@@ -276,12 +271,12 @@ void Enemy::Move()
         return;
     }
 
-    // 1.5) 生成直後のアプローチ移動
+    // 1.5) 生成直後はアプローチ目標へ直行
     if (m_IsApproaching)
     {
         const math::float3 toTarget = m_ApproachTarget - transform->position;
         const float distance = length3(toTarget);
-        // if の処理
+        // 目標到達でアプローチ終了
         if (distance <= m_ApproachArriveRadius)
         {
             m_IsApproaching = false;
@@ -292,14 +287,14 @@ void Enemy::Move()
             m_Velocity = dir * m_ApproachSpeed;
 
             Rigidbody3D rb = GetComponent<Rigidbody3D>();
-            // if の処理
+            // 物理速度へ反映
             if (rb)
             {
                 rb->velocity = m_Velocity;
             }
 
             auto transformComp = GetComponent<Transform>();
-            // if の処理
+            // 見た目の向きを進行方向へ合わせる
             if (transformComp)
             {
                 const float yaw = std::atan2(dir.x, dir.z);
@@ -308,15 +303,13 @@ void Enemy::Move()
                 transformComp->degrees.x = rad_to_deg(pitch);
                 transformComp->degrees.z = -rad_to_deg(yaw) * 0.2f;
             }
-            // if の処理
+            // 高度下限を超えた場合は補正
             if (transform->position.y < m_MinAltitude)
             {
                 transform->position.y = m_MinAltitude;
-                // if の処理
                 if (m_Velocity.y < 0.0f)
                 {
                     m_Velocity.y = 0.0f;
-                    // if の処理
                     if (rb)
                     {
                         rb->velocity = m_Velocity;
@@ -329,7 +322,6 @@ void Enemy::Move()
 
     // 2) 3秒ごとにランダム目標方向を更新
     m_RandomTimer += dt;
-    // if の処理
     if (m_RandomTimer >= m_RandomIntervalSec)
     {
         // 1) タイマー巻き戻し（dtが大きくても破綻しない）
@@ -372,23 +364,20 @@ void Enemy::Move()
     // 5) 物理へ適用
     {
         Rigidbody3D rb = GetComponent<Rigidbody3D>();
-        // if の処理
         if (rb)
         {
             rb->velocity = m_Velocity;
         }
     }
 
-    // if の処理
+    // 高度下限を超えた場合は補正
     if (transform->position.y < m_MinAltitude)
     {
         transform->position.y = m_MinAltitude;
-        // if の処理
         if (m_Velocity.y < 0.0f)
         {
             m_Velocity.y = 0.0f;
             Rigidbody3D rb = GetComponent<Rigidbody3D>();
-            // if の処理
             if (rb)
             {
                 rb->velocity = m_Velocity;
@@ -399,7 +388,6 @@ void Enemy::Move()
     // 6) 見た目回転：進行方向へ向ける（Transformがある場合）
     {
         auto transform = GetComponent<Transform>();
-        // if の処理
         if (transform)
         {
             // yaw: atan2(x,z)
@@ -419,7 +407,7 @@ void Enemy::Move()
 // UpdateAttack の処理
 void Enemy::UpdateAttack()
 {
-    // if の処理
+    // 非アクティブ/死亡中は攻撃しない
     if (!m_IsActive || m_IsDying)
     {
         return;
@@ -427,33 +415,32 @@ void Enemy::UpdateAttack()
 
     const float dt = DeltaTime();
 
-    // if の処理
+    // 体当たりは専用更新
     if (m_AttackPattern == AttackPattern::Ram)
     {
         UpdateRam(dt);
         return;
     }
 
-    // if の処理
+    // アプローチ中は攻撃しない
     if (m_IsApproaching)
     {
         return;
     }
 
+    // 発射タイミングを進める
     m_AttackTimer -= dt;
-    // if の処理
     if (m_AttackTimer > 0.0f)
     {
         return;
     }
 
-    // if の処理
+    // 攻撃パターンに応じて発射
     if (m_AttackPattern == AttackPattern::Burst)
     {
         FireBurst();
         m_AttackTimer = m_BurstInterval;
     }
-    // if の処理
     else if (m_AttackPattern == AttackPattern::HomingMissile)
     {
         FireMissile();
@@ -464,17 +451,17 @@ void Enemy::UpdateAttack()
 // FireBurst の処理
 void Enemy::FireBurst()
 {
-    // if の処理
+    // 生成器とプレイヤーが必要
     if (!m_Generator || !m_Player)
     {
         return;
     }
 
+    // プレイヤー方向を基準に散弾を生成
     const math::float3 toPlayer = m_Player->transform->position - transform->position;
     const math::float3 baseDir = normalize3(toPlayer);
 
     const float offsets[3] = { -m_BurstSpread, 0.0f, m_BurstSpread };
-    // for の処理
     for (float offset : offsets)
     {
         math::float3 dir = math::float3(baseDir.x + offset, baseDir.y, baseDir.z);
@@ -486,7 +473,7 @@ void Enemy::FireBurst()
 // FireMissile の処理
 void Enemy::FireMissile()
 {
-    // if の処理
+    // 生成器が無ければ発射不可
     if (!m_Generator)
     {
         return;
@@ -498,17 +485,16 @@ void Enemy::FireMissile()
 // UpdateRam の処理
 void Enemy::UpdateRam(float dt)
 {
-    // if の処理
+    // アプローチ中は体当たり準備を進めない
     if (m_IsApproaching)
     {
         return;
     }
 
-    // if の処理
+    // 準備時間が経過したら体当たり開始
     if (!m_IsRamming)
     {
         m_RamPrepareTimer += dt;
-        // if の処理
         if (m_RamPrepareTimer >= m_RamPrepareDelay)
         {
             m_IsRamming = true;
@@ -526,7 +512,6 @@ void Enemy::BeginDead()
 
     // 2) ここで初期の墜落方向・速度を決める
     Rigidbody3D rb = GetComponent<Rigidbody3D>();
-    // if の処理
     if (rb)
     {
         // 前方＋少し下向きに飛ばす
@@ -555,7 +540,6 @@ void Enemy::DeadAnimation()
 
     // 3) 回転させて「墜落感」を出す
     auto transform = GetComponent<Transform>();
-    // if の処理
     if (transform)
     {
         transform->degrees.x += 2.0f * dt;  // 度前提
@@ -564,7 +548,6 @@ void Enemy::DeadAnimation()
 
     // 4) もし Rigidbody に重力をかけたいならここでも追い加速
     Rigidbody3D rb = GetComponent<Rigidbody3D>();
-    // if の処理
     if (rb)
     {
         math::float3 v = rb->velocity;

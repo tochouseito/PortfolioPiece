@@ -12,24 +12,24 @@ void PoseBackend::Start()
 void PoseBackend::Update()
 {
     // 毎フレーム処理
+    // ESCでポーズ開閉をトグル
     if (Input::TriggerKey(DIK_ESCAPE))
     {
         pose_open = !pose_open;
     }
+	// 背景の透明度と選択状態を更新
 	auto mtl = GetComponent<Material>();
-    // if の処理
     if (mtl)
     {
         // ここにマテリアルを使った処理を記述
         if((pose_open))
         {
             mtl->color.a = 0.5f; // ポーズ画面が開いているときは不透明
-            // if の処理
+            // 上下入力で選択を切り替え
             if(Input::TriggerKey(DIK_W))
             {
                 currentPoseUISelect = poseUISelect::returnTitle;
             }
-            // if の処理
             else if(Input::TriggerKey(DIK_S))
             {
                 currentPoseUISelect = poseUISelect::close;

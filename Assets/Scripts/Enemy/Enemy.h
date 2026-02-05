@@ -13,22 +13,22 @@ class LockOn;
 class Enemy : public Marionnette
 {
 public:
-    // Enemy の処理
+    // 生成時の初期化
     Enemy(GameObject& object) : Marionnette(object) {}
     void Start() override;
     void Update() override;
 
-    // SetActive の処理
+    // アクティブ状態を設定
     void SetActive(bool isActive) { m_IsActive = isActive; }
-    // IsActive の処理
+    // アクティブ状態を取得
     bool IsActive() const { return m_IsActive; }
 
-    // IsLockOnTarget の処理
+    // ロックオン対象かどうか
     bool IsLockOnTarget() const { return m_IsLockOnTarget; }
     void EnableLockOnTarget(LockOn* lockOn);
     void UnableLockOnTarget();
     void SetApproachTarget(const math::float3& target, float arriveRadius = 5.0f);
-    // GetRamDamage の処理
+    // 体当たりダメージを取得
     int GetRamDamage() const { return m_RamDamage; }
 
     void OnCollisionEnter(GameObject& other) override;

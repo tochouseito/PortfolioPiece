@@ -9,21 +9,23 @@ using namespace theatriaSystem;
 void EnemySpawner::Start()
 {
     // 初期化処理
+	// 参照を取得
 	m_Player = GetMarionnette<Player>(L"Player");
 	m_Enemy = GetMarionnette<Enemy>(L"Enemy");
 	m_MainCamera = GetMarionnette<MainCamera>(L"MainCamera");
 
-	// EnemySpawnPoint読み込み
+	// EnemySpawnPoint を読み込み（パス候補を順に試す）
 	m_SpawnPoints = LoadEnemySpawnPoints("EnemySpawnPoint.json");
-	// if の処理
 	if (m_SpawnPoints.empty())
     {
         m_SpawnPoints = LoadEnemySpawnPoints("Assets/EnemySpawnPoint.json");
     }
 
+	// 乱数初期化
 	std::random_device rd;
 	m_Rng.seed(rd());
 
+	// フェーズごとの敵数をランダムに決定
 	m_PhaseEnemyCounts.clear();
 	m_AlivePerPhase.assign(kPhaseCount, 0);
 	std::uniform_int_distribution<int> enemyCountDist(5, 10);
@@ -37,38 +39,39 @@ void EnemySpawner::Start()
 void EnemySpawner::Update()
 {
     // 毎フレーム処理
+	// 必要参照が無ければ動かさない
 	if (!m_Player || !m_Enemy)
 	{
 		return;
 	}
 
-	// if の処理
+	// 全フェーズ終了なら何もしない
 	if (m_CurrentPhase >= kPhaseCount)
 	{
 		return;
 	}
 
-	// if の処理
+	// フェーズ開始がまだなら開始処理
 	if (!m_PhaseActive)
 	{
 		BeginPhase();
 	}
 
+	// フェーズ時間の進行
 	const float dt = DeltaTime();
 	m_PhaseTimer += dt;
 
-	// if の処理
+	// 時間切れで次フェーズへ
 	if (m_PhaseTimer >= m_PhaseTimeLimit)
 	{
 		AdvancePhase();
 		return;
 	}
 
-	// if の処理
+	// 全滅後は待機して次フェーズへ
 	if (m_AlivePerPhase[m_CurrentPhase] <= 0)
 	{
 		m_ClearWaitTimer += dt;
-		// if の処理
 		if (m_ClearWaitTimer >= m_ClearWaitDuration)
 		{
 			AdvancePhase();
@@ -83,16 +86,15 @@ void EnemySpawner::Update()
 // RemoveEnemy の処理
 void EnemySpawner::RemoveEnemy(const std::wstring& name)
 {
+	// マップから削除
 	m_EnemyMap.erase(name);
 	auto it = m_EnemyPhaseMap.find(name);
-	// if の処理
 	if (it != m_EnemyPhaseMap.end())
 	{
+		// フェーズ生存数を減らす
 		const int phaseIndex = it->second;
-		// if の処理
 		if (phaseIndex >= 0 && phaseIndex < static_cast<int>(m_AlivePerPhase.size()))
 		{
-			// if の処理
 			if (m_AlivePerPhase[phaseIndex] > 0)
 			{
 				m_AlivePerPhase[phaseIndex] -= 1;
@@ -107,7 +109,6 @@ void EnemySpawner::SpawnEnemy()
 {
     // プレイヤーの位置を基準に左右にスポーン
     Vector3 basePos = m_Player->GetPosition();
-	// for の処理
 	for (auto& point : m_SpawnPoints)
     {
         Vector3 spawnPos = basePos;
@@ -143,7 +144,6 @@ void EnemySpawner::HorizontalSpawn()
 // BeginPhase の処理
 void EnemySpawner::BeginPhase()
 {
-	// if の処理
 	if (m_CurrentPhase >= kPhaseCount)
 	{
 		return;
@@ -169,10 +169,12 @@ void EnemySpawner::AdvancePhase()
 // SpawnPhaseEnemies の処理
 void EnemySpawner::SpawnPhaseEnemies(int count)
 {
+	// アプローチ目標のランダム範囲を用意
 	std::uniform_real_distribution<float> xDist(-m_ApproachBoundsX, m_ApproachBoundsX);
 	std::uniform_real_distribution<float> yDist(-m_ApproachBoundsY, m_ApproachBoundsY);
 	for (int i = 0; i < count; ++i)
 	{
+		// 画面外から生成し、アプローチ先を設定
 		float3 spawnPos = MakeOffscreenSpawnPosition();
 		GameObject* dst = CloneGameObject(&m_Enemy->gameObject, spawnPos);
 		Enemy* enemy = dst->GetMarionnette<Enemy>();
@@ -193,6 +195,7 @@ void EnemySpawner::SpawnPhaseEnemies(int count)
 // MakeOffscreenSpawnPosition の処理
 float3 EnemySpawner::MakeOffscreenSpawnPosition()
 {
+	// プレイヤー位置を基準にスポーン基点を作成
 	float3 basePos = m_Player->GetPosition();
 	basePos.z += m_SpawnDepth;
 	basePos.y += m_SpawnHeightOffset;
@@ -202,20 +205,18 @@ float3 EnemySpawner::MakeOffscreenSpawnPosition()
 	std::uniform_int_distribution<int> edgeDist(0, 3);
 
 	float3 spawnPos = basePos;
+	// 画面外のどのエッジから出現させるか選択
 	const int edge = edgeDist(m_Rng);
-	// if の処理
 	if (edge == 0)
 	{
 		spawnPos.x += -m_SpawnBoundsX - m_SpawnOffscreenMargin;
 		spawnPos.y += yDist(m_Rng);
 	}
-	// if の処理
 	else if (edge == 1)
 	{
 		spawnPos.x += m_SpawnBoundsX + m_SpawnOffscreenMargin;
 		spawnPos.y += yDist(m_Rng);
 	}
-	// if の処理
 	else if (edge == 2)
 	{
 		spawnPos.y += m_SpawnBoundsY + m_SpawnOffscreenMargin;
@@ -227,7 +228,7 @@ float3 EnemySpawner::MakeOffscreenSpawnPosition()
 		spawnPos.x += xDist(m_Rng);
 	}
 
-	// if の処理
+	// まだ画面内なら少し前方へ押し出す
 	if (!IsOffscreen(spawnPos))
 	{
 		// 画面内に入る場合は少し前方へ押し出す
@@ -240,19 +241,20 @@ float3 EnemySpawner::MakeOffscreenSpawnPosition()
 // IsOffscreen の処理
 bool EnemySpawner::IsOffscreen(const float3& pos) const
 {
-	// if の処理
+	// カメラが無い場合は画面外扱い
 	if (!m_MainCamera)
 	{
 		return true;
 	}
 
 	Camera camera = m_MainCamera->GetComponent<Camera>();
-	// if の処理
+	// カメラ取得失敗時も画面外扱い
 	if (!camera)
 	{
 		return true;
 	}
 
+	// ワールド座標をスクリーン座標へ変換
 	const float width = static_cast<float>(ScreenWidth());
 	const float height = static_cast<float>(ScreenHeight());
 	math::float2 screenPos = math::WorldToScreen(
@@ -263,6 +265,7 @@ bool EnemySpawner::IsOffscreen(const float3& pos) const
 		static_cast<uint32_t>(height)
 	);
 
+	// 画面外判定
 	return (screenPos.x < 0.0f || screenPos.x > width || screenPos.y < 0.0f || screenPos.y > height);
 }
 
@@ -273,7 +276,6 @@ std::vector<float3> EnemySpawner::LoadEnemySpawnPoints(const std::filesystem::pa
 
     // ファイルオープン
     std::ifstream ifs(jsonPath);
-    // if の処理
     if (!ifs)
     {
         // throw std::runtime_error("Failed to open spawn point file: " + jsonPath.string());
@@ -286,7 +288,6 @@ std::vector<float3> EnemySpawner::LoadEnemySpawnPoints(const std::filesystem::pa
     {
         ifs >> j;
     }
-    // catch の処理
     catch (const std::exception& e)
     {
         throw std::runtime_error(
@@ -313,7 +314,6 @@ std::vector<float3> EnemySpawner::LoadEnemySpawnPoints(const std::filesystem::pa
     std::vector<float3> result;
     result.reserve(spawnArray.size());
 
-    // for の処理
     for (const auto& sp : spawnArray)
     {
         // position: [x, y, z]
