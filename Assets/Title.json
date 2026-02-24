@@ -47,7 +47,7 @@
                     "enableLighting": true,
                     "enableTexture": true,
                     "shininess": 50.0,
-                    "textureName": "Atlas_00001",
+                    "textureName": "uvChecker",
                     "uvFlipY": false
                 },
                 "Script": {
